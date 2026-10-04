@@ -27,24 +27,27 @@ export const business = {
 
 /* ---------------------------------------------------------------- CONTACT -- */
 export const contact = {
-  city: 'Kadrabad',
+  city: 'Kadrabad, Bachhwara',
   district: 'Begusarai',
   state: 'Bihar',
   pin: '851112',
 
-  // Reference image me dono numbers ek jaise hain. Asli numbers yahan daalein.
-  phone1: '9123456789',
-  phone2: '9123456789',
+  // Asli number (was a placeholder in the design reference)
+  phone1: '9534699946',
+  phone2: '9534699946',
 
   email: 'susmacomputer@gmail.com',
-  website: 'www.susmacomputer.in',
-  websiteNote: '(Your Website)',
+  // The GitHub Pages URL until a real domain is bought. Update these two
+  // together once a domain is connected to GitHub Pages.
+  website: 'kalicharanram.github.io/SUSMACOMPUTER',
+  websiteNote: '(Our Website)',
 
   hoursToday: '9:00 AM - 8:00 PM',
   openLabel: 'Open Now',
 
   mapsUrl: 'https://maps.app.goo.gl/',
-  whatsapp: 'https://wa.me/919123456789',
+  // wa.me needs the number in international form, no + or spaces
+  whatsapp: 'https://wa.me/919534699946',
 };
 
 /* ------------------------------------------------------------------- HERO -- */

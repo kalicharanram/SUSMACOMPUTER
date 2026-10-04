@@ -110,9 +110,9 @@ export const whyUs = {
  * apni dukaan ki asli photos bhej dijiye, main yahan laga dunga.
  */
 export const gallery = [
-  { src: '/images/gallery-1.jpg', label: 'Our Shop' },
-  { src: '/images/gallery-2.jpg', label: 'Video Mixing Setup' },
-  { src: '/images/gallery-3.jpg', label: 'Store Interior' },
+  { src: './images/gallery-1.jpg', label: 'Our Shop' },
+  { src: './images/gallery-2.jpg', label: 'Video Mixing Setup' },
+  { src: './images/gallery-3.jpg', label: 'Store Interior' },
 ];
 
 /* ---------------------------------------------------------------- REVIEWS -- */

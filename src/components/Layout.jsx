@@ -314,7 +314,7 @@ export function Hero() {
       {/* ----------------------------------------------- 2. shop photo (mid) -- */}
       <div className="relative order-2 min-h-[11rem] bg-navy-2 lg:min-h-[13.5rem]">
         <img
-          src="/images/shop-hero.jpg"
+          src="./images/shop-hero.jpg"
           alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
           className="absolute inset-0 size-full object-cover object-top"
         />

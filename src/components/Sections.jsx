@@ -51,7 +51,7 @@ export function Services() {
                 className={`flex w-[150px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg sm:w-[180px] lg:w-[205px] ${tone.bg} ${tone.hov}`}
               >
                 <img
-                  src={`/images/services/${s.img}`}
+                  src={`./images/services/${s.img}`}
                   alt={s.label}
                   loading="lazy"
                   width="200"

@@ -1,18 +1,26 @@
 /**
  * Publishes the built site to GitHub Pages via the gh-pages branch.
  *
- *   npm run deploy:pages
+ *   npm run deploy:pages        (build the branch, do not push)
+ *   npm run deploy:push         (build the branch and push it)
  *
  * Why a separate branch: GitHub Pages only serves static files. A React app has
- * to be compiled first (npm run build → dist/), and GitHub expects that compiled
+ * to be compiled first (npm run build -> dist/), and GitHub expects that compiled
  * output on a dedicated branch. The source stays on main.
  *
- * 404.html is a copy of index.html. GitHub Pages has no server-side rewrite, so
- * this is what makes deep links fall back to the app instead of 404ing.
+ * Two details this script exists to get right:
+ *
+ *  1. The *contents* of dist must land at the ROOT of gh-pages. Adding the
+ *     `dist` folder itself puts index.html one level too deep, and GitHub Pages
+ *     serves a 404 because it only looks for /index.html.
+ *
+ *  2. 404.html is a copy of index.html. GitHub Pages has no server-side rewrite,
+ *     so this is what makes deep links fall back to the app instead of erroring.
  */
 import { execFileSync } from 'node:child_process';
-import { copyFileSync, existsSync } from 'node:fs';
+import { cpSync, copyFileSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -24,48 +32,60 @@ if (!existsSync(path.join(dist, 'index.html'))) {
   process.exit(1);
 }
 
-// SPA fallback for GitHub Pages
-copyFileSync(path.join(dist, 'index.html'), path.join(dist, '404.html'));
-
 const git = (...args) => {
-  console.log('  git ' + args.join(' '));
   execFileSync('git', args, { cwd: root, stdio: 'inherit' });
 };
 
-const has = (branch) => {
-  try {
-    execFileSync('git', ['rev-parse', '--verify', branch], { cwd: root, stdio: 'ignore' });
-    return true;
-  } catch {
-    return false;
-  }
-};
+// Park the built site outside the repo so `git clean` cannot wipe it
+const parked = path.join(os.tmpdir(), `susma-pages-${process.pid}`);
+mkdirSync(parked, { recursive: true });
+cpSync(dist, parked, { recursive: true });
 
-const remote = process.argv.includes('--push');
+// SPA fallback for GitHub Pages
+copyFileSync(path.join(parked, 'index.html'), path.join(parked, '404.html'));
 
 console.log('\nPublishing to gh-pages\n');
 
-// Save whatever is in flight so switching branches cannot lose work
+// Never lose uncommitted work
 if (execFileSync('git', ['status', '--porcelain'], { cwd: root }).toString().trim()) {
   git('stash', 'push', '-u', '-m', 'pre-deploy');
 }
 
-// Fresh orphan branch = only dist contents, no history
-if (has('gh-pages')) git('branch', '-D', 'gh-pages');
-git('checkout', '--orphan', 'gh-pages');
+try {
+  git('checkout', '--orphan', 'gh-pages');
+} catch {
+  /* already on it */
+}
+
 git('rm', '-rf', '--cached', '.', '-q');
-git('add', '-f', 'dist');
+git('clean', '-fdx', '-q'); // remove every tracked + untracked file
+
+// Built files go to the branch ROOT, not into a dist/ subfolder
+cpSync(parked, root, { recursive: true });
+rmSync(path.join(root, 'dist'), { recursive: true, force: true });
+
+git('add', '-A');
 git('commit', '-m', 'Deploy: build output for GitHub Pages');
 
+const remote = process.argv.includes('--push');
 if (remote) {
   git('push', '-u', 'origin', 'gh-pages', '--force');
-} else {
-  console.log('\n  gh-pages branch ready (not pushed — rerun with --push).');
 }
 
 git('checkout', '-');
 
-const stashed = has('stash@{0}') && execFileSync('git', ['stash', 'list']).toString().includes('pre-deploy');
+const stashed = execFileSync('git', ['stash', 'list']).toString().includes('pre-deploy');
 if (stashed) git('stash', 'pop');
 
-console.log(remote ? '\nDone — pushed to gh-pages.\n' : '\nDone.\n');
+rmSync(parked, { recursive: true, force: true });
+
+// Fail loudly rather than shipping a 404
+const listed = execFileSync('git', ['ls-tree', '-r', '--name-only', 'HEAD'], { cwd: root }).toString();
+const rootOk = /(^|\n)index\.html(\n|$)/.test(listed);
+const nested = /^dist\//m.test(listed);
+console.log(
+  rootOk && !nested
+    ? '  layout OK - index.html at branch root'
+    : '  WARNING - unexpected layout'
+);
+console.log(remote ? '\nPushed to gh-pages.\n' : '\nBranch built. Rerun with --push to publish.\n');

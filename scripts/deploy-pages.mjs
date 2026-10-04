@@ -1,5 +1,5 @@
 /**
- * Publishes the built site to GitHub Pages via the gh-pages branch.
+ * Publishes the built site to GitHub Pages.
  *
  *   npm run deploy:pages        (build the branch, do not push)
  *   npm run deploy:push         (build the branch and push it)
@@ -8,17 +8,30 @@
  * to be compiled first (npm run build -> dist/), and GitHub expects that compiled
  * output on a dedicated branch. The source stays on main.
  *
- * Two details this script exists to get right:
+ * This assembles the commit inside a throwaway repo in the temp folder instead
+ * of checking out an orphan branch in the working tree. Two reasons, both learned
+ * the hard way:
+ *   - `git clean -fdx` cannot remove node_modules while the dev server holds
+ *     those native bindings open, and it deletes .gitignore along the way.
+ *   - Branch juggling in the working tree can silently clobber uncommitted work.
+ * The project's working tree is never touched by this script.
  *
- *  1. The *contents* of dist must land at the ROOT of gh-pages. Adding the
- *     `dist` folder itself puts index.html one level too deep, and GitHub Pages
- *     serves a 404 because it only looks for /index.html.
- *
- *  2. 404.html is a copy of index.html. GitHub Pages has no server-side rewrite,
- *     so this is what makes deep links fall back to the app instead of erroring.
+ * Two details that make the difference between a working site and a 404:
+ *   1. The *contents* of dist must land at the branch ROOT. Pushing the dist
+ *      folder itself buries index.html one level too deep.
+ *   2. 404.html mirrors index.html — GitHub Pages has no server-side rewrite, so
+ *      this is what lets deep links fall back to the app.
  */
 import { execFileSync } from 'node:child_process';
-import { cpSync, copyFileSync, existsSync, mkdirSync, rmSync } from 'node:fs';
+import {
+  cpSync,
+  copyFileSync,
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -32,60 +45,50 @@ if (!existsSync(path.join(dist, 'index.html'))) {
   process.exit(1);
 }
 
-const git = (...args) => {
-  execFileSync('git', args, { cwd: root, stdio: 'inherit' });
-};
+const sh = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: 'inherit' });
 
-// Park the built site outside the repo so `git clean` cannot wipe it
-const parked = path.join(os.tmpdir(), `susma-pages-${process.pid}`);
-mkdirSync(parked, { recursive: true });
-cpSync(dist, parked, { recursive: true });
-
-// SPA fallback for GitHub Pages
-copyFileSync(path.join(parked, 'index.html'), path.join(parked, '404.html'));
-
-console.log('\nPublishing to gh-pages\n');
-
-// Never lose uncommitted work
-if (execFileSync('git', ['status', '--porcelain'], { cwd: root }).toString().trim()) {
-  git('stash', 'push', '-u', '-m', 'pre-deploy');
+let remote;
+try {
+  remote = sh('git', ['remote', 'get-url', 'origin'], root).toString().trim();
+} catch {
+  console.error('\n  origin remote set nahi hai. Pehle `git remote add origin <url>` karo.\n');
+  process.exit(1);
 }
+
+const stage = mkdtempSync(path.join(os.tmpdir(), 'susma-pages-'));
 
 try {
-  git('checkout', '--orphan', 'gh-pages');
-} catch {
-  /* already on it */
+  // Copy the CONTENTS of dist so files land at the branch root
+  for (const entry of readdirSync(dist)) {
+    cpSync(path.join(dist, entry), path.join(stage, entry), { recursive: true });
+  }
+
+  // SPA fallback + stop Jekyll from stripping the /assets folder
+  copyFileSync(path.join(stage, 'index.html'), path.join(stage, '404.html'));
+  writeFileSync(path.join(stage, '.nojekyll'), '');
+
+  sh('git', ['init', '-q'], stage);
+  sh('git', ['add', '-A'], stage);
+  sh('git', ['commit', '-q', '-m', 'Deploy: build output for GitHub Pages'], stage);
+
+  const files = sh('git', ['ls-tree', '-r', '--name-only', 'HEAD'], stage).toString();
+  const rootOk = /(^|\n)index\.html(\n|$)/.test(files);
+  const nested = /^dist\//m.test(files);
+
+  console.log(`\n  staged ${files.trim().split('\n').length} files at branch root`);
+  console.log(`  index.html at root  : ${rootOk ? 'yes' : 'NO'}`);
+  console.log(`  nested dist/ folder: ${nested ? 'YES (bad)' : 'no'}`);
+
+  if (!rootOk || nested) {
+    console.error('\n  Layout galat hai, push nahi kiya.\n');
+    process.exitCode = 1;
+  } else if (process.argv.includes('--push')) {
+    sh('git', ['remote', 'add', 'origin', remote], stage);
+    sh('git', ['push', '--force', 'origin', 'HEAD:gh-pages'], stage);
+    console.log('\n  pushed to gh-pages\n');
+  } else {
+    console.log('\n  branch built, not pushed (rerun with --push)\n');
+  }
+} finally {
+  rmSync(stage, { recursive: true, force: true });
 }
-
-git('rm', '-rf', '--cached', '.', '-q');
-git('clean', '-fdx', '-q'); // remove every tracked + untracked file
-
-// Built files go to the branch ROOT, not into a dist/ subfolder
-cpSync(parked, root, { recursive: true });
-rmSync(path.join(root, 'dist'), { recursive: true, force: true });
-
-git('add', '-A');
-git('commit', '-m', 'Deploy: build output for GitHub Pages');
-
-const remote = process.argv.includes('--push');
-if (remote) {
-  git('push', '-u', 'origin', 'gh-pages', '--force');
-}
-
-git('checkout', '-');
-
-const stashed = execFileSync('git', ['stash', 'list']).toString().includes('pre-deploy');
-if (stashed) git('stash', 'pop');
-
-rmSync(parked, { recursive: true, force: true });
-
-// Fail loudly rather than shipping a 404
-const listed = execFileSync('git', ['ls-tree', '-r', '--name-only', 'HEAD'], { cwd: root }).toString();
-const rootOk = /(^|\n)index\.html(\n|$)/.test(listed);
-const nested = /^dist\//m.test(listed);
-console.log(
-  rootOk && !nested
-    ? '  layout OK - index.html at branch root'
-    : '  WARNING - unexpected layout'
-);
-console.log(remote ? '\nPushed to gh-pages.\n' : '\nBranch built. Rerun with --push to publish.\n');

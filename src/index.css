@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+/* ===========================================================================
+   COLOURS — sampled directly from the design reference
+   =========================================================================== */
+@theme {
+  --font-sans: 'Poppins', 'Noto Sans Devanagari', ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand navy — top bar, hero, why-us, footer */
+  --color-navy: #0a1b4e;
+  --color-navy-2: #12265e;
+  --color-navy-3: #1a3480;
+
+  /* CTA red */
+  --color-brand-red: #e01f26;
+  --color-brand-red-dark: #c2161d;
+
+  /* Highlight yellow */
+  --color-brand-yellow: #ffd100;
+
+  /* Action blue */
+  --color-brand-blue: #1b6dd6;
+  --color-brand-blue-dark: #1558ae;
+
+  /* WhatsApp / success greens */
+  --color-wa-green: #25d366;
+  --color-open-green: #22c55e;
+
+  /* Service card pastels — rotating set, exactly as in the design */
+  --color-p-blue: #e4efff;
+  --color-p-peach: #ffe8da;
+  --color-p-pink: #ffe3ea;
+  --color-p-lav: #ede7ff;
+  --color-p-mint: #dff6e9;
+  --color-p-cream: #fff6d9;
+
+  --color-ink: #101c38;
+  --color-body: #3d4a63;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-body);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background: var(--color-brand-yellow);
+    color: var(--color-navy);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-brand-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eef1f7;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-navy-3);
+    border-radius: 99px;
+    border: 3px solid #eef1f7;
+  }
+}
+
+@layer utilities {
+  .wrap {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .wrap {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* The dark navy gradient used behind the hero */
+  .hero-grad {
+    background: linear-gradient(120deg, #0a1b4e 0%, #12265e 55%, #1a3480 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Continuous service strip — shifts by exactly half so the doubled list loops */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee-x 42s linear infinite;
+}
+
+/* Cards revealed by the services auto-loader */
+@keyframes service-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.service-in {
+  animation: service-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-in {
+    animation: none;
+  }
+}

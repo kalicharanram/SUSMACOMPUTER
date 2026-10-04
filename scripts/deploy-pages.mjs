@@ -47,9 +47,17 @@ if (!existsSync(path.join(dist, 'index.html'))) {
 
 const sh = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: 'inherit' });
 
+/**
+ * Same, but returns stdout. `stdio: 'inherit'` makes execFileSync return null —
+ * there is no buffer to read — so any value we need must be captured here.
+ */
+const shOut = (cmd, args, cwd) =>
+  execFileSync(cmd, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
+
 let remote;
 try {
-  remote = sh('git', ['remote', 'get-url', 'origin'], root).toString().trim();
+  remote = shOut('git', ['remote', 'get-url', 'origin'], root).trim();
+  if (!remote) throw new Error('empty');
 } catch {
   console.error('\n  origin remote set nahi hai. Pehle `git remote add origin <url>` karo.\n');
   process.exit(1);
@@ -71,7 +79,7 @@ try {
   sh('git', ['add', '-A'], stage);
   sh('git', ['commit', '-q', '-m', 'Deploy: build output for GitHub Pages'], stage);
 
-  const files = sh('git', ['ls-tree', '-r', '--name-only', 'HEAD'], stage).toString();
+  const files = shOut('git', ['ls-tree', '-r', '--name-only', 'HEAD'], stage);
   const rootOk = /(^|\n)index\.html(\n|$)/.test(files);
   const nested = /^dist\//m.test(files);
 

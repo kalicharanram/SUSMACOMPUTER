@@ -30,7 +30,7 @@ export const contact = {
   city: 'Kadrabad, Bachhwara',
   district: 'Begusarai',
   state: 'Bihar',
-  pin: '851112',
+  pin: '851111',
 
   // Asli number (was a placeholder in the design reference)
   phone1: '9534699946',

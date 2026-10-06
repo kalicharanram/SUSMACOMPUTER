@@ -98,8 +98,23 @@ function titleCase(slug) {
 }
 
 /* --------------------------------------------- 2. rewrite the site.js array */
+/**
+ * Only list files that actually survived on disk.
+ *
+ * An earlier version of this script deleted the original before confirming the
+ * resize had succeeded, which lost five photos and left site.js pointing at
+ * files that no longer existed (broken images on the live site). Building the
+ * list from what is verifiably present makes that class of bug impossible:
+ * a missing file simply drops out of the gallery instead of 404ing.
+ */
+const present = [];
+for (const k of kept) {
+  if (existsSync(path.join(DIR, k.file))) present.push(k);
+  else console.log(`  !! ${k.file} disk pe nahi mili — gallery se chhop diya`);
+}
+
 const block = `export const gallery = [\n${
-  kept.map((k) => `  { src: './images/gallery/${k.file}', label: '${k.label}' },`).join('\n')
+  present.map((k) => `  { src: './images/gallery/${k.file}', label: '${k.label}' },`).join('\n')
 }\n];`;
 
 let source = await readFile(SITE, 'utf8');
@@ -113,6 +128,6 @@ if (!re.test(source)) {
 await writeFile(SITE, source.replace(re, block));
 
 console.log(
-  `\n  ${kept.length} photo  |  ${(before / 1024 / 1024).toFixed(1)} MB  ->  ${(after / 1024 / 1024).toFixed(2)} MB`
+  `\n  ${present.length} photo  |  ${(before / 1024 / 1024).toFixed(1)} MB  ->  ${(after / 1024 / 1024).toFixed(2)} MB`
 );
 console.log('  site.js update ho gaya\n');

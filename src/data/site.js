@@ -116,20 +116,15 @@ export const whyUs = {
  */
 export const gallery = [
   { src: './images/gallery/1.jpg', label: '1' },
-  { src: './images/gallery/aayusman.jpg', label: 'Aayusman' },
   { src: './images/gallery/data-entry.jpg', label: 'DATA ENTRY' },
   { src: './images/gallery/gst.jpg', label: 'GST' },
   { src: './images/gallery/itr.jpg', label: 'ITR' },
-  { src: './images/gallery/jati.jpg', label: 'JATI' },
-  { src: './images/gallery/jati2.jpg', label: 'JATI2' },
   { src: './images/gallery/job-work.jpg', label: 'JOB WORK' },
   { src: './images/gallery/mixing.jpg', label: 'Mixing' },
   { src: './images/gallery/pasport-photo.jpg', label: 'Pasport PHOTO' },
-  { src: './images/gallery/pasport.jpg', label: 'Pasport' },
   { src: './images/gallery/pen.jpg', label: 'PEN' },
   { src: './images/gallery/photo-albumb.jpg', label: 'PHOTO Albumb' },
   { src: './images/gallery/photo.jpg', label: 'PHOTO' },
-  { src: './images/gallery/resume.jpg', label: 'Resume' },
   { src: './images/gallery/udhog-adhar.jpg', label: 'UDHOG ADHAR' },
   { src: './images/gallery/video.jpg', label: 'VIDEO' },
 ];

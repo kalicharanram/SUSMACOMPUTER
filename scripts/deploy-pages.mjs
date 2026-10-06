@@ -65,6 +65,16 @@ try {
 
 const stage = mkdtempSync(path.join(os.tmpdir(), 'susma-pages-'));
 
+/**
+ * Custom domain for GitHub Pages.
+ *
+ * GitHub stores a custom domain as a CNAME file committed on the Pages
+ * branch. This script replaces that branch from scratch every deploy, so
+ * without rewriting the CNAME here the domain setting is wiped each time and
+ * the site silently reverts to the kalicharanram.github.io URL.
+ */
+const CUSTOM_DOMAIN = 'susmacomputer.in';
+
 try {
   // Copy the CONTENTS of dist so files land at the branch root
   for (const entry of readdirSync(dist)) {
@@ -74,6 +84,7 @@ try {
   // SPA fallback + stop Jekyll from stripping the /assets folder
   copyFileSync(path.join(stage, 'index.html'), path.join(stage, '404.html'));
   writeFileSync(path.join(stage, '.nojekyll'), '');
+  writeFileSync(path.join(stage, 'CNAME'), CUSTOM_DOMAIN + '\n');
 
   sh('git', ['init', '-q'], stage);
   sh('git', ['add', '-A'], stage);
@@ -82,12 +93,14 @@ try {
   const files = shOut('git', ['ls-tree', '-r', '--name-only', 'HEAD'], stage);
   const rootOk = /(^|\n)index\.html(\n|$)/.test(files);
   const nested = /^dist\//m.test(files);
+  const cnameOk = /(^|\n)CNAME(\n|$)/.test(files);
 
   console.log(`\n  staged ${files.trim().split('\n').length} files at branch root`);
   console.log(`  index.html at root  : ${rootOk ? 'yes' : 'NO'}`);
   console.log(`  nested dist/ folder: ${nested ? 'YES (bad)' : 'no'}`);
+  console.log(`  CNAME (${CUSTOM_DOMAIN}): ${cnameOk ? 'yes' : 'NO'}`);
 
-  if (!rootOk || nested) {
+  if (!rootOk || nested || !cnameOk) {
     console.error('\n  Layout galat hai, push nahi kiya.\n');
     process.exitCode = 1;
   } else if (process.argv.includes('--push')) {

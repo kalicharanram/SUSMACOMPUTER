@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Icon, TONES, Logo } from './Icons';
 import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
@@ -106,49 +106,10 @@ export function WhyUs() {
 }
 
 /* =============================================================== GALLERY == */
-/** Click-to-enlarge overlay. Escape or a click outside closes it. */
-function Lightbox({ src, onClose }) {
-  useEffect(() => {
-    if (!src) return;
-    const onKey = (e) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [src, onClose]);
-
-  if (!src) return null;
-
-  return (
-    <div
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-black/90 p-2 pt-16 pb-4 backdrop-blur-sm"
-    >
-      <button
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute right-4 top-4 grid size-11 place-items-center rounded-2xl bg-white/10 text-white transition-colors hover:bg-white/20"
-      >
-        <X className="size-5" />
-      </button>
-      <img
-        src={src}
-        alt="Gallery preview"
-        onClick={(e) => e.stopPropagation()}
-        className="h-full w-full object-contain"
-      />
-    </div>
-  );
-}
-
 export function Gallery() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [open, setOpen] = useState(null);
+  
   const strip = useRef(null);
   const photo = gallery[0];
   const move = (direction) => {
@@ -163,7 +124,7 @@ export function Gallery() {
 
   useEffect(() => {
     const element = strip.current;
-    if (!element || paused || hovered || open || gallery.length < 2 ||
+    if (!element || paused || hovered || gallery.length < 2 ||
         window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let frame;
     let previous;
@@ -182,21 +143,12 @@ export function Gallery() {
     };
     frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
-  }, [paused, hovered, open]);
+  }, [paused, hovered]);
 
   return (
     <section id="gallery" className="bg-white pb-14">
-      <div className="wrap flex flex-wrap items-center justify-between gap-4">
+      <div className="wrap">
         <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">Our Shop Gallery</h2>
-        {photo && (
-          <button
-            type="button"
-            onClick={() => setOpen(photo.src)}
-            className="rounded-md bg-brand-blue px-4 py-2 text-[0.82rem] font-bold text-white hover:bg-brand-blue-dark"
-          >
-            Full Screen
-          </button>
-        )}
       </div>
 
       {photo ? (
@@ -217,17 +169,14 @@ export function Gallery() {
                 {[0, 1].map((copy) => (
                   <div key={copy} className="gallery-group" aria-hidden={copy === 1}>
                     {gallery.map((item) => (
-                      <button
+                      <figure
                         key={item.src}
-                        type="button"
-                        tabIndex={copy === 1 ? -1 : 0}
-                        onClick={() => setOpen(item.src)}
-                        aria-label={`Enlarge ${item.label}`}
-                        className="gallery-card cursor-zoom-in bg-transparent"
+                        aria-hidden={copy === 1}
+                        className="gallery-card bg-transparent"
                       >
                         <img src={item.src} alt={item.label} className="gallery-full-image" />
-                        <span className="block px-2 py-3 text-sm font-semibold">{item.label}</span>
-                      </button>
+                        <figcaption className="block px-2 py-3 text-sm font-semibold">{item.label}</figcaption>
+                      </figure>
                     ))}
                   </div>
                 ))}
@@ -271,8 +220,7 @@ export function Gallery() {
         <p className="mt-6 text-center text-sm text-body/60">Gallery abhi khaali hai.</p>
       )}
 
-      <Lightbox src={open} onClose={() => setOpen(null)} />
-    </section>
+      </section>
   );
 }
 

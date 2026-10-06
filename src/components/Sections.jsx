@@ -20,6 +20,15 @@ export function Services() {
 
   return (
     <section id="services" className="bg-white py-5 sm:py-6">
+      {/* Caption for the strip: a deliberately tiny label with a hairline
+          light-blue rule under it, both centred. */}
+      <div className="wrap mb-3 flex flex-col items-center gap-1.5">
+        <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ink/60">
+          Services
+        </span>
+        <span aria-hidden="true" className="h-px w-16 bg-brand-blue/30 sm:w-20" />
+      </div>
+
       {/* Hovering anywhere in the strip stops the scroll, so a card can be read
           before it slides away. Leaving it resumes. */}
       <div

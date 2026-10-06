@@ -70,9 +70,6 @@ export function Services() {
         </div>
       </div>
 
-      <p className="mt-2.5 text-center text-[0.75rem] font-medium text-body/60">
-        {services.length} services · scroll runs automatically
-      </p>
     </section>
   );
 }

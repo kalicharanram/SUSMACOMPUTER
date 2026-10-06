@@ -148,6 +148,18 @@ export function Gallery() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox]);
 
+  /**
+   * Advances the strip by exactly one photo.
+   *
+   * A card is half the viewport wide (see `.gallery-card` in index.css), so a
+   * half-viewport step lands precisely on the next photo — that is what makes
+   * this page-by-page rather than a pixel crawl.
+   *
+   * The strip holds two identical copies of the gallery so the loop is
+   * seamless. Positions at or past the midpoint sit in the second copy, and
+   * because the copies are identical, snapping back by one loop width is
+   * invisible to the eye.
+   */
   const move = (direction) => {
     const element = strip.current;
     if (!element) return;
@@ -158,27 +170,13 @@ export function Gallery() {
     element.scrollBy({ left: direction * step, behavior: 'smooth' });
   };
 
+  // Page forward on a timer instead of drifting continuously: one whole photo
+  // every few seconds, so each shot gets a clean, readable moment on screen.
   useEffect(() => {
-    const element = strip.current;
-    if (!element || paused || hovered || gallery.length < 2 ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let frame;
-    let previous;
-    let position = element.scrollLeft;
-    const tick = (time) => {
-      if (previous !== undefined) {
-        // One photo passes every 25 seconds, independent of display size.
-        const elapsed = Math.min(time - previous, 100);
-        position += elapsed * (element.clientWidth + 12) / 2 / 25000;
-        const loopWidth = element.scrollWidth / 2;
-        position %= loopWidth;
-        element.scrollLeft = position;
-      }
-      previous = time;
-      frame = window.requestAnimationFrame(tick);
-    };
-    frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
+    if (!strip.current || paused || hovered || gallery.length < 2 ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = window.setInterval(() => move(1), 4000);
+    return () => window.clearInterval(id);
   }, [paused, hovered]);
 
   return (

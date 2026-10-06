@@ -265,8 +265,17 @@ export function Footer() {
               <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.9 9h-3.4a15 15 0 0 0-1.4-5.8A8 8 0 0 1 19.9 11ZM12 4c.8 1.1 1.6 3.4 1.7 7h-3.4C10.4 7.4 11.2 5.1 12 4ZM4.1 13h3.4c.2 2.2.7 4.2 1.4 5.8A8 8 0 0 1 4.1 13Zm3.4-2H4.1a8 8 0 0 1 4.8-5.8A15 15 0 0 0 7.5 11ZM12 20c-.8-1.1-1.6-3.4-1.7-7h3.4c-.1 3.6-.9 5.9-1.7 7Zm2.1-7H9.9c-.1-3.4.8-5.9 1.7-7h3.4c.9 1.1 1.8 3.6 1.7 7Zm.5 9.8c.7-1.6 1.2-3.6 1.4-5.8h3.4a8 8 0 0 1-4.8 5.8Z" />
             </svg>
             <span className="text-[0.85rem] leading-relaxed">
-              <span className="block">{contact.website}</span>
-              <span className="text-white/65">{contact.websiteNote}</span>
+              <a
+                href={contact.websiteHref}
+                target="_blank"
+                rel="noreferrer"
+                className="block transition-colors hover:text-saffron-300"
+              >
+                {contact.website}
+              </a>
+              {contact.websiteNote && (
+                <span className="text-white/65">{contact.websiteNote}</span>
+              )}
             </span>
           </div>
         </div>

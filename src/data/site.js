@@ -37,10 +37,12 @@ export const contact = {
   phone2: '9534699946',
 
   email: 'susmacomputer@gmail.com',
-  // The GitHub Pages URL until a real domain is bought. Update these two
-  // together once a domain is connected to GitHub Pages.
-  website: 'kalicharanram.github.io/SUSMACOMPUTER',
-  websiteNote: '(Our Website)',
+  // Custom domain, connected to GitHub Pages.
+  // If DNS ever stops resolving, the GitHub Pages URL is the fallback:
+  //   https://kalicharanram.github.io/SUSMACOMPUTER/
+  website: 'susmacomputer.in',
+  websiteHref: 'https://susmacomputer.in',
+  websiteNote: '',
 
   hoursToday: '9:00 AM - 8:00 PM',
   openLabel: 'Open Now',

@@ -20,14 +20,20 @@ export function Services() {
 
   return (
     <section id="services" className="bg-white py-5 sm:py-6">
-      {/* Caption for the strip: a deliberately tiny label with a hairline
-          light-blue rule under it, both centred. */}
-      <div className="wrap mb-3 flex flex-col items-center justify-center gap-1.5 text-center">
+      {/* Caption for the strip: a deliberately tiny centred label. */}
+      <div className="wrap mb-2 flex flex-col items-center justify-center text-center">
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ink/60">
           Services
         </span>
-        <span aria-hidden="true" className="mx-auto h-px w-16 shrink-0 bg-brand-blue/30 sm:w-20" />
       </div>
+
+      {/* Hairline in the brand blue, running the full width of the section. It
+          sits outside .wrap so it is not clipped to the content column, and it
+          is given breathing room on both sides via the section padding. */}
+      <div
+        aria-hidden="true"
+        className="mb-3 h-px w-full bg-brand-blue/30"
+      />
 
       {/* Hovering anywhere in the strip stops the scroll, so a card can be read
           before it slides away. Leaving it resumes. */}

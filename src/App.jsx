@@ -9,8 +9,8 @@ export default function App() {
       <main>
         <Hero />
         <Services />
-        <WhyUs />
         <Gallery />
+        <WhyUs />
         <Reviews />
       </main>
       <Footer />

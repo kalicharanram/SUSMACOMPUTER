@@ -151,6 +151,9 @@ export function Gallery() {
   const [open, setOpen] = useState(null);
   const [active, setActive] = useState(0);
   const photo = gallery[active];
+  const visiblePhotos = gallery.length > 1
+    ? [photo, gallery[(active + 1) % gallery.length]]
+    : photo ? [photo] : [];
   const move = (direction) => setActive((index) =>
     (index + direction + gallery.length) % gallery.length);
 
@@ -190,21 +193,43 @@ export function Gallery() {
             if (!event.currentTarget.contains(event.relatedTarget)) setPaused(true);
           }}
         >
-          <button
-            type="button"
-            onClick={() => setOpen(photo.src)}
-            aria-label={`Enlarge ${photo.label}`}
-            className="block w-full cursor-zoom-in bg-slate-50"
-          >
-            <img
-              src={photo.src}
-              alt={photo.label}
-              className="gallery-full-image"
-            />
-          </button>
+          <div className="relative px-12 sm:px-16">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
+              {visiblePhotos.map((item) => (
+                <button
+                  key={item.src}
+                  type="button"
+                  onClick={() => setOpen(item.src)}
+                  aria-label={`Enlarge ${item.label}`}
+                  className="min-w-0 cursor-zoom-in overflow-hidden rounded-xl bg-slate-50"
+                >
+                  <img src={item.src} alt={item.label} className="gallery-full-image" />
+                  <span className="block px-2 py-3 text-sm font-semibold">{item.label}</span>
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => { setPaused(true); move(-1); }}
+              disabled={gallery.length < 2}
+              aria-label="Previous photo"
+              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-brand-blue text-white shadow-lg hover:bg-brand-blue-dark disabled:opacity-40 sm:left-2"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
+            <button
+              type="button"
+              onClick={() => { setPaused(true); move(1); }}
+              disabled={gallery.length < 2}
+              aria-label="Next photo"
+              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-brand-blue text-white shadow-lg hover:bg-brand-blue-dark disabled:opacity-40 sm:right-2"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+          </div>
           <div className="wrap mt-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm font-semibold" aria-live={paused ? 'polite' : 'off'}>
-              {photo.label} · {active + 1} / {gallery.length}
+              {visiblePhotos.map((_, offset) => (active + offset) % gallery.length + 1).join(' & ')} / {gallery.length} photos
             </p>
             <div className="flex items-center gap-2">
               <button
@@ -213,24 +238,6 @@ export function Gallery() {
                 className="min-h-11 rounded-md border border-slate-200 px-4 text-sm font-semibold"
               >
                 {paused ? 'Play' : 'Pause'}
-              </button>
-              <button
-                type="button"
-                onClick={() => { setPaused(true); move(-1); }}
-                disabled={gallery.length < 2}
-                aria-label="Previous photo"
-                className="grid size-11 place-items-center rounded-full border border-slate-200 hover:bg-slate-50 disabled:opacity-40"
-              >
-                <ChevronLeft className="size-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => { setPaused(true); move(1); }}
-                disabled={gallery.length < 2}
-                aria-label="Next photo"
-                className="grid size-11 place-items-center rounded-full border border-slate-200 hover:bg-slate-50 disabled:opacity-40"
-              >
-                <ChevronRight className="size-5" />
               </button>
             </div>
           </div>

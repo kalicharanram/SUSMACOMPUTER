@@ -165,11 +165,10 @@
     animation: none;
   }
 }
-/* Show the complete gallery photo at the largest size that fits the screen. */
+/* Keep two complete gallery photos side by side, with room for side arrows. */
 .gallery-full-image {
   display: block;
   width: 100%;
-  height: 75vh;
-  height: 75svh;
+  height: clamp(140px, 32vw, 560px);
   object-fit: contain;
 }

@@ -117,9 +117,37 @@ export function WhyUs() {
 export function Gallery() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
-  
+  // Index into `gallery` while the full-screen viewer is open, null when closed.
+  const [lightbox, setLightbox] = useState(null);
+
   const strip = useRef(null);
   const photo = gallery[0];
+  const openLightbox = (index) => { setPaused(true); setLightbox(index); };
+  const closeLightbox = () => setLightbox(null);
+  const stepLightbox = (direction) =>
+    setLightbox((current) => (current === null ? current : (current + direction + gallery.length) % gallery.length));
+
+  // The viewer is a fixed overlay, so the page behind it must not scroll while
+  // it is open. Restored to whatever the page had before.
+  useEffect(() => {
+    if (lightbox === null) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [lightbox]);
+
+  // Arrow keys page through the viewer, Escape closes it.
+  useEffect(() => {
+    if (lightbox === null) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') { event.preventDefault(); closeLightbox(); }
+      else if (event.key === 'ArrowRight') { event.preventDefault(); stepLightbox(1); }
+      else if (event.key === 'ArrowLeft') { event.preventDefault(); stepLightbox(-1); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox]);
+
   const move = (direction) => {
     const element = strip.current;
     if (!element) return;
@@ -172,13 +200,24 @@ export function Gallery() {
               <div className="gallery-track">
                 {[0, 1].map((copy) => (
                   <div key={copy} className="gallery-group" aria-hidden={copy === 1}>
-                    {gallery.map((item) => (
+                    {gallery.map((item, index) => (
                       <figure
                         key={item.src}
                         aria-hidden={copy === 1}
                         className="gallery-card bg-transparent"
                       >
-                        <img src={item.src} alt={item.label} className="gallery-full-image" />
+                        <button
+                          type="button"
+                          onClick={() => openLightbox(index)}
+                          // The duplicate half of the loop is decorative, so it is
+                          // not reachable by keyboard or screen reader.
+                          tabIndex={copy === 1 ? -1 : 0}
+                          aria-hidden={copy === 1}
+                          aria-label={`${item.label} — full screen`}
+                          className="block w-full cursor-zoom-in"
+                        >
+                          <img src={item.src} alt={item.label} className="gallery-full-image" />
+                        </button>
                         <figcaption className="block px-2 py-3 text-sm font-semibold">{item.label}</figcaption>
                       </figure>
                     ))}
@@ -224,6 +263,58 @@ export function Gallery() {
         <p className="mt-6 text-center text-sm text-body/60">Gallery abhi khaali hai.</p>
       )}
 
+      {/* Full-screen viewer. object-contain inside a box inset from every edge is
+          what guarantees the whole photo is visible: whatever the aspect ratio,
+          the image shrinks to fit rather than being cropped to fill. */}
+      {lightbox !== null && gallery[lightbox] && (
+        <div
+          className="fixed inset-0 z-[100] flex flex-col bg-slate-950"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${gallery[lightbox].label} — photo ${lightbox + 1} of ${gallery.length}`}
+        >
+          <div className="flex items-start justify-between gap-4 p-4 text-white">
+            <p className="text-sm font-semibold">
+              {gallery[lightbox].label}
+              <span className="ml-2 font-normal text-white/60">
+                {lightbox + 1} / {gallery.length}
+              </span>
+            </p>
+            <button
+              type="button"
+              onClick={closeLightbox}
+              aria-label="Close full screen view"
+              className="grid size-11 shrink-0 place-items-center rounded-md bg-white/10 text-2xl leading-none transition-colors hover:bg-white/25"
+            >
+              &times;
+            </button>
+          </div>
+
+          <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 pb-2 sm:px-16">
+            <img
+              src={gallery[lightbox].src}
+              alt={gallery[lightbox].label}
+              className="max-h-full max-w-full object-contain"
+            />
+            <button
+              type="button"
+              onClick={() => stepLightbox(-1)}
+              aria-label="Previous photo"
+              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-3"
+            >
+              <ChevronLeft className="size-7" />
+            </button>
+            <button
+              type="button"
+              onClick={() => stepLightbox(1)}
+              aria-label="Next photo"
+              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-3"
+            >
+              <ChevronRight className="size-7" />
+            </button>
+          </div>
+        </div>
+      )}
       </section>
   );
 }

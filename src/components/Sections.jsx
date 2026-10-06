@@ -183,6 +183,17 @@ export function Gallery() {
 
   return (
     <section id="gallery" className="bg-white pb-14">
+      {/* Same treatment as the Services strip: a light-blue hairline running the
+          full width with the tiny label sitting in the middle of it. Two flex-1
+          rules of equal weight keep the label dead centre. */}
+      <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
+        <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-brand-blue/75">
+          Gallery
+        </span>
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
+      </div>
+
       {photo ? (
         <div
           className="mt-6 w-full"

@@ -213,7 +213,7 @@ export function Gallery() {
               onClick={() => { setPaused(true); move(-1); }}
               disabled={gallery.length < 2}
               aria-label="Previous photo"
-              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/60 bg-white/45 text-slate-600 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/75 hover:text-slate-800 disabled:opacity-40 sm:left-2"
+              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:left-2"
             >
               <ChevronLeft className="size-6" />
             </button>
@@ -222,7 +222,7 @@ export function Gallery() {
               onClick={() => { setPaused(true); move(1); }}
               disabled={gallery.length < 2}
               aria-label="Next photo"
-              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/60 bg-white/45 text-slate-600 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/75 hover:text-slate-800 disabled:opacity-40 sm:right-2"
+              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:right-2"
             >
               <ChevronRight className="size-6" />
             </button>

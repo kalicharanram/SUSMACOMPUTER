@@ -165,10 +165,10 @@
     animation: none;
   }
 }
-/* Keep two complete gallery photos side by side, with room for side arrows. */
+/* Two full-width photos retain their original proportions without cropping. */
 .gallery-full-image {
   display: block;
   width: 100%;
-  height: clamp(140px, 32vw, 560px);
+  height: auto;
   object-fit: contain;
 }

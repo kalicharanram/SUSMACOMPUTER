@@ -193,15 +193,15 @@ export function Gallery() {
             if (!event.currentTarget.contains(event.relatedTarget)) setPaused(true);
           }}
         >
-          <div className="relative px-12 sm:px-16">
-            <div className="grid grid-cols-2 gap-2 sm:gap-4">
+          <div className="relative px-2 sm:px-3">
+            <div className="grid grid-cols-2 items-start gap-2 sm:gap-3">
               {visiblePhotos.map((item) => (
                 <button
                   key={item.src}
                   type="button"
                   onClick={() => setOpen(item.src)}
                   aria-label={`Enlarge ${item.label}`}
-                  className="min-w-0 cursor-zoom-in overflow-hidden rounded-xl bg-slate-50"
+                  className="min-w-0 cursor-zoom-in overflow-hidden bg-transparent"
                 >
                   <img src={item.src} alt={item.label} className="gallery-full-image" />
                   <span className="block px-2 py-3 text-sm font-semibold">{item.label}</span>
@@ -213,7 +213,7 @@ export function Gallery() {
               onClick={() => { setPaused(true); move(-1); }}
               disabled={gallery.length < 2}
               aria-label="Previous photo"
-              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-brand-blue text-white shadow-lg hover:bg-brand-blue-dark disabled:opacity-40 sm:left-2"
+              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/60 bg-white/45 text-slate-600 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/75 hover:text-slate-800 disabled:opacity-40 sm:left-2"
             >
               <ChevronLeft className="size-6" />
             </button>
@@ -222,7 +222,7 @@ export function Gallery() {
               onClick={() => { setPaused(true); move(1); }}
               disabled={gallery.length < 2}
               aria-label="Next photo"
-              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-brand-blue text-white shadow-lg hover:bg-brand-blue-dark disabled:opacity-40 sm:right-2"
+              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/60 bg-white/45 text-slate-600 shadow-sm backdrop-blur-sm transition-colors hover:bg-white/75 hover:text-slate-800 disabled:opacity-40 sm:right-2"
             >
               <ChevronRight className="size-6" />
             </button>

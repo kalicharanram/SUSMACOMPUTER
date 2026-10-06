@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { Icon, TONES, Logo } from './Icons';
 import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
 
@@ -48,17 +48,20 @@ export function Services() {
               <div
                 key={`${s.id}-${i}`}
                 aria-hidden={dupe}
-                className={`flex w-[150px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg sm:w-[180px] lg:w-[205px] ${tone.bg} ${tone.hov}`}
+                className={`flex w-[124px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg sm:w-[144px] lg:w-[158px] ${tone.bg} ${tone.hov}`}
               >
+                {/* aspect-[5/3] matches the 200x120 files exactly, so the whole
+                    image is visible — a fixed height with object-cover was
+                    slicing the top and bottom off every card. */}
                 <img
                   src={`./images/services/${s.img}`}
                   alt={s.label}
                   loading="lazy"
                   width="200"
                   height="120"
-                  className="h-[56px] w-full object-cover sm:h-[60px]"
+                  className="aspect-[5/3] w-full object-cover"
                 />
-                <span className="px-2 py-1.5 text-[0.72rem] font-bold leading-tight text-ink">
+                <span className="px-1.5 py-1.5 text-[0.68rem] font-bold leading-tight text-ink">
                   {s.label}
                 </span>
               </div>
@@ -103,37 +106,117 @@ export function WhyUs() {
 }
 
 /* =============================================================== GALLERY == */
+/** Click-to-enlarge overlay. Escape or a click outside closes it. */
+function Lightbox({ src, onClose }) {
+  useEffect(() => {
+    if (!src) return;
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [src, onClose]);
+
+  if (!src) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-navy-950/90 p-4 backdrop-blur-sm"
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-4 top-4 grid size-11 place-items-center rounded-2xl bg-white/10 text-white transition-colors hover:bg-white/20"
+      >
+        <X className="size-5" />
+      </button>
+      <img
+        src={src}
+        alt="Gallery preview"
+        onClick={(e) => e.stopPropagation()}
+        className="max-h-[88vh] max-w-full rounded-2xl object-contain shadow-lift"
+      />
+    </div>
+  );
+}
+
 export function Gallery() {
+  const [paused, setPaused] = useState(false);
+  const [open, setOpen] = useState(null);
   return (
     <section id="gallery" className="bg-white pb-14">
       <div className="wrap">
         <div className="flex items-center justify-between gap-4">
           <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">Our Shop Gallery</h2>
-          <a
-            href="#gallery"
-            className="rounded-md bg-brand-blue px-4 py-2 text-[0.82rem] font-bold text-white transition-colors hover:bg-brand-blue-dark"
+          <button
+            type="button"
+            onClick={() => setOpen(gallery[0]?.src ?? null)}
+            disabled={gallery.length === 0}
+            className="rounded-md bg-brand-blue px-4 py-2 text-[0.82rem] font-bold text-white transition-colors hover:bg-brand-blue-dark disabled:cursor-not-allowed disabled:opacity-50"
           >
             View All
-          </a>
-        </div>
-
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {gallery.map((g) => (
-            <figure
-              key={g.src}
-              className="overflow-hidden rounded-xl border border-slate-100 bg-slate-50"
-            >
-              <img
-                src={g.src}
-                alt={g.label}
-                loading="lazy"
-                className="aspect-4/3 w-full object-cover"
-              />
-              <figcaption className="px-3 py-2 text-[0.8rem] font-semibold text-body">{g.label}</figcaption>
-            </figure>
-          ))}
+          </button>
         </div>
       </div>
+
+      {/* Auto-scrolling strip. The list is doubled so the loop is seamless, and
+          hover pauses it so a poster can actually be read or clicked. */}
+      {gallery.length > 0 ? (
+        <div
+          className="relative mt-6 overflow-hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-white to-transparent sm:w-24"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-white to-transparent sm:w-24"
+          />
+
+          <div
+            className="flex w-max animate-marquee gap-4 px-2"
+            style={paused ? { animationPlayState: 'paused' } : undefined}
+          >
+            {[...gallery, ...gallery].map((g, i) => (
+              <button
+                key={`${g.src}-${i}`}
+                type="button"
+                aria-hidden={i >= gallery.length}
+                onClick={() => setOpen(g.src)}
+                className="group w-[210px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 text-left shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-lift sm:w-[260px] lg:w-[300px]"
+              >
+                <img
+                  src={g.src}
+                  alt={g.label}
+                  loading="lazy"
+                  className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <span className="block px-3.5 py-2.5 text-[0.82rem] font-semibold text-body">
+                  {g.label}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p className="mt-6 text-center text-sm text-body/60">
+          Gallery abhi khaali hai.
+        </p>
+      )}
+
+      <p className="mt-4 text-center text-[0.78rem] font-medium text-body/60">
+        {gallery.length} photo{gallery.length === 1 ? '' : 's'} · scroll runs automatically
+      </p>
+
+      <Lightbox src={open} onClose={() => setOpen(null)} />
     </section>
   );
 }

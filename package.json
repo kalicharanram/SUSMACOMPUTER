@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "susma-computer",
   "private": true,
   "version": "1.0.0",
@@ -10,6 +10,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "services": "node scripts/prepare-service-images.mjs",
+    "gallery": "node scripts/sync-gallery.mjs",
     "deploy:pages": "node scripts/deploy-pages.mjs",
     "deploy:push": "node scripts/deploy-pages.mjs --push"
   },

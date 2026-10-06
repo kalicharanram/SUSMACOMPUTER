@@ -104,11 +104,12 @@ export function Header() {
             <span className="block text-[1.25rem] font-extrabold tracking-tight text-brand-blue sm:text-[1.55rem]">
               {business.name}
             </span>
-            {/* Light cursive hand at regular weight. Caveat carries tall ascenders and
-                descenders, so the box is given a tight leading and no extra
-                tracking — that keeps the words sitting neatly on one line
-                instead of drifting apart or clipping. */}
-            <span className="mt-1 block text-[0.95rem] leading-[1.15] sm:text-[1.15rem]">
+            {/* Light cursive hand at regular weight, set flush to the right so it ends on
+                the same edge as the shop name above it and leaves the start of
+                the line open. Caveat carries tall ascenders and descenders, so
+                the box gets a tight leading — that keeps the words sitting
+                neatly on one line instead of drifting apart or clipping. */}
+            <span className="mt-1 block text-right text-[0.95rem] leading-[1.15] sm:text-[1.15rem]">
               <span className="font-script font-normal text-brand-red">{business.nameAccent}</span>
             </span>
             <span className="mt-1.5 block text-[0.62rem] font-medium text-body/85">

@@ -144,10 +144,6 @@ export function Gallery() {
 
   return (
     <section id="gallery" className="bg-white pb-14">
-      <div className="wrap">
-        <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">Our Shop Gallery</h2>
-      </div>
-
       {photo ? (
         <div
           className="mt-6 w-full"

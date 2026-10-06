@@ -229,7 +229,6 @@ export function Gallery() {
                         >
                           <img src={item.src} alt={item.label} className="gallery-full-image" />
                         </button>
-                        <figcaption className="block px-2 py-3 text-sm font-semibold">{item.label}</figcaption>
                       </figure>
                     ))}
                   </div>

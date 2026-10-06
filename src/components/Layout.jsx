@@ -1,7 +1,7 @@
 import { MapPin, Phone, Mail, Star, MapPinned, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Logo, SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { business, contact, nav, hero } from '../data/site';
+import { business, contact, nav, hero, addressFull } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -12,7 +12,7 @@ export function TopBar() {
         <div className="hidden items-center gap-5 lg:flex">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5 shrink-0" />
-            {contact.city}, {contact.district}, {contact.state}
+            {addressFull}
           </span>
 
           <a href={`tel:${contact.phone1}`} className="inline-flex items-center gap-1.5 hover:text-white">
@@ -40,7 +40,7 @@ export function TopBar() {
         {/* mobile */}
         <span className="inline-flex items-center gap-1.5 lg:hidden">
           <MapPin className="size-3.5 shrink-0" />
-          {contact.city}, {contact.district}
+          {contact.street}, {contact.town}
         </span>
 
         {/* ---- right: coloured social squares + call button ---- */}
@@ -242,7 +242,7 @@ export function Hero() {
       fg: 'text-brand-red',
       Icon: MapPinned,
       title: 'Our Location',
-      lines: [`${contact.city}, ${contact.district}, ${contact.state}`],
+      lines: [addressFull],
       link: 'View on Google Maps',
     },
   ];

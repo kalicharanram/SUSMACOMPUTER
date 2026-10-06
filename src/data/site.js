@@ -27,7 +27,12 @@ export const business = {
 
 /* ---------------------------------------------------------------- CONTACT -- */
 export const contact = {
-  city: 'Kadrabad, Bachhwara',
+  /* Address.
+     `full` is the single line used in the top bar and the hero card, so the
+     wording can never drift between those two. The footer breaks the same
+     parts across separate lines. */
+  street: 'Kadrabad, Pull Ke Pass, Near Masjid',
+  town: 'Bachhwara',
   district: 'Begusarai',
   state: 'Bihar',
   pin: '851111',
@@ -51,6 +56,9 @@ export const contact = {
   // wa.me needs the number in international form, no + or spaces
   whatsapp: 'https://wa.me/919534699946',
 };
+
+/** One-line form of the address, built from the parts above. */
+export const addressFull = `${contact.street}, ${contact.town}, ${contact.district}, ${contact.state} - ${contact.pin}`;
 
 /* ------------------------------------------------------------------- HERO -- */
 export const hero = {

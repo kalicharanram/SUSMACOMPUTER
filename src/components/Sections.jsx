@@ -20,20 +20,16 @@ export function Services() {
 
   return (
     <section id="services" className="bg-white py-5 sm:py-6">
-      {/* Caption for the strip: a deliberately tiny centred label. */}
-      <div className="wrap mb-2 flex flex-col items-center justify-center text-center">
+      {/* Caption for the strip: a hairline in the brand blue running the full width,
+          with the tiny label sitting in the middle of it. Two flex-1 rules of
+          equal weight either side keep the label dead centre. */}
+      <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ink/60">
           Services
         </span>
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
       </div>
-
-      {/* Hairline in the brand blue, running the full width of the section. It
-          sits outside .wrap so it is not clipped to the content column, and it
-          is given breathing room on both sides via the section padding. */}
-      <div
-        aria-hidden="true"
-        className="mb-3 h-px w-full bg-brand-blue/30"
-      />
 
       {/* Hovering anywhere in the strip stops the scroll, so a card can be read
           before it slides away. Leaving it resumes. */}

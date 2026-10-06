@@ -165,3 +165,11 @@
     animation: none;
   }
 }
+/* Show the complete gallery photo at the largest size that fits the screen. */
+.gallery-full-image {
+  display: block;
+  width: 100%;
+  height: 75vh;
+  height: 75svh;
+  object-fit: contain;
+}

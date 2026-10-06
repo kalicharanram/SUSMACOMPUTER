@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon, TONES, Logo } from './Icons';
 import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
 
@@ -149,22 +149,40 @@ export function Gallery() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(null);
-  const [active, setActive] = useState(0);
-  const photo = gallery[active];
-  const visiblePhotos = gallery.length > 1
-    ? [photo, gallery[(active + 1) % gallery.length]]
-    : photo ? [photo] : [];
-  const move = (direction) => setActive((index) =>
-    (index + direction + gallery.length) % gallery.length);
+  const strip = useRef(null);
+  const photo = gallery[0];
+  const move = (direction) => {
+    const element = strip.current;
+    if (!element) return;
+    const loopWidth = element.scrollWidth / 2;
+    const step = (element.clientWidth + 12) / 2;
+    if (element.scrollLeft >= loopWidth) element.scrollLeft -= loopWidth;
+    if (direction < 0 && element.scrollLeft < step) element.scrollLeft += loopWidth;
+    element.scrollBy({ left: direction * step, behavior: 'smooth' });
+  };
 
   useEffect(() => {
-    if (paused || hovered || open || gallery.length < 2 ||
+    const element = strip.current;
+    if (!element || paused || hovered || open || gallery.length < 2 ||
         window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => {
-      setActive((index) => (index + 1) % gallery.length);
-    }, 6000);
-    return () => window.clearInterval(timer);
-  }, [paused, hovered, open, active]);
+    let frame;
+    let previous;
+    let position = element.scrollLeft;
+    const tick = (time) => {
+      if (previous !== undefined) {
+        // One photo passes every 25 seconds, independent of display size.
+        const elapsed = Math.min(time - previous, 100);
+        position += elapsed * (element.clientWidth + 12) / 2 / 25000;
+        const loopWidth = element.scrollWidth / 2;
+        position %= loopWidth;
+        element.scrollLeft = position;
+      }
+      previous = time;
+      frame = window.requestAnimationFrame(tick);
+    };
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [paused, hovered, open]);
 
   return (
     <section id="gallery" className="bg-white pb-14">
@@ -194,19 +212,26 @@ export function Gallery() {
           }}
         >
           <div className="relative px-2 sm:px-3">
-            <div className="grid grid-cols-2 items-start gap-2 sm:gap-3">
-              {visiblePhotos.map((item) => (
-                <button
-                  key={item.src}
-                  type="button"
-                  onClick={() => setOpen(item.src)}
-                  aria-label={`Enlarge ${item.label}`}
-                  className="min-w-0 cursor-zoom-in overflow-hidden bg-transparent"
-                >
-                  <img src={item.src} alt={item.label} className="gallery-full-image" />
-                  <span className="block px-2 py-3 text-sm font-semibold">{item.label}</span>
-                </button>
-              ))}
+            <div ref={strip} className="gallery-viewport no-scrollbar">
+              <div className="gallery-track">
+                {[0, 1].map((copy) => (
+                  <div key={copy} className="gallery-group" aria-hidden={copy === 1}>
+                    {gallery.map((item) => (
+                      <button
+                        key={item.src}
+                        type="button"
+                        tabIndex={copy === 1 ? -1 : 0}
+                        onClick={() => setOpen(item.src)}
+                        aria-label={`Enlarge ${item.label}`}
+                        className="gallery-card cursor-zoom-in bg-transparent"
+                      >
+                        <img src={item.src} alt={item.label} className="gallery-full-image" />
+                        <span className="block px-2 py-3 text-sm font-semibold">{item.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               type="button"
@@ -229,7 +254,7 @@ export function Gallery() {
           </div>
           <div className="wrap mt-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm font-semibold" aria-live={paused ? 'polite' : 'off'}>
-              {visiblePhotos.map((_, offset) => (active + offset) % gallery.length + 1).join(' & ')} / {gallery.length} photos
+              {gallery.length} photos · Slow auto-scroll
             </p>
             <div className="flex items-center gap-2">
               <button

@@ -254,20 +254,6 @@ export function Gallery() {
               <ChevronRight className="size-6" />
             </button>
           </div>
-          <div className="wrap mt-4 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-semibold" aria-live={paused ? 'polite' : 'off'}>
-              {gallery.length} photos · Slow auto-scroll
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setPaused((value) => !value)}
-                className="min-h-11 rounded-md border border-slate-200 px-4 text-sm font-semibold"
-              >
-                {paused ? 'Play' : 'Pause'}
-              </button>
-            </div>
-          </div>
         </div>
       ) : (
         <p className="mt-6 text-center text-sm text-body/60">Gallery abhi khaali hai.</p>

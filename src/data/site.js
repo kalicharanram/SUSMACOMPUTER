@@ -36,7 +36,7 @@ export const contact = {
   phone1: '9534699946',
   phone2: '9534699946',
 
-  email: 'susmacomputer@gmail.com',
+  email: 'susmacomputerr@gmail.com',
   // Custom domain, connected to GitHub Pages.
   // If DNS ever stops resolving, the GitHub Pages URL is the fallback:
   //   https://kalicharanram.github.io/SUSMACOMPUTER/

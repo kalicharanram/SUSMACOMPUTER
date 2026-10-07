@@ -304,28 +304,28 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
       />
 
-      <div className="relative wrap py-7 xl:py-6">
+      <div className="relative wrap py-5 xl:py-4">
         {/* ------------------------------------------------ heading + actions -- */}
         {/* Capped width so the heading does not stretch into one very long line
              now that the right-hand card column is gone — and the shop photo
              stays visible beside the text instead of being covered by it. */}
         <div className="flex max-w-3xl flex-col justify-center">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[0.82rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
             <span className="text-brand-yellow">#</span>
             {hero.badge}
           </span>
 
-          <h1 className="mt-4 text-[1.85rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2.2rem] xl:text-[2.35rem]">
+          <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2rem] xl:text-[2.05rem]">
             {hero.title1}
             <br />
             <span className="text-brand-yellow">{hero.title2}</span>
           </h1>
 
-          <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1.05rem]">
+          <p className="mt-2 max-w-lg text-[0.92rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1rem]">
             {hero.subtitleHindi}
           </p>
 
-          <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
+          <ul className="mt-3 flex flex-wrap gap-x-7 gap-y-2">
             {hero.ticks.map((t) => (
               <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
                 <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
@@ -341,10 +341,10 @@ export function Hero() {
           {/* The three actions always stay on one line — no wrapping.
               On phones they share the available width and the label may wrap
               inside its own button rather than the row breaking. */}
-          <div className="mt-5 flex flex-nowrap gap-2 sm:gap-3">
+          <div className="mt-4 flex flex-nowrap gap-2 sm:gap-3">
             <a
               href={`tel:${contact.phone1}`}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <Phone className="size-4 shrink-0" />
               <span className="min-w-0">Call Now</span>
@@ -353,7 +353,7 @@ export function Hero() {
               href={contact.whatsapp}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <BrandWhatsApp className="size-4 shrink-0" />
               <span className="min-w-0">WhatsApp</span>
@@ -362,7 +362,7 @@ export function Hero() {
               href={contact.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <MapPin className="size-4 shrink-0" />
               <span className="min-w-0">Get Direction</span>

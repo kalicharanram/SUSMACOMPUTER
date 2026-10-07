@@ -3,7 +3,6 @@ import {
   CookingPot, Tv, Smartphone, Globe, PlaySquare, Image, FileText, IdCard, Stamp,
   Landmark, BadgeCheck, MapPin, Megaphone, LayoutGrid,
   Users, House, Gauge, Headset, Medal,
-  Clock, Star, MapPinned,
 } from 'lucide-react';
 
 /**
@@ -18,8 +17,6 @@ export const ICONS = {
   Landmark, BadgeCheck, MapPin, Megaphone, LayoutGrid,
   // why choose us
   Users, House, Gauge, Headset, Medal,
-  // business info cards
-  Clock, Star, MapPinned,
 };
 
 /** Pastel background, matching icon colour, and a deeper hover shade */

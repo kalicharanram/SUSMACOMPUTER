@@ -1,7 +1,7 @@
 import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { SOCIALS, SOCIAL_BG, BrandWhatsApp, Icon } from './Icons';
-import { contact, nav, hero, addressFull, infoCards } from '../data/site';
+import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
+import { contact, nav, hero, addressFull } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -279,10 +279,8 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 
 /* ================================================================== HERO == */
 /* The shop front is the section background; the heading and the three actions
-   sit on top of it on the left, the business info cards on the right. */
+   sit on top of it. */
 export function Hero() {
-  const cards = infoCards;
-
   return (
     /* One single hero block. The shop front is now the background of the whole
        section instead of a panel of its own, so the heading, the three actions
@@ -306,9 +304,12 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
       />
 
-      <div className="relative wrap grid items-center gap-6 py-7 xl:grid-cols-[1.1fr_0.9fr] xl:py-6">
+      <div className="relative wrap py-7 xl:py-6">
         {/* ------------------------------------------------ heading + actions -- */}
-        <div className="flex flex-col justify-center">
+        {/* Capped width so the heading does not stretch into one very long line
+             now that the right-hand card column is gone — and the shop photo
+             stays visible beside the text instead of being covered by it. */}
+        <div className="flex max-w-3xl flex-col justify-center">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
             <span className="text-brand-yellow">#</span>
             {hero.badge}
@@ -370,51 +371,9 @@ export function Hero() {
         </div>
 
         {/* ------------------------------------------------- info-card panel -- */}
-        {/* Right-hand column of the hero, kept deliberately small: one short row
-             per card (badge + label + value) instead of the tall stacked cards.
-             The hero sits above the fold, so every pixel it gives back goes to
-             the shop photo and the heading. */}
-        <div className="flex flex-col gap-2 rounded-2xl bg-gradient-to-br from-white/95 via-[#F3F8FD]/92 to-[#E6EFF9]/90 p-2.5 shadow-[0_18px_50px_-18px_rgba(10,27,78,0.65)] backdrop-blur-sm sm:p-3">
-          {cards.map(({ ring, fg, icon, title, lines, pill, link }) => (
-            <div
-              key={title}
-              className="flex items-center gap-2.5 rounded-xl bg-white px-2.5 py-2 shadow-[0_4px_18px_-8px_rgba(10,27,78,0.22)]"
-            >
-              {/* circular icon badge, as in the reference */}
-              <span className={`grid size-8 shrink-0 place-items-center rounded-full ${ring}`}>
-                <Icon name={icon} className={`size-4 ${fg}`} />
-              </span>
-
-              <div className="min-w-0 flex-1">
-                <h3 className="text-[0.58rem] font-bold uppercase tracking-[0.12em] text-body/60">
-                  {title}
-                </h3>
-                <p className="truncate text-[0.78rem] font-bold leading-tight text-ink">
-                  {lines[0]}
-                </p>
-              </div>
-
-              {pill && (
-                <span className="shrink-0 rounded bg-open-green px-2 py-0.5 text-[0.6rem] font-bold text-white">
-                  {pill}
-                </span>
-              )}
-
-              {link && (
-                <a
-                  href={contact.mapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${title} — ${link}`}
-                  title={link}
-                  className="grid size-7 shrink-0 place-items-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-dark"
-                >
-                  <MapPin className="size-3.5" />
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
+        {/* Removed at the client's request. The hours, the support promise and
+             the full address are still on the page — in the top bar, in the
+             "Get Direction" button and in the footer — so nothing was lost. */}
       </div>
     </section>
   );

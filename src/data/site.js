@@ -60,38 +60,6 @@ export const contact = {
 /** One-line form of the address, built from the parts above. */
 export const addressFull = `${contact.street}, ${contact.town}, ${contact.district}, ${contact.state} - ${contact.pin}`;
 
-/* --------------------------------------------------- BUSINESS INFO CARDS -- */
-/* Hours · support · address. Rendered in the header on wide screens and in the
-   hero on narrow ones, so the data lives here once instead of being written out
-   in two components — which is how the two copies drift apart. `icon` is a
-   lucide name, resolved by name in the components because a data file cannot
-   hold a component reference. */
-export const infoCards = [
-  {
-    icon: 'Clock',
-    ring: 'bg-[#E3EEFB]',
-    fg: 'text-brand-blue',
-    title: 'Open Today',
-    lines: [contact.hoursToday],
-    pill: contact.openLabel,
-  },
-  {
-    icon: 'Star',
-    ring: 'bg-[#FEF6D6]',
-    fg: 'text-[#E8A800]',
-    title: 'Customer Support',
-    lines: ['Always Ready to Help'],
-  },
-  {
-    icon: 'MapPinned',
-    ring: 'bg-[#FDE7EA]',
-    fg: 'text-brand-red',
-    title: 'Our Location',
-    lines: [addressFull],
-    link: 'View on Google Maps',
-  },
-];
-
 /* ------------------------------------------------------------------- HERO -- */
 export const hero = {
   badge: 'Your Local Digital Solution Center',

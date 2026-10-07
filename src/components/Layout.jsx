@@ -99,10 +99,10 @@ export function Header() {
       <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
         <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
           <img
-            src="./images/branding/susma-header-banner.webp"
+            src="./images/branding/susma-header-banner-blue.webp"
             alt="Susma Computer & Video Mixing Lab — Digital Solutions Under One Roof"
-            width="2170"
-            height="725"
+            width="2172"
+            height="724"
             fetchPriority="high"
             className="block h-auto max-h-[72px] w-[216px] max-w-full object-contain"
           />

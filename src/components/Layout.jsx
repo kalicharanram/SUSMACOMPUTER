@@ -95,11 +95,11 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className={`sticky top-0 z-50 hero-grad text-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
+    <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
       <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
         <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
           <img
-            src="./images/branding/susma-header-banner-blue.webp"
+            src="./images/branding/susma-header-blue-on-white.webp"
             alt="Susma Computer & Video Mixing Lab — Digital Solutions Under One Roof"
             width="2172"
             height="724"
@@ -122,7 +122,7 @@ export function Header() {
                 className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] xl:px-3.5 xl:text-[0.92rem] font-semibold transition-colors ${
                   i === 0
                     ? 'bg-brand-blue text-white'
-                    : 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : 'text-ink hover:text-brand-blue'
                 }`}
               >
                 {/* the active Home item carries a house glyph in the reference */}
@@ -133,7 +133,7 @@ export function Header() {
 
               {item.children && (
                 <div
-                  className={`absolute left-0 top-full w-56 overflow-hidden rounded-lg border border-white/15 bg-navy shadow-xl transition-all ${
+                  className={`absolute left-0 top-full w-56 overflow-hidden rounded-lg border border-slate-100 bg-white shadow-xl transition-all ${
                     openDrop === i
                       ? 'visible translate-y-0 opacity-100'
                       : 'invisible -translate-y-1 opacity-0'
@@ -144,7 +144,7 @@ export function Header() {
                       key={c}
                       href={item.href}
                       onClick={() => setOpenDrop(null)}
-                      className="block border-b border-white/10 px-4 py-2.5 text-sm text-white/90 transition-colors last:border-0 hover:bg-white/10 hover:text-white"
+                      className="block border-b border-slate-50 px-4 py-2.5 text-sm text-body transition-colors last:border-0 hover:bg-p-blue hover:text-brand-blue"
                     >
                       {c}
                     </a>
@@ -161,11 +161,11 @@ export function Header() {
             <input
               type="search"
               placeholder="Search Services..."
-              className="h-10 w-40 rounded-l-md border border-r-0 border-white/25 bg-white/10 px-3 text-sm text-white placeholder:text-white/60 outline-none focus:border-brand-blue xl:w-44"
+              className="h-10 w-40 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm outline-none focus:border-brand-blue xl:w-44"
             />
             <button
               aria-label="Search"
-              className="grid h-10 w-11 place-items-center rounded-r-md bg-brand-blue text-white transition-colors hover:bg-brand-blue-dark"
+              className="grid h-10 w-11 place-items-center rounded-r-md bg-navy text-white transition-colors hover:bg-navy-2"
             >
               <Search className="size-4" />
             </button>
@@ -176,7 +176,7 @@ export function Header() {
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="mobile-navigation"
-            className="grid size-11 place-items-center rounded-md border border-white/30 bg-white/10 text-white hover:bg-white/20 lg:hidden"
+            className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -185,14 +185,14 @@ export function Header() {
 
       {/* mobile drawer */}
       {open && (
-        <div id="mobile-navigation" className="border-t border-white/15 bg-navy lg:hidden">
+        <div id="mobile-navigation" className="border-t border-slate-100 bg-white lg:hidden">
           <div className="wrap flex flex-col py-3">
             {nav.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-3 text-[0.95rem] font-semibold text-white/90 hover:text-white last:border-0"
+                className="border-b border-slate-100 py-3 text-[0.95rem] font-semibold text-ink last:border-0"
               >
                 {item.label}
               </a>
@@ -201,9 +201,9 @@ export function Header() {
               <input
                 type="search"
                 placeholder="Search Services..."
-                className="h-11 flex-1 rounded-l-md border border-r-0 border-white/25 bg-white/10 px-3 text-sm text-white placeholder:text-white/60"
+                className="h-11 flex-1 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm"
               />
-              <button className="grid h-11 w-12 place-items-center rounded-r-md bg-brand-blue text-white" aria-label="Search">
+              <button className="grid h-11 w-12 place-items-center rounded-r-md bg-navy text-white" aria-label="Search">
                 <Search className="size-4" />
               </button>
             </div>

@@ -132,6 +132,10 @@ export const translations = {
 
     // ---- hero
     'Your Local Digital Solution Center': 'آپ کا مقامی ڈیجیٹل حل مرکز',
+    // Keyed on the Hindi original: site.js holds this line in Devanagari, so an
+    // English key would never match and Urdu would silently fall back to Hindi.
+    'कंप्यूटर से लेकर वीडियो तक, सभी सेवाएँ एक ही जगह':
+      'کمپیوٹر سے لے کر ویڈیو تک، تمام خدمات ایک ہی جگہ',
     'Trusted Service': 'قابلِ اعتماد خدمت',
     'Affordable Price': 'کم قیمت',
     'Fast Support': 'فوری مدد',

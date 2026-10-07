@@ -107,13 +107,9 @@ export function TopBar() {
             })}
           </div>
 
-          <a
-            href={`tel:${contact.phone1}`}
-            className="inline-flex items-center gap-1.5 rounded-md bg-brand-red px-3.5 py-1.5 font-semibold text-white transition-colors hover:bg-brand-red-dark"
-          >
-            <Phone className="size-3.5" />
-            {t('Call Now')}
-          </a>
+          {/* The red "Call Now" button was removed from here at the client's request.
+              Calling is still one tap away: the number on the left of this bar is
+              a tel: link, and the red "Call Now" button stays in the hero. */}
         </div>
       </div>
     </div>

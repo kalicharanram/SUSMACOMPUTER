@@ -78,12 +78,10 @@ export function TopBar() {
 
               return (
                 <Fragment key={k}>
-                  {glyph}
-
-                  {/* The call button sits in this row, directly after the
-                      Facebook icon. It is a separate element rather than a fifth
-                      social entry, so SOCIALS stays a map of profiles only and
-                      its key order still decides where the button lands. */}
+                  {/* The call button leads the row, so the Facebook icon follows
+                      it. It is rendered as a separate element rather than a fifth
+                      entry in SOCIALS, which keeps that map a list of profiles
+                      only while still deciding where the button lands. */}
                   {k === 'facebook' && (
                     <a
                       href={`tel:${contact.phone1}`}
@@ -94,6 +92,8 @@ export function TopBar() {
                       {t('Call Now')}
                     </a>
                   )}
+
+                  {glyph}
                 </Fragment>
               );
             })}

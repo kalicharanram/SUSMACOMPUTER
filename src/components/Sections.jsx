@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Icon, TONES, Logo } from './Icons';
 import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
+import { useLang } from '../i18n';
 
 /* ============================================================== SERVICES == */
 /**
@@ -13,6 +14,7 @@ import { services, whyUs, gallery, reviews, contact, business } from '../data/si
  * the card arriving from the right is the one that just left on the left.
  */
 export function Services() {
+  const { t } = useLang();
   // Pause is driven from JS rather than a CSS hover utility: the `animation`
   // shorthand in `.animate-marquee` re-declares `animation-play-state`, which
   // makes a stylesheet-level override unreliable. An inline style always wins.
@@ -26,7 +28,7 @@ export function Services() {
       <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
         <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ink/60">
-          Services
+          {t('Services')}
         </span>
         <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
       </div>
@@ -66,14 +68,14 @@ export function Services() {
                     slicing the top and bottom off every card. */}
                 <img
                   src={`./images/services/${s.img}`}
-                  alt={s.label}
+                  alt={t(s.label)}
                   loading="lazy"
                   width="200"
                   height="120"
                   className="aspect-[5/3] w-full object-cover"
                 />
                 <span className="px-1.5 py-1.5 text-[0.68rem] font-bold leading-tight text-ink">
-                  {s.label}
+                  {t(s.label)}
                 </span>
               </div>
             );
@@ -87,11 +89,12 @@ export function Services() {
 
 /* ================================================================ WHY US == */
 export function WhyUs() {
+  const { t } = useLang();
   return (
     <section id="about" className="bg-white pb-14">
       <div className="wrap">
         <div className="hero-grad rounded-2xl p-6 sm:p-9">
-          <h2 className="text-[1.5rem] font-extrabold text-white sm:text-[1.8rem]">{whyUs.heading}</h2>
+          <h2 className="text-[1.5rem] font-extrabold text-white sm:text-[1.8rem]">{t(whyUs.heading)}</h2>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {whyUs.items.map((item) => (
               <li key={item.title} className="flex items-start gap-3">
@@ -99,9 +102,9 @@ export function WhyUs() {
                   <Icon name={item.icon} className="size-7" strokeWidth={1.7} />
                 </span>
                 <span className="leading-tight">
-                  <span className="block text-[0.98rem] font-bold text-white">{item.title}</span>
+                  <span className="block text-[0.98rem] font-bold text-white">{t(item.title)}</span>
                   {item.sub && (
-                    <span className="block text-[0.9rem] text-white/75">{item.sub}</span>
+                    <span className="block text-[0.9rem] text-white/75">{t(item.sub)}</span>
                   )}
                 </span>
               </li>
@@ -115,6 +118,7 @@ export function WhyUs() {
 
 /* =============================================================== GALLERY == */
 export function Gallery() {
+  const { t } = useLang();
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   // Index into `gallery` while the full-screen viewer is open, null when closed.
@@ -176,7 +180,7 @@ export function Gallery() {
       <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
         <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-brand-blue/75">
-          Gallery
+          {t('Gallery')}
         </span>
         <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
       </div>
@@ -211,10 +215,10 @@ export function Gallery() {
                           // not reachable by keyboard or screen reader.
                           tabIndex={copy === 1 ? -1 : 0}
                           aria-hidden={copy === 1}
-                          aria-label={`${item.label} — full screen`}
+                          aria-label={`${t(item.label)} — ${t('Full screen')}`}
                           className="block w-full cursor-zoom-in"
                         >
-                          <img src={item.src} alt={item.label} className="gallery-full-image" />
+                          <img src={item.src} alt={t(item.label)} className="gallery-full-image" />
                         </button>
                       </figure>
                     ))}
@@ -226,7 +230,7 @@ export function Gallery() {
               type="button"
               onClick={() => { setPaused(true); move(-1); }}
               disabled={gallery.length < 2}
-              aria-label="Previous photo"
+              aria-label={t('Previous photo')}
               className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:left-2"
             >
               <ChevronLeft className="size-6" />
@@ -235,7 +239,7 @@ export function Gallery() {
               type="button"
               onClick={() => { setPaused(true); move(1); }}
               disabled={gallery.length < 2}
-              aria-label="Next photo"
+              aria-label={t('Next photo')}
               className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:right-2"
             >
               <ChevronRight className="size-6" />
@@ -282,7 +286,7 @@ export function Gallery() {
             <button
               type="button"
               onClick={() => stepLightbox(-1)}
-              aria-label="Previous photo"
+              aria-label={t('Previous photo')}
               className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-3"
             >
               <ChevronLeft className="size-7" />
@@ -290,7 +294,7 @@ export function Gallery() {
             <button
               type="button"
               onClick={() => stepLightbox(1)}
-              aria-label="Next photo"
+              aria-label={t('Next photo')}
               className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-3"
             >
               <ChevronRight className="size-7" />
@@ -304,6 +308,7 @@ export function Gallery() {
 
 /* =============================================================== REVIEWS == */
 export function Reviews() {
+  const { t } = useLang();
   const [i, setI] = useState(0);
   const prev = () => setI((v) => (v - 1 + reviews.length) % reviews.length);
   const next = () => setI((v) => (v + 1) % reviews.length);
@@ -314,19 +319,19 @@ export function Reviews() {
       <div className="wrap">
         <div className="rounded-2xl border border-slate-100 bg-white p-6 sm:p-8">
           <div className="flex items-center justify-between gap-4">
-            <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">Customer Reviews</h2>
+            <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">{t('Customer Reviews')}</h2>
             <a
               href="#reviews"
               className="rounded-md bg-brand-blue px-4 py-2 text-[0.82rem] font-bold text-white transition-colors hover:bg-brand-blue-dark"
             >
-              View All
+              {t('View All')}
             </a>
           </div>
 
           <div className="mt-6 flex items-start gap-4">
             <button
               onClick={prev}
-              aria-label="Previous review"
+              aria-label={t('Previous review')}
               className="mt-6 grid size-9 shrink-0 place-items-center rounded-full border border-slate-200 text-ink transition-colors hover:bg-slate-50"
             >
               <ChevronLeft className="size-4" />
@@ -348,12 +353,12 @@ export function Reviews() {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 leading-relaxed text-body">{r.text}</p>
+              <p className="mt-4 leading-relaxed text-body">{t(r.text)}</p>
             </div>
 
             <button
               onClick={next}
-              aria-label="Next review"
+              aria-label={t('Next review')}
               className="mt-6 grid size-9 shrink-0 place-items-center rounded-full border border-slate-200 text-ink transition-colors hover:bg-slate-50"
             >
               <ChevronRight className="size-4" />
@@ -378,6 +383,7 @@ export function Reviews() {
 
 /* ================================================================ FOOTER == */
 export function Footer() {
+  const { t } = useLang();
   return (
     <footer id="contact" className="bg-navy py-10 text-white/85">
       <div className="wrap">
@@ -388,7 +394,7 @@ export function Footer() {
               <div className="leading-none">
                 <div className="text-[0.98rem] font-extrabold text-brand-blue">{business.name}</div>
                 <div className="mt-1 text-[0.9rem] font-extrabold text-brand-red">{business.nameAccent}</div>
-                <div className="mt-1.5 text-[0.58rem] text-white/70">{business.tagline}</div>
+                <div className="mt-1.5 text-[0.58rem] text-white/70">{t(business.tagline)}</div>
               </div>
             </div>
           </div>
@@ -398,7 +404,7 @@ export function Footer() {
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
             </svg>
             <span className="text-[0.85rem] leading-relaxed">
-              {contact.street}, {contact.town}
+              {t(contact.street)}, {contact.town}
               <br />
               {contact.district}, {contact.state} - {contact.pin}
             </span>
@@ -411,7 +417,7 @@ export function Footer() {
             <span className="text-[0.85rem] leading-relaxed">
               <a href={`tel:${contact.phone1}`} className="hover:text-white">{contact.phone1}</a>
               <br />
-              <span className="text-white/65">(Call / WhatsApp)</span>
+              <span className="text-white/65">{t('(Call / WhatsApp)')}</span>
             </span>
           </div>
 
@@ -446,7 +452,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
           <p className="text-[0.78rem] text-white/55">
-            © {new Date().getFullYear()} {business.nameFull}. All rights reserved.
+            © {new Date().getFullYear()} {business.nameFull}. {t('All rights reserved.')}
           </p>
           <div className="flex items-center gap-2">
             {['facebook', 'instagram', 'youtube', 'maps'].map((k) => (

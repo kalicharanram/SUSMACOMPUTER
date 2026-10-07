@@ -1,18 +1,24 @@
 import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { contact, nav, hero, addressFull, socials } from '../data/site';
+import { contact, nav, hero, socials } from '../data/site';
+import { LANGS } from '../data/i18n';
+import { useLang } from '../i18n';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
+  const { t, lang, setLang } = useLang();
+
   return (
     <div className="bg-navy text-white/90">
-      <div className="wrap flex h-11 items-center justify-between gap-4 text-[0.8rem]">
+      <div className="wrap flex min-h-11 items-center justify-between gap-4 py-1.5 text-[0.8rem]">
         {/* ---- left: contact details ---- */}
         <div className="hidden items-center gap-5 lg:flex">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5 shrink-0" />
-            {addressFull}
+            {/* Built here rather than via the shared `addressFull` so the street half can
+            be translated; the town, district, state and PIN are proper nouns. */}
+            {t(contact.street)}, {contact.town}, {contact.district}, {contact.state} - {contact.pin}
           </span>
 
           <a href={`tel:${contact.phone1}`} className="inline-flex items-center gap-1.5 hover:text-white">
@@ -44,7 +50,7 @@ export function TopBar() {
         </span>
 
         {/* ---- right: coloured social squares + call button ---- */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col items-end gap-1.5">
           <div className="hidden items-center gap-1.5 sm:flex">
             {Object.keys(SOCIALS).map((k) => {
               const S = SOCIALS[k];
@@ -77,12 +83,36 @@ export function TopBar() {
             })}
           </div>
 
+          {/* Language switcher, sitting directly under the social row as in the
+              design reference. The active one stays white-on-navy so it reads
+              as the current choice rather than another link. */}
+          <div className="flex items-center gap-1" role="group" aria-label="Language">
+            {LANGS.map((l) => {
+              const on = lang === l.code;
+              return (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => setLang(l.code)}
+                  aria-pressed={on}
+                  className={`rounded-[5px] px-2 py-0.5 text-[0.66rem] font-bold tracking-[0.06em] transition-colors ${
+                    on
+                      ? 'bg-white text-navy'
+                      : 'bg-white/12 text-white/80 ring-1 ring-white/25 hover:bg-white/25 hover:text-white'
+                  }`}
+                >
+                  {l.label}
+                </button>
+              );
+            })}
+          </div>
+
           <a
             href={`tel:${contact.phone1}`}
             className="inline-flex items-center gap-1.5 rounded-md bg-brand-red px-3.5 py-1.5 font-semibold text-white transition-colors hover:bg-brand-red-dark"
           >
             <Phone className="size-3.5" />
-            Call Now
+            {t('Call Now')}
           </a>
         </div>
       </div>
@@ -92,6 +122,7 @@ export function TopBar() {
 
 /* ================================================================= HEADER == */
 export function Header() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -202,7 +233,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
               >
                 {/* the active Home item carries a house glyph in the reference */}
                 {i === 0 && <House className="size-4" strokeWidth={2.4} />}
-                {item.label}
+                {t(item.label)}
                 {item.children && <ChevronDown className="size-3.5" />}
               </a>
 
@@ -225,7 +256,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
                       onClick={() => setOpenDrop(null)}
                       className="block border-b border-slate-50 px-4 py-2.5 text-sm text-body transition-colors last:border-0 hover:bg-p-blue hover:text-brand-blue"
                     >
-                      {c}
+                      {t(c)}
                     </a>
                   ))}
                 </div>
@@ -239,7 +270,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
           <div className="hidden 2xl:flex">
             <input
               type="search"
-              placeholder="Search Services..."
+              placeholder={t('Search Services...')}
               className="h-10 w-40 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm outline-none focus:border-brand-blue xl:w-44"
             />
             <button
@@ -252,7 +283,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('Close menu') : t('Open menu')}
             aria-expanded={open}
             aria-controls="mobile-navigation"
             className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink lg:hidden"
@@ -273,13 +304,13 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
                 onClick={() => setOpen(false)}
                 className="border-b border-slate-100 py-3 text-[0.95rem] font-semibold text-ink last:border-0"
               >
-                {item.label}
+                {t(item.label)}
               </a>
             ))}
             <div className="mt-3 flex lg:hidden">
               <input
                 type="search"
-                placeholder="Search Services..."
+                placeholder={t('Search Services...')}
                 className="h-11 flex-1 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm"
               />
               <button className="grid h-11 w-12 place-items-center rounded-r-md bg-navy text-white" aria-label="Search">
@@ -297,6 +328,8 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 /* The shop front is the section background; the heading and the three actions
    sit on top of it. */
 export function Hero() {
+  const { t } = useLang();
+
   return (
     /* One single hero block. The shop front is now the background of the whole
        section instead of a panel of its own, so the heading, the three actions
@@ -328,7 +361,7 @@ export function Hero() {
         <div className="flex max-w-3xl flex-col justify-center">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[0.82rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
             <span className="text-brand-yellow">#</span>
-            {hero.badge}
+            {t(hero.badge)}
           </span>
 
           <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2rem] xl:text-[2.05rem]">
@@ -338,18 +371,20 @@ export function Hero() {
           </h1>
 
           <p className="mt-2 max-w-lg text-[0.92rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1rem]">
-            {hero.subtitleHindi}
+            {t(hero.subtitleHindi)}
           </p>
 
           <ul className="mt-3 flex flex-wrap gap-x-7 gap-y-2">
-            {hero.ticks.map((t) => (
-              <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
+            {/* `tick`, not `t` — naming the loop variable `t` shadows the translate
+                function, and every label inside it would then call a string. */}
+            {hero.ticks.map((tick) => (
+              <li key={tick} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
                 <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
                   <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true">
                     <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
-                {t}
+                {t(tick)}
               </li>
             ))}
           </ul>
@@ -363,7 +398,7 @@ export function Hero() {
               className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <Phone className="size-4 shrink-0" />
-              <span className="min-w-0">Call Now</span>
+              <span className="min-w-0">{t('Call Now')}</span>
             </a>
             <a
               href={contact.whatsapp}
@@ -372,7 +407,7 @@ export function Hero() {
               className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <BrandWhatsApp className="size-4 shrink-0" />
-              <span className="min-w-0">WhatsApp</span>
+              <span className="min-w-0">{t('WhatsApp')}</span>
             </a>
             <a
               href={contact.mapsUrl}
@@ -381,7 +416,7 @@ export function Hero() {
               className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <MapPin className="size-4 shrink-0" />
-              <span className="min-w-0">Get Direction</span>
+              <span className="min-w-0">{t('Get Direction')}</span>
             </a>
           </div>
         </div>

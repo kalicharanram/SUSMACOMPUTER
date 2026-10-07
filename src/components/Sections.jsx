@@ -148,23 +148,12 @@ export function Gallery() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox]);
 
-  /**
-   * Advances the strip by exactly one photo.
-   *
-   * A card is half the viewport wide (see `.gallery-card` in index.css), so a
-   * half-viewport step lands precisely on the next photo — that is what makes
-   * this page-by-page rather than a pixel crawl.
-   *
-   * The strip holds two identical copies of the gallery so the loop is
-   * seamless. Positions at or past the midpoint sit in the second copy, and
-   * because the copies are identical, snapping back by one loop width is
-   * invisible to the eye.
-   */
+  // Each slide fills the viewport; duplicated photos keep the loop seamless.
   const move = (direction) => {
     const element = strip.current;
     if (!element) return;
     const loopWidth = element.scrollWidth / 2;
-    const step = (element.clientWidth + 12) / 2;
+    const step = element.clientWidth;
     if (element.scrollLeft >= loopWidth) element.scrollLeft -= loopWidth;
     if (direction < 0 && element.scrollLeft < step) element.scrollLeft += loopWidth;
     element.scrollBy({ left: direction * step, behavior: 'smooth' });
@@ -204,7 +193,7 @@ export function Gallery() {
             if (!event.currentTarget.contains(event.relatedTarget)) setPaused(true);
           }}
         >
-          <div className="relative px-2 sm:px-3">
+          <div className="relative">
             <div ref={strip} className="gallery-viewport no-scrollbar">
               <div className="gallery-track">
                 {[0, 1].map((copy) => (
@@ -288,7 +277,7 @@ export function Gallery() {
             <img
               src={gallery[lightbox].src}
               alt={gallery[lightbox].label}
-              className="max-h-full max-w-full object-contain"
+              className="h-full w-full object-contain"
             />
             <button
               type="button"

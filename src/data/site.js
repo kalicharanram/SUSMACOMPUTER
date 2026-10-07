@@ -52,7 +52,19 @@ export const contact = {
   hoursToday: '9:00 AM - 8:00 PM',
   openLabel: 'Open Now',
 
-  mapsUrl: 'https://maps.app.goo.gl/',
+  /* Google Maps link for the "Get Direction" button.
+   There is no verified Google Business listing for this shop yet, so a short
+   /maps/app.goo.gl/ link cannot be used — that form only works for a place that
+   Google already knows. The Maps URLs API form works without any setup: Maps
+   reads `destination`, drops a pin on the best match and, because the path is
+   /maps/dir/, opens turn-by-turn directions from wherever the visitor is.
+   Replace this whole line with a short link from Google (or a place-id URL) as
+   soon as the listing is created — it will then point at the exact shopfront
+   instead of letting Maps guess from the address. */
+mapsUrl:
+  'https://www.google.com/maps/dir/?api=1' +
+  '&destination=' +
+  encodeURIComponent('Susma Computer & Video Mixing Lab, Kadrabad, Pull Ke Pass, Near Masjid, Bachhwara, Begusarai, Bihar 851111'),
   // wa.me needs the number in international form, no + or spaces
   whatsapp: 'https://wa.me/919534699946',
 };

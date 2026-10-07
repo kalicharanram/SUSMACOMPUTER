@@ -52,15 +52,17 @@ export const contact = {
   hoursToday: '9:00 AM - 8:00 PM',
   openLabel: 'Open Now',
 
-  /* Google Maps link behind the "Get Direction" button — the shop's own pin,
-     supplied by the owner. It resolves to 25.579973, 85.946624, about 4.7 km east
-     of Bachhwara town centre and inside the Kadrabad area, so it is the real
-     pin rather than a search result.
-     A short maps.app.goo.gl link is used instead of a /maps/dir/ URL because it
-     lands on the exact pin: the dir/ form has to guess the shop from the address
-     text and opens whatever place name matched first. Swap this line for a new
-     short link if the shop ever moves. */
-  mapsUrl: 'https://maps.app.goo.gl/qyQ3sPK6M9wDauQR9',
+  /* Google Maps link for the shop's location — the owner's own listing, shared
+     from their phone. It resolves to "Susma Computer & Video Mixing Lab" at
+     25.579741, 85.946581, about 4.7 km east of Bachhwara town centre and inside
+     the Kadrabad area. The listing carries a place id and a CID, so Maps opens
+     the shop by name rather than dropping a bare pin, which is why a short
+     maps.app.goo.gl link is used instead of a /maps/dir/ URL — the dir/ form has
+     to guess the shop from address text and opens whatever name matched first.
+     Read by BOTH the hero's "Get Direction" button and the location square in
+     the top bar (see `socials.maps`), so changing this one line moves the pin
+     everywhere at once. Swap it for a new short link if the shop ever moves. */
+  mapsUrl: 'https://maps.app.goo.gl/7gcz5sgknpWjqhbA6',
   // wa.me needs the number in international form, no + or spaces
   whatsapp: 'https://wa.me/919534699946',
 };

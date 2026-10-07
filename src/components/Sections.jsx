@@ -277,25 +277,30 @@ export function Gallery() {
             </button>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 pb-2 sm:px-16">
-            <img
-              src={gallery[lightbox].src}
-              alt={gallery[lightbox].label}
-              className="h-full w-full object-contain"
-            />
+          {/* The arrows are flex siblings of the image rather than absolutely positioned
+              on top of it. They take real horizontal space (shrink-0) and the
+              image takes what is left (flex-1 + min-w-0), so a wide photo can no
+              longer slide underneath the buttons. object-contain on a stretched
+              image still letterboxes it, so nothing is ever cropped. */}
+          <div className="flex min-h-0 flex-1 items-stretch justify-center gap-2 p-3 sm:gap-3 sm:p-5">
             <button
               type="button"
               onClick={() => stepLightbox(-1)}
               aria-label={t('Previous photo')}
-              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-3"
+              className="grid size-11 shrink-0 self-center place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25"
             >
               <ChevronLeft className="size-7" />
             </button>
+            <img
+              src={gallery[lightbox].src}
+              alt={gallery[lightbox].label}
+              className="min-h-0 min-w-0 flex-1 object-contain"
+            />
             <button
               type="button"
               onClick={() => stepLightbox(1)}
               aria-label={t('Next photo')}
-              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-3"
+              className="grid size-11 shrink-0 self-center place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25"
             >
               <ChevronRight className="size-7" />
             </button>

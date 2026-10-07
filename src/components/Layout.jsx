@@ -107,12 +107,18 @@ export function TopBar() {
             })}
           </div>
 
+          {/* Was a "Call Now" button. Now a Google Maps button, so the top bar's
+              call-to-action points at the shop's location. Calling is still one
+              click away: the phone number on the left of this bar is a tel:
+              link, and the red "Call Now" button remains in the hero. */}
           <a
-            href={`tel:${contact.phone1}`}
-            className="inline-flex items-center gap-1.5 rounded-md bg-brand-red px-3.5 py-1.5 font-semibold text-white transition-colors hover:bg-brand-red-dark"
+            href={contact.mapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md bg-[#00A84F] px-3.5 py-1.5 font-semibold text-white transition-colors hover:bg-[#008F43]"
           >
-            <Phone className="size-3.5" />
-            {t('Call Now')}
+            <MapPin className="size-3.5" />
+            {t('Get Direction')}
           </a>
         </div>
       </div>

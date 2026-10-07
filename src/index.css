@@ -30,6 +30,9 @@
 
   /* Service card pastels — rotating set, exactly as in the design */
   --color-p-blue: #e4efff;
+  /* One step deeper than p-blue, for the nav hover state. Kept light enough that
+     the dark blue label stays legible on it without flipping to white text. */
+  --color-p-blue-dark: #c3dcfa;
   --color-p-peach: #ffe8da;
   --color-p-pink: #ffe3ea;
   --color-p-lav: #ede7ff;

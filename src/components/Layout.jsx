@@ -119,7 +119,7 @@ export function Header() {
             >
               <a
                 href={item.href}
-className="inline-flex items-center gap-1.5 rounded-md bg-p-blue px-2 py-2.5 text-[0.85rem] font-semibold text-brand-blue-dark transition-colors hover:bg-brand-blue-dark hover:text-white xl:px-3.5 xl:text-[0.92rem]"
+className="inline-flex items-center gap-1.5 rounded-md bg-p-blue px-2 py-2.5 text-[0.85rem] font-semibold text-brand-blue-dark transition-colors hover:bg-p-blue-dark xl:px-3.5 xl:text-[0.92rem]"
               >
                 {/* the active Home item carries a house glyph in the reference */}
                 {i === 0 && <House className="size-4" strokeWidth={2.4} />}

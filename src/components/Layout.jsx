@@ -120,9 +120,13 @@ export function Header() {
               <a
                 href={item.href}
 className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] font-semibold transition-colors xl:px-3.5 xl:text-[0.92rem] ${
-                  /* Selected item stays dark blue; every other item starts pale
-                     and turns dark blue under the cursor. */
-                  i === 0
+                  /* Dark blue when selected (Home) AND while this item's menu is
+                     open. The open state has to be part of the class, not just
+                     `:hover`: once the cursor leaves the link to travel down into
+                     the dropdown panel the link is no longer hovered, so a
+                     hover-only rule turned the button pale while its own menu
+                     was still on screen. */
+                  i === 0 || openDrop === i
                     ? 'bg-brand-blue-dark text-white'
                     : 'bg-p-blue text-brand-blue-dark hover:bg-brand-blue-dark hover:text-white'
                 }`}

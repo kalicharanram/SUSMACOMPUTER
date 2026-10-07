@@ -109,7 +109,7 @@ export function Header() {
         </a>
 
         {/* desktop nav */}
-        <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {nav.map((item, i) => (
             <div
               key={item.label}
@@ -119,7 +119,7 @@ export function Header() {
             >
               <a
                 href={item.href}
-                className={`inline-flex items-center gap-1.5 rounded-md px-3.5 py-2.5 text-[0.92rem] font-semibold transition-colors ${
+                className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] xl:px-3.5 xl:text-[0.92rem] font-semibold transition-colors ${
                   i === 0
                     ? 'bg-brand-blue text-white'
                     : 'text-ink hover:text-brand-blue'
@@ -157,7 +157,7 @@ export function Header() {
 
         {/* search + toggle */}
         <div className="flex items-center gap-2">
-          <div className="hidden lg:flex">
+          <div className="hidden 2xl:flex">
             <input
               type="search"
               placeholder="Search Services..."
@@ -174,7 +174,9 @@ export function Header() {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink xl:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -183,7 +185,7 @@ export function Header() {
 
       {/* mobile drawer */}
       {open && (
-        <div className="border-t border-slate-100 bg-white xl:hidden">
+        <div id="mobile-navigation" className="border-t border-slate-100 bg-white lg:hidden">
           <div className="wrap flex flex-col py-3">
             {nav.map((item) => (
               <a

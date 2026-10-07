@@ -1,7 +1,7 @@
 import { MapPin, Phone, Mail, Star, MapPinned, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { Logo, SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { business, contact, nav, hero, addressFull } from '../data/site';
+import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
+import { contact, nav, hero, addressFull } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -95,24 +95,19 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
-      <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
-        {/* logo */}
-        <a href="#home" className="flex items-center gap-3">
-          <Logo size={54} />
-          <span className="leading-none">
-            <span className="block text-[1.25rem] font-extrabold tracking-tight text-brand-blue sm:text-[1.55rem]">
-              {business.name}
-            </span>
-            <span className="mt-0.5 block text-[1.05rem] font-extrabold sm:text-[1.3rem]">
-              <span className="text-brand-red">{business.nameAccent}</span>
-            </span>
-            <span className="mt-1.5 block text-[0.62rem] font-medium text-body/85">
-              {business.tagline}
-            </span>
-          </span>
-        </a>
-
+    <>
+      <a href="#home" className="block w-full bg-black" aria-label="Susma Computer & Video Mixing Lab — Home">
+        <img
+          src="./images/branding/susma-header-banner.webp"
+          alt="Susma Computer & Video Mixing Lab — Digital Solutions Under One Roof"
+          width="2170"
+          height="725"
+          fetchPriority="high"
+          className="block h-auto w-full object-contain"
+        />
+      </a>
+      <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
+      <div className="wrap flex h-16 items-center justify-end gap-4 xl:justify-between">
         {/* desktop nav */}
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
           {nav.map((item, i) => (
@@ -214,6 +209,7 @@ export function Header() {
         </div>
       )}
     </header>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Star, MapPinned, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
 import { contact, nav, hero, addressFull } from '../data/site';
 
@@ -79,12 +79,51 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [activeId, setActiveId] = useState('home');
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* Scroll-spy: marks whichever section the visitor is actually looking at, so
+     the menu tracks the page instead of always pointing at Home.
+     The probe line sits just under the sticky header — measuring against the
+     top of the viewport would pick a section that is still hidden behind it. */
+  useEffect(() => {
+    const sections = () =>
+      [...document.querySelectorAll('main > section[id]')].filter((s) => s.offsetHeight > 0);
+
+    const pick = () => {
+      const list = sections();
+      if (!list.length) return;
+
+      const headerH = headerRef.current?.offsetHeight ?? 88;
+      const line = window.scrollY + headerH + 24;
+
+      let current = list[0].id;
+      for (const s of list) {
+        if (s.offsetTop <= line) current = s.id;
+      }
+
+      // At the very bottom the last section can be too short to ever cross the
+      // line, so pin the highlight to the last one instead.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) current = list[list.length - 1].id;
+
+      setActiveId((prev) => (prev === current ? prev : current));
+    };
+
+    pick();
+    window.addEventListener('scroll', pick, { passive: true });
+    window.addEventListener('resize', pick);
+    return () => {
+      window.removeEventListener('scroll', pick);
+      window.removeEventListener('resize', pick);
+    };
   }, []);
 
   useEffect(() => {
@@ -94,8 +133,17 @@ export function Header() {
     };
   }, [open]);
 
+  /* Only the first nav item pointing at the visible section is highlighted.
+     "Services" and "Price List" both link to #services; lighting both up at
+     once reads as a mistake, so the first match wins and Price List stays
+     neutral. */
+  const activeIndex = nav.findIndex((item) => item.href === `#${activeId}`);
+
   return (
-    <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
+    <header
+      ref={headerRef}
+      className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}
+    >
       <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
         <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
           <img
@@ -120,13 +168,13 @@ export function Header() {
               <a
                 href={item.href}
 className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] font-semibold transition-colors xl:px-3.5 xl:text-[0.92rem] ${
-                  /* Dark blue when selected (Home) AND while this item's menu is
-                     open. The open state has to be part of the class, not just
-                     `:hover`: once the cursor leaves the link to travel down into
-                     the dropdown panel the link is no longer hovered, so a
-                     hover-only rule turned the button pale while its own menu
-                     was still on screen. */
-                  i === 0 || openDrop === i
+                  /* Dark blue for the section currently in view, and while this
+                     item's menu is open. The open state has to be part of the
+                     class, not just `:hover`: once the cursor leaves the link to
+                     travel down into the dropdown panel the link is no longer
+                     hovered, so a hover-only rule turned the button pale while
+                     its own menu was still on screen. */
+                  i === activeIndex || openDrop === i
                     ? 'bg-brand-blue-dark text-white'
                     : 'bg-p-blue text-brand-blue-dark hover:bg-brand-blue-dark hover:text-white'
                 }`}

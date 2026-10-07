@@ -6,9 +6,12 @@
  * and needs the whole document flipped, not just the text.
  */
 export const LANGS = [
-  { code: 'en', label: 'ENGLISH' },
-  { code: 'hi', label: 'HINDI', dir: 'ltr' },
-  { code: 'ur', label: 'URDU', dir: 'rtl' },
+  // A distinct colour per language so the three read as separate choices at a
+  // glance on the dark top bar, where three identical pills were easy to miss.
+  // Blue / saffron / green also line up with how each is usually recognised.
+  { code: 'en', label: 'ENGLISH', color: '#1B6DD6' },
+  { code: 'hi', label: 'HINDI', color: '#F5820F', dir: 'ltr' },
+  { code: 'ur', label: 'URDU', color: '#12A150', dir: 'rtl' },
 ];
 
 /* ----------------------------------------------------------- TRANSLATIONS -- */

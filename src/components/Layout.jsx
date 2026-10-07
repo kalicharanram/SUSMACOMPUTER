@@ -111,10 +111,12 @@ export function TopBar() {
                   type="button"
                   onClick={() => setLang(l.code)}
                   aria-pressed={on}
-                  className={`rounded-[5px] px-2 py-0.5 text-[0.66rem] font-bold tracking-[0.06em] transition-colors ${
-                    on
-                      ? 'bg-white text-navy'
-                      : 'bg-white/12 text-white/80 ring-1 ring-white/25 hover:bg-white/25 hover:text-white'
+                  // The chosen language keeps full colour plus a white ring; the
+                  // others stay in their own colour but dimmed, so the active one
+                  // is obvious without hiding what else is on offer.
+                  style={{ backgroundColor: l.color }}
+                  className={`rounded-[5px] px-2 py-0.5 text-[0.66rem] font-bold tracking-[0.06em] text-white transition-all ${
+                    on ? 'opacity-100 ring-2 ring-white' : 'opacity-70 hover:opacity-100'
                   }`}
                 >
                   {l.label}

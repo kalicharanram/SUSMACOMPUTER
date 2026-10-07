@@ -67,6 +67,27 @@ export const contact = {
   whatsapp: 'https://wa.me/919534699946',
 };
 
+/* ---------------------------------------------------------- VISIT COUNTER -- */
+/**
+ * Visitor counter for the bottom of the footer.
+ *
+ * Uses the Realtime Database of the existing `kadrabadmarts` Firebase project,
+ * over its plain REST API. Set `enabled` to false to hide it entirely without
+ * deleting the component.
+ *
+ * The database instance has to exist and its rules have to allow reads and
+ * writes at `/susma/visits`; Firebase refuses to create a Realtime Database
+ * instance on the free (Spark) plan, so the project needs the Blaze plan before
+ * this returns a number. Until then the component renders nothing rather than a
+ * zero, so the footer never shows a false count.
+ */
+export const visitCounter = {
+  enabled: true,
+  dbUrl: 'https://kadrabadmarts-default-rtdb.asia-southeast1.firebasedatabase.app',
+  // Marks that this tab has already been counted, so a refresh is not a new visit.
+  sessionKey: 'susma:counted',
+};
+
 /* Social profile links for the coloured squares in the top bar.
    Keys must match `SOCIALS` in components/Icons.jsx. A key set to `null` is not
    drawn as a link at all, so the square cannot be clicked and bounce the visitor

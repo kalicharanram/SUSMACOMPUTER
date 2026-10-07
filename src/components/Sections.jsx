@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Icon, TONES, Logo } from './Icons';
-import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
+import { services, whyUs, gallery, reviews, contact, business, visitCounter } from '../data/site';
 import { useLang } from '../i18n';
 
 /* ============================================================== SERVICES == */
@@ -382,6 +382,76 @@ export function Reviews() {
 }
 
 /* ================================================================ FOOTER == */
+/* ======================================================== VISITOR COUNTER == */
+/**
+ * Shows how many people have visited, bottom-centre of the footer.
+ *
+ * Backs onto the Firebase Realtime Database in the `kadrabadmarts` project using
+ * the plain REST API — no SDK — so it costs nothing in page weight on a site
+ * this small.
+ *
+ * Two things worth knowing about how it counts:
+ *
+ * - Once per browser tab, not once per page view. sessionStorage is the marker,
+ *   so refreshing a page does not inflate the total. A "visitor" number that
+ *   jumps when you press F5 is worse than useless; it stops meaning anything.
+ * - It counts every visit including the owner's own, so treat it as a rough
+ *   figure rather than a traffic report.
+ *
+ * PATCHing `{"count": 1}` is the Realtime Database REST spelling of "add one to
+ * the existing number" — it applies server-side, so two people opening the site
+ * at the same instant cannot overwrite each other.
+ *
+ * Renders nothing at all when the database is unreachable, which is what keeps a
+ * missing or locked-down database from showing an error in the footer.
+ */
+function VisitCounter() {
+  const [count, setCount] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const show = (data) => {
+      if (!cancelled && data && typeof data.count === 'number') setCount(data.count);
+    };
+
+    const read = () =>
+      fetch(`${visitCounter.dbUrl}/susma/visits.json`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then(show)
+        .catch(() => {});
+
+    try {
+      if (!sessionStorage.getItem(visitCounter.sessionKey)) {
+        sessionStorage.setItem(visitCounter.sessionKey, '1');
+        fetch(`${visitCounter.dbUrl}/susma/visits.json`, {
+          method: 'PATCH',
+          body: '{"count":1}',
+        })
+          .then(() => read())
+          .catch(() => {});
+      } else {
+        read();
+      }
+    } catch {
+      /* storage blocked (private mode) — still show the existing number */
+      read();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!visitCounter.enabled || count === null) return null;
+
+  return (
+    <p className="mt-6 text-center text-[0.78rem] text-white/55">
+      Visitor Count : {count}
+    </p>
+  );
+}
+
 export function Footer() {
   const { t } = useLang();
   return (
@@ -467,6 +537,8 @@ export function Footer() {
             ))}
           </div>
         </div>
+
+        <VisitCounter />
       </div>
     </footer>
   );

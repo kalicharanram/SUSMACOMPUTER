@@ -95,19 +95,19 @@ export function Header() {
   }, [open]);
 
   return (
-    <>
-      <a href="#home" className="block w-full bg-black" aria-label="Susma Computer & Video Mixing Lab — Home">
-        <img
-          src="./images/branding/susma-header-banner.webp"
-          alt="Susma Computer & Video Mixing Lab — Digital Solutions Under One Roof"
-          width="2170"
-          height="725"
-          fetchPriority="high"
-          className="block h-auto w-full object-contain"
-        />
-      </a>
-      <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
-      <div className="wrap flex h-16 items-center justify-end gap-4 xl:justify-between">
+    <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
+      <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
+        <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
+          <img
+            src="./images/branding/susma-header-banner.webp"
+            alt="Susma Computer & Video Mixing Lab — Digital Solutions Under One Roof"
+            width="2170"
+            height="725"
+            fetchPriority="high"
+            className="block h-auto max-h-[72px] w-[216px] max-w-full object-contain"
+          />
+        </a>
+
         {/* desktop nav */}
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
           {nav.map((item, i) => (
@@ -209,7 +209,6 @@ export function Header() {
         </div>
       )}
     </header>
-    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
 import { contact, nav, hero, socials } from '../data/site';
 import { LANGS } from '../data/i18n';
@@ -60,17 +60,12 @@ export function TopBar() {
               // No URL yet for this network: draw the square, but not as a link.
               // A clickable `href="#"` would just jump the visitor to the top of
               // the page, which looks like a broken button.
-              if (!url) {
-                return (
-                  <span key={k} aria-hidden="true" className={`${className} opacity-60`}>
-                    <S className="size-3.5" />
-                  </span>
-                );
-              }
-
-              return (
+              const glyph = !url ? (
+                <span aria-hidden="true" className={`${className} opacity-60`}>
+                  <S className="size-3.5" />
+                </span>
+              ) : (
                 <a
-                  key={k}
                   href={url}
                   target="_blank"
                   rel="noreferrer"
@@ -79,6 +74,27 @@ export function TopBar() {
                 >
                   <S className="size-3.5" />
                 </a>
+              );
+
+              return (
+                <Fragment key={k}>
+                  {glyph}
+
+                  {/* The call button sits in this row, directly after the
+                      Facebook icon. It is a separate element rather than a fifth
+                      social entry, so SOCIALS stays a map of profiles only and
+                      its key order still decides where the button lands. */}
+                  {k === 'facebook' && (
+                    <a
+                      href={`tel:${contact.phone1}`}
+                      aria-label={t('Call Now')}
+                      className="inline-flex h-6 items-center gap-1 rounded-[5px] bg-brand-red px-2 text-[0.66rem] font-bold text-white transition-colors hover:bg-brand-red-dark"
+                    >
+                      <Phone className="size-3" />
+                      {t('Call Now')}
+                    </a>
+                  )}
+                </Fragment>
               );
             })}
           </div>

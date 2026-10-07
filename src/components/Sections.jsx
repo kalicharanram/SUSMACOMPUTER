@@ -20,6 +20,17 @@ export function Services() {
 
   return (
     <section id="services" className="bg-white py-5 sm:py-6">
+      {/* Caption for the strip: a hairline in the brand blue running the full width,
+          with the tiny label sitting in the middle of it. Two flex-1 rules of
+          equal weight either side keep the label dead centre. */}
+      <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
+        <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-ink/60">
+          Services
+        </span>
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
+      </div>
+
       {/* Hovering anywhere in the strip stops the scroll, so a card can be read
           before it slides away. Leaving it resumes. */}
       <div
@@ -106,9 +117,49 @@ export function WhyUs() {
 export function Gallery() {
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
-  
+  // Index into `gallery` while the full-screen viewer is open, null when closed.
+  const [lightbox, setLightbox] = useState(null);
+
   const strip = useRef(null);
   const photo = gallery[0];
+  const openLightbox = (index) => { setPaused(true); setLightbox(index); };
+  const closeLightbox = () => setLightbox(null);
+  const stepLightbox = (direction) =>
+    setLightbox((current) => (current === null ? current : (current + direction + gallery.length) % gallery.length));
+
+  // The viewer is a fixed overlay, so the page behind it must not scroll while
+  // it is open. Restored to whatever the page had before.
+  useEffect(() => {
+    if (lightbox === null) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [lightbox]);
+
+  // Arrow keys page through the viewer, Escape closes it.
+  useEffect(() => {
+    if (lightbox === null) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') { event.preventDefault(); closeLightbox(); }
+      else if (event.key === 'ArrowRight') { event.preventDefault(); stepLightbox(1); }
+      else if (event.key === 'ArrowLeft') { event.preventDefault(); stepLightbox(-1); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox]);
+
+  /**
+   * Advances the strip by exactly one photo.
+   *
+   * A card is half the viewport wide (see `.gallery-card` in index.css), so a
+   * half-viewport step lands precisely on the next photo — that is what makes
+   * this page-by-page rather than a pixel crawl.
+   *
+   * The strip holds two identical copies of the gallery so the loop is
+   * seamless. Positions at or past the midpoint sit in the second copy, and
+   * because the copies are identical, snapping back by one loop width is
+   * invisible to the eye.
+   */
   const move = (direction) => {
     const element = strip.current;
     if (!element) return;
@@ -119,33 +170,26 @@ export function Gallery() {
     element.scrollBy({ left: direction * step, behavior: 'smooth' });
   };
 
+  // Page forward on a timer instead of drifting continuously: one whole photo
+  // every few seconds, so each shot gets a clean, readable moment on screen.
   useEffect(() => {
-    const element = strip.current;
-    if (!element || paused || hovered || gallery.length < 2 ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let frame;
-    let previous;
-    let position = element.scrollLeft;
-    const tick = (time) => {
-      if (previous !== undefined) {
-        // One photo passes every 25 seconds, independent of display size.
-        const elapsed = Math.min(time - previous, 100);
-        position += elapsed * (element.clientWidth + 12) / 2 / 25000;
-        const loopWidth = element.scrollWidth / 2;
-        position %= loopWidth;
-        element.scrollLeft = position;
-      }
-      previous = time;
-      frame = window.requestAnimationFrame(tick);
-    };
-    frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
+    if (!strip.current || paused || hovered || gallery.length < 2 ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = window.setInterval(() => move(1), 4000);
+    return () => window.clearInterval(id);
   }, [paused, hovered]);
 
   return (
     <section id="gallery" className="bg-white pb-14">
-      <div className="wrap">
-        <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">Our Shop Gallery</h2>
+      {/* Same treatment as the Services strip: a light-blue hairline running the
+          full width with the tiny label sitting in the middle of it. Two flex-1
+          rules of equal weight keep the label dead centre. */}
+      <div className="mb-2 flex items-center gap-2.5 sm:gap-3">
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
+        <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-brand-blue/75">
+          Gallery
+        </span>
+        <span aria-hidden="true" className="h-px flex-1 bg-brand-blue/30" />
       </div>
 
       {photo ? (
@@ -165,14 +209,24 @@ export function Gallery() {
               <div className="gallery-track">
                 {[0, 1].map((copy) => (
                   <div key={copy} className="gallery-group" aria-hidden={copy === 1}>
-                    {gallery.map((item) => (
+                    {gallery.map((item, index) => (
                       <figure
                         key={item.src}
                         aria-hidden={copy === 1}
                         className="gallery-card bg-transparent"
                       >
-                        <img src={item.src} alt={item.label} className="gallery-full-image" />
-                        <figcaption className="block px-2 py-3 text-sm font-semibold">{item.label}</figcaption>
+                        <button
+                          type="button"
+                          onClick={() => openLightbox(index)}
+                          // The duplicate half of the loop is decorative, so it is
+                          // not reachable by keyboard or screen reader.
+                          tabIndex={copy === 1 ? -1 : 0}
+                          aria-hidden={copy === 1}
+                          aria-label={`${item.label} — full screen`}
+                          className="block w-full cursor-zoom-in"
+                        >
+                          <img src={item.src} alt={item.label} className="gallery-full-image" />
+                        </button>
                       </figure>
                     ))}
                   </div>
@@ -198,25 +252,63 @@ export function Gallery() {
               <ChevronRight className="size-6" />
             </button>
           </div>
-          <div className="wrap mt-4 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-semibold" aria-live={paused ? 'polite' : 'off'}>
-              {gallery.length} photos · Slow auto-scroll
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setPaused((value) => !value)}
-                className="min-h-11 rounded-md border border-slate-200 px-4 text-sm font-semibold"
-              >
-                {paused ? 'Play' : 'Pause'}
-              </button>
-            </div>
-          </div>
         </div>
       ) : (
         <p className="mt-6 text-center text-sm text-body/60">Gallery abhi khaali hai.</p>
       )}
 
+      {/* Full-screen viewer. object-contain inside a box inset from every edge is
+          what guarantees the whole photo is visible: whatever the aspect ratio,
+          the image shrinks to fit rather than being cropped to fill. */}
+      {lightbox !== null && gallery[lightbox] && (
+        <div
+          className="fixed inset-0 z-[100] flex flex-col bg-slate-950"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${gallery[lightbox].label} — photo ${lightbox + 1} of ${gallery.length}`}
+        >
+          <div className="flex items-start justify-between gap-4 p-4 text-white">
+            <p className="text-sm font-semibold">
+              {gallery[lightbox].label}
+              <span className="ml-2 font-normal text-white/60">
+                {lightbox + 1} / {gallery.length}
+              </span>
+            </p>
+            <button
+              type="button"
+              onClick={closeLightbox}
+              aria-label="Close full screen view"
+              className="grid size-11 shrink-0 place-items-center rounded-md bg-white/10 text-2xl leading-none transition-colors hover:bg-white/25"
+            >
+              &times;
+            </button>
+          </div>
+
+          <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 pb-2 sm:px-16">
+            <img
+              src={gallery[lightbox].src}
+              alt={gallery[lightbox].label}
+              className="max-h-full max-w-full object-contain"
+            />
+            <button
+              type="button"
+              onClick={() => stepLightbox(-1)}
+              aria-label="Previous photo"
+              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-3"
+            >
+              <ChevronLeft className="size-7" />
+            </button>
+            <button
+              type="button"
+              onClick={() => stepLightbox(1)}
+              aria-label="Next photo"
+              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-3"
+            >
+              <ChevronRight className="size-7" />
+            </button>
+          </div>
+        </div>
+      )}
       </section>
   );
 }

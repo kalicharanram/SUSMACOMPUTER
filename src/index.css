@@ -5,6 +5,8 @@
    =========================================================================== */
 @theme {
   --font-sans: 'Poppins', 'Noto Sans Devanagari', ui-sans-serif, system-ui, sans-serif;
+  /* Light cursive hand, used only for the '& VIDEO MIXING LAB' accent line. */
+  --font-script: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
 
   /* Brand navy — top bar, hero, why-us, footer */
   --color-navy: #0a1b4e;

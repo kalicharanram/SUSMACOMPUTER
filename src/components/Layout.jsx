@@ -1,7 +1,7 @@
 import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { contact, nav, hero, addressFull } from '../data/site';
+import { contact, nav, hero, addressFull, socials } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -48,12 +48,28 @@ export function TopBar() {
           <div className="hidden items-center gap-1.5 sm:flex">
             {Object.keys(SOCIALS).map((k) => {
               const S = SOCIALS[k];
+              const url = socials[k];
+              const className = `grid size-6 place-items-center rounded-[5px] text-white ${SOCIAL_BG[k]}`;
+
+              // No URL yet for this network: draw the square, but not as a link.
+              // A clickable `href="#"` would just jump the visitor to the top of
+              // the page, which looks like a broken button.
+              if (!url) {
+                return (
+                  <span key={k} aria-hidden="true" className={`${className} opacity-60`}>
+                    <S className="size-3.5" />
+                  </span>
+                );
+              }
+
               return (
                 <a
                   key={k}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
                   aria-label={k}
-                  className={`grid size-6 place-items-center rounded-[5px] text-white transition-opacity hover:opacity-85 ${SOCIAL_BG[k]}`}
+                  className={`${className} transition-opacity hover:opacity-85`}
                 >
                   <S className="size-3.5" />
                 </a>

@@ -65,6 +65,19 @@ export const contact = {
   whatsapp: 'https://wa.me/919534699946',
 };
 
+/* Social profile links for the coloured squares in the top bar.
+   Keys must match `SOCIALS` in components/Icons.jsx. A key set to `null` is not
+   drawn as a link at all, so the square cannot be clicked and bounce the visitor
+   to the top of the page — which is what a bare `href="#"` does. */
+export const socials = {
+  youtube: 'http://www.youtube.com/@susmacomputer',
+  facebook: null,
+  instagram: null,
+  // The maps square deliberately reuses the shop's own pin, so it is not a
+  // separate profile to fill in here.
+  maps: null,
+};
+
 /** One-line form of the address, built from the parts above. */
 export const addressFull = `${contact.street}, ${contact.town}, ${contact.district}, ${contact.state} - ${contact.pin}`;
 

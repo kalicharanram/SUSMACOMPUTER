@@ -128,8 +128,12 @@ className="inline-flex items-center gap-1.5 rounded-md bg-p-blue px-2 py-2.5 tex
               </a>
 
               {item.children && (
+                /* All services now live in this menu, so it is taller than the
+                   viewport on a laptop. Capped to the viewport and given its own
+                   scrollbar; a mouse wheel over the panel still reaches the list
+                   because it is the only thing under the cursor. */
                 <div
-                  className={`absolute left-0 top-full w-56 overflow-hidden rounded-lg border border-slate-100 bg-white shadow-xl transition-all ${
+                  className={`scrollbar-thin absolute left-0 top-full max-h-[min(26rem,70vh)] w-56 overflow-y-auto overscroll-contain rounded-lg border border-slate-100 bg-white shadow-xl transition-all lg:max-h-[min(32rem,75vh)] ${
                     openDrop === i
                       ? 'visible translate-y-0 opacity-100'
                       : 'invisible -translate-y-1 opacity-0'

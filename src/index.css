@@ -133,6 +133,26 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Slim scrollbar for the Services dropdown.
+     The global rule above is an 11px navy bar sized for the page; inside a
+     14rem-wide menu that reads as a second panel, so this is narrower and
+     neutral. The plain `scrollbar-width` line is what Firefox honours. */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #c3cddf transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #c3cddf;
+    border: 0;
+    border-radius: 99px;
+  }
 }
 
 /* Continuous service strip — shifts by exactly half so the doubled list loops */

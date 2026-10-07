@@ -159,14 +159,12 @@ export const nav = [
   {
     label: 'Services',
     href: '#services',
-    children: [
-      'Computer Job Work',
-      'Computer Assemble',
-      'Videography Services',
-      'Video Mixing & Editing',
-      'Website Designing',
-      'ITR & GST Filing',
-    ],
+    /* Built from the `services` list rather than written out by hand.
+       A second hand-kept copy of these names is exactly how a menu ends up
+       showing "Computer Assemble" twice while the strip shows it once, so the
+       menu is derived instead. `new Set` also collapses any repeat, making a
+       duplicate entry impossible even if the services list grows one. */
+    children: [...new Set(services.map((s) => s.label))],
   },
   {
     label: 'Gallery',

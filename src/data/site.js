@@ -71,7 +71,7 @@ export const contact = {
    to the top of the page — which is what a bare `href="#"` does. */
 export const socials = {
   youtube: 'http://www.youtube.com/@susmacomputer',
-  facebook: null,
+  facebook: 'https://www.facebook.com/profile.php?id=61595040813380',
   instagram: null,
   // The maps square deliberately reuses the shop's own pin, so it is not a
   // separate profile to fill in here.

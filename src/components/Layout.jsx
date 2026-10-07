@@ -372,11 +372,16 @@ export function Hero() {
       </div>
 
       {/* ----------------------------------------------- 2. shop photo (mid) -- */}
+      {/* `object-contain` on purpose. The shop front is a wide 2.1:1 picture and
+          the hero slot is narrower than that, so `object-cover` would slice off
+          the signboard and both sides of the shop to fill the box. Contain keeps
+          every pixel of the sign visible and the navy container shows through the
+          small letterbox instead. */}
       <div className="relative order-2 min-h-[11rem] bg-navy-2 lg:min-h-[13.5rem]">
         <img
           src="./images/shop-hero.jpg"
           alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
-          className="absolute inset-0 size-full object-cover object-top"
+          className="absolute inset-0 size-full object-contain"
         />
         {/* soft navy wash on the left edge so the photo blends into the panel */}
         <div

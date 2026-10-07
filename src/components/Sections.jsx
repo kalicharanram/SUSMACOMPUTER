@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon, TONES, Logo } from './Icons';
 import { services, whyUs, gallery, reviews, contact, business } from '../data/site';
 
@@ -115,14 +115,16 @@ export function WhyUs() {
 
 /* =============================================================== GALLERY == */
 export function Gallery() {
-  const [paused, setPaused] = useState(false);
+  const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
   // Index into `gallery` while the full-screen viewer is open, null when closed.
   const [lightbox, setLightbox] = useState(null);
 
-  const strip = useRef(null);
-  const photo = gallery[0];
-  const openLightbox = (index) => { setPaused(true); setLightbox(index); };
+  const photo = gallery[active];
+  const move = (direction) =>
+    setActive((current) => (current + direction + gallery.length) % gallery.length);
+
+  const openLightbox = () => setLightbox(active);
   const closeLightbox = () => setLightbox(null);
   const stepLightbox = (direction) =>
     setLightbox((current) => (current === null ? current : (current + direction + gallery.length) % gallery.length));
@@ -148,36 +150,15 @@ export function Gallery() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox]);
 
-  /**
-   * Advances the strip by exactly one photo.
-   *
-   * A card is half the viewport wide (see `.gallery-card` in index.css), so a
-   * half-viewport step lands precisely on the next photo — that is what makes
-   * this page-by-page rather than a pixel crawl.
-   *
-   * The strip holds two identical copies of the gallery so the loop is
-   * seamless. Positions at or past the midpoint sit in the second copy, and
-   * because the copies are identical, snapping back by one loop width is
-   * invisible to the eye.
-   */
-  const move = (direction) => {
-    const element = strip.current;
-    if (!element) return;
-    const loopWidth = element.scrollWidth / 2;
-    const step = (element.clientWidth + 12) / 2;
-    if (element.scrollLeft >= loopWidth) element.scrollLeft -= loopWidth;
-    if (direction < 0 && element.scrollLeft < step) element.scrollLeft += loopWidth;
-    element.scrollBy({ left: direction * step, behavior: 'smooth' });
-  };
-
-  // Page forward on a timer instead of drifting continuously: one whole photo
-  // every few seconds, so each shot gets a clean, readable moment on screen.
+  // Show one photo at a time and step through every image automatically.
+  // Hovering holds the current photo still so it can actually be read, and the
+  // full-screen viewer counts as hovering for the same reason.
   useEffect(() => {
-    if (!strip.current || paused || hovered || gallery.length < 2 ||
+    if (hovered || lightbox !== null || gallery.length < 2 ||
         window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     const id = window.setInterval(() => move(1), 4000);
     return () => window.clearInterval(id);
-  }, [paused, hovered]);
+  }, [hovered, lightbox, active]);
 
   return (
     <section id="gallery" className="bg-white pb-14">
@@ -194,64 +175,48 @@ export function Gallery() {
 
       {photo ? (
         <div
-          className="mt-6 w-full"
+          className="relative mx-auto mt-6 w-full max-w-5xl px-2 sm:px-3"
           role="region"
           aria-label="Shop photos"
           aria-roledescription="carousel"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          onFocusCapture={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) setPaused(true);
-          }}
         >
-          <div className="relative px-2 sm:px-3">
-            <div ref={strip} className="gallery-viewport no-scrollbar">
-              <div className="gallery-track">
-                {[0, 1].map((copy) => (
-                  <div key={copy} className="gallery-group" aria-hidden={copy === 1}>
-                    {gallery.map((item, index) => (
-                      <figure
-                        key={item.src}
-                        aria-hidden={copy === 1}
-                        className="gallery-card bg-transparent"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => openLightbox(index)}
-                          // The duplicate half of the loop is decorative, so it is
-                          // not reachable by keyboard or screen reader.
-                          tabIndex={copy === 1 ? -1 : 0}
-                          aria-hidden={copy === 1}
-                          aria-label={`${item.label} — full screen`}
-                          className="block w-full cursor-zoom-in"
-                        >
-                          <img src={item.src} alt={item.label} className="gallery-full-image" />
-                        </button>
-                      </figure>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => { setPaused(true); move(-1); }}
-              disabled={gallery.length < 2}
-              aria-label="Previous photo"
-              className="absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:left-2"
-            >
-              <ChevronLeft className="size-6" />
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPaused(true); move(1); }}
-              disabled={gallery.length < 2}
-              aria-label="Next photo"
-              className="absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center bg-transparent text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] transition-opacity hover:opacity-70 disabled:opacity-40 sm:right-2"
-            >
-              <ChevronRight className="size-6" />
-            </button>
-          </div>
+          {/* One photo per step. `object-contain` inside a viewport-height box is
+              what makes it "fit on screen": whatever the photo's aspect ratio, it
+              shrinks to fit the space instead of being cropped to fill it. */}
+          <button
+            type="button"
+            onClick={openLightbox}
+            aria-label={`${photo.label} — full screen`}
+            className="block w-full cursor-zoom-in"
+          >
+            <img
+              key={photo.src}
+              src={photo.src}
+              alt={photo.label}
+              className="gallery-fade mx-auto max-h-[68vh] w-full rounded-xl bg-slate-50 object-contain"
+            />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => move(-1)}
+            disabled={gallery.length < 2}
+            aria-label="Previous photo"
+            className="absolute left-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-ink shadow-soft transition-colors hover:bg-white disabled:opacity-40"
+          >
+            <ChevronLeft className="size-6" />
+          </button>
+          <button
+            type="button"
+            onClick={() => move(1)}
+            disabled={gallery.length < 2}
+            aria-label="Next photo"
+            className="absolute right-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-ink shadow-soft transition-colors hover:bg-white disabled:opacity-40"
+          >
+            <ChevronRight className="size-6" />
+          </button>
         </div>
       ) : (
         <p className="mt-6 text-center text-sm text-body/60">Gallery abhi khaali hai.</p>

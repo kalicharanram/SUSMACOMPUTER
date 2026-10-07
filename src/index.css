@@ -185,12 +185,24 @@
 .service-in {
   animation: service-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+/* Gallery steps one photo at a time, so each swap gets a short fade. */
+@keyframes gallery-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .service-in {
     animation: none;
   }
 }
-/* Two full-width photos retain their original proportions without cropping. */
+/* Full-screen viewer keeps the photo whole: `contain` inside a height-capped box
+   so a tall poster is never cropped just to fill the width. */
 .gallery-full-image {
   display: block;
   width: 100%;
@@ -198,11 +210,14 @@
   object-fit: contain;
 }
 
-.gallery-viewport {
-  container-type: inline-size;
-  overflow-x: auto;
-  overflow-y: hidden;
+/* Soft fade as the gallery steps to the next photo, so the swap reads as a
+   slideshow instead of a jump cut. The img is keyed on `src`, which is what
+   restarts this animation for every photo. */
+.gallery-fade {
+  animation: gallery-fade-in 450ms ease-out both;
 }
-.gallery-track { display: flex; width: max-content; }
-.gallery-group { display: flex; align-items: flex-start; gap: 12px; padding-right: 12px; }
-.gallery-card { flex: 0 0 auto; width: calc((100cqw - 12px) / 2); }
+@media (prefers-reduced-motion: reduce) {
+  .gallery-fade {
+    animation: none;
+  }
+}

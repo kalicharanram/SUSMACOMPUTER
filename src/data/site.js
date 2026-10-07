@@ -122,7 +122,6 @@ export const services = [
   { id: 16, label: 'School & Other ID Card', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
   { id: 18, label: 'Digital Seva Kendra', img: '18-digital-seva-kendra.jpg', tone: 'blue' },
-  { id: 19, label: 'Digital Busva Profile Setup', img: '19-digital-profile.jpg', tone: 'lav' },
   { id: 20, label: 'Google Business Profile Setup', img: '20-google-business.jpg', tone: 'mint' },
   { id: 21, label: 'Advertising Photo & Video', img: '21-advertising.jpg', tone: 'cream' },
 ];

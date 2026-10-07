@@ -148,12 +148,12 @@ export function Gallery() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox]);
 
-  // Each slide fills the viewport; duplicated photos keep the loop seamless.
+  // Two photos share the viewport without a gap; advance by one photo.
   const move = (direction) => {
     const element = strip.current;
     if (!element) return;
     const loopWidth = element.scrollWidth / 2;
-    const step = element.clientWidth;
+    const step = element.clientWidth / 2;
     if (element.scrollLeft >= loopWidth) element.scrollLeft -= loopWidth;
     if (direction < 0 && element.scrollLeft < step) element.scrollLeft += loopWidth;
     element.scrollBy({ left: direction * step, behavior: 'smooth' });

@@ -167,13 +167,11 @@
     animation: none;
   }
 }
-/* One complete photo fills the available screen below the sticky header. */
+/* Two complete photos touch edge to edge, without gutters or cropping. */
 .gallery-full-image {
   display: block;
   width: 100%;
-  height: calc(100vh - 7rem);
-  height: calc(100svh - 7rem);
-  min-height: 180px;
+  height: auto;
   object-fit: contain;
 }
 
@@ -184,5 +182,5 @@
   scroll-snap-type: x mandatory;
 }
 .gallery-track { display: flex; width: max-content; }
-.gallery-group { display: flex; align-items: flex-start; }
-.gallery-card { flex: 0 0 auto; width: 100cqw; scroll-snap-align: start; }
+.gallery-group { display: flex; align-items: flex-start; gap: 0; padding: 0; }
+.gallery-card { flex: 0 0 auto; width: 50cqw; margin: 0; padding: 0; scroll-snap-align: start; }

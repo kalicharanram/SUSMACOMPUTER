@@ -94,8 +94,13 @@ export function Header() {
      The probe line sits just under the sticky header — measuring against the
      top of the viewport would pick a section that is still hidden behind it. */
   useEffect(() => {
+    /* Contact lives on the <footer>, not on a <main> section — querying only
+       `main > section[id]` left it out, so the Contact item could never light
+       up. querySelectorAll returns document order, which keeps Contact last. */
     const sections = () =>
-      [...document.querySelectorAll('main > section[id]')].filter((s) => s.offsetHeight > 0);
+      [...document.querySelectorAll('main > section[id], footer[id]')].filter(
+        (s) => s.offsetHeight > 0
+      );
 
     const pick = () => {
       const list = sections();

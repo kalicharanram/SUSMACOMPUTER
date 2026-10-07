@@ -308,128 +308,134 @@ export function Hero() {
   ];
 
   return (
-    <section id="home" className="grid xl:grid-cols-[1.2fr_1.08fr_0.62fr]">
-      {/* ---------------------------------------------- 1. navy text panel -- */}
-      <div className="hero-grad order-1 flex flex-col justify-center px-6 py-3 sm:px-10 sm:py-4 xl:pl-14 xl:pr-10">
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15">
-          <span className="text-brand-yellow">#</span>
-          {hero.badge}
-        </span>
+    /* One single hero block. The shop front is now the background of the whole
+       section instead of a panel of its own, so the heading, the three actions
+       and the info cards all sit on one picture instead of three columns that
+       read as separate pages. */
+    <section id="home" className="relative isolate overflow-hidden bg-navy-2">
+      <img
+        src="./images/shop-hero.jpg"
+        alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
+        className="absolute inset-0 size-full object-cover object-center"
+      />
+      {/* Legibility wash. It has to be at its heaviest on the left, where the
+          white heading sits, and lightest on the right so the shop stays
+          visible behind the info cards. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/45"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
+      />
 
-        <h1 className="mt-4 text-[1.85rem] font-extrabold leading-[1.1] text-white sm:text-[2.2rem] xl:text-[2.35rem]">
-          {hero.title1}
-          <br />
-          <span className="text-brand-yellow">{hero.title2}</span>
-        </h1>
+      <div className="relative wrap grid items-center gap-6 py-7 xl:grid-cols-[1.1fr_0.9fr] xl:py-6">
+        {/* ------------------------------------------------ heading + actions -- */}
+        <div className="flex flex-col justify-center">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
+            <span className="text-brand-yellow">#</span>
+            {hero.badge}
+          </span>
 
-        <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-white/90 sm:text-[1.05rem]">
-          {hero.subtitleHindi}
-        </p>
+          <h1 className="mt-4 text-[1.85rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2.2rem] xl:text-[2.35rem]">
+            {hero.title1}
+            <br />
+            <span className="text-brand-yellow">{hero.title2}</span>
+          </h1>
 
-        <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
-          {hero.ticks.map((t) => (
-            <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white">
-              <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
-                <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              {t}
-            </li>
-          ))}
-        </ul>
+          <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1.05rem]">
+            {hero.subtitleHindi}
+          </p>
 
-        {/* The three actions always stay on one line — no wrapping.
-            On phones they share the available width and the label may wrap
-            inside its own button rather than the row breaking. */}
-        <div className="mt-5 flex flex-nowrap gap-2 sm:gap-3">
-          <a
-            href={`tel:${contact.phone1}`}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <Phone className="size-4 shrink-0" />
-            <span className="min-w-0">Call Now</span>
-          </a>
-          <a
-            href={contact.whatsapp}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <BrandWhatsApp className="size-4 shrink-0" />
-            <span className="min-w-0">WhatsApp</span>
-          </a>
-          <a
-            href={contact.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <MapPin className="size-4 shrink-0" />
-            <span className="min-w-0">Get Direction</span>
-          </a>
-        </div>
-      </div>
+          <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
+            {hero.ticks.map((t) => (
+              <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
+                <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
+                  <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                {t}
+              </li>
+            ))}
+          </ul>
 
-      {/* ----------------------------------------------- 2. shop photo (mid) -- */}
-      {/* `object-contain` on purpose. The shop front is a wide 2.1:1 picture and
-          the hero slot is narrower than that, so `object-cover` would slice off
-          the signboard and both sides of the shop to fill the box. Contain keeps
-          every pixel of the sign visible and the navy container shows through the
-          small letterbox instead. */}
-      <div className="relative order-2 min-h-[11rem] bg-navy-2 lg:min-h-[13.5rem]">
-        <img
-          src="./images/shop-hero.jpg"
-          alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
-          className="absolute inset-0 size-full object-contain"
-        />
-        {/* soft navy wash on the left edge so the photo blends into the panel */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-navy/70 via-navy/10 to-transparent"
-        />
-      </div>
-
-      {/* ------------------------------------------ 3. light info-card panel -- */}
-      <div className="order-3 flex flex-col justify-center gap-2.5 bg-gradient-to-br from-white via-[#F3F8FD] to-[#E6EFF9] px-5 py-4 sm:px-7 lg:flex-row xl:flex-col">
-        {cards.map(({ ring, fg, Icon, title, lines, pill, link }) => (
-          <div
-            key={title}
-            className="rounded-xl bg-white p-3 shadow-[0_4px_20px_-6px_rgba(10,27,78,0.18)]"
-          >
-            <div className="flex items-start gap-3.5">
-              {/* circular icon badge, as in the reference */}
-              <span className={`grid size-11 shrink-0 place-items-center rounded-full ${ring}`}>
-                <Icon className={`size-5 ${fg}`} />
-              </span>
-
-              <div className="min-w-0">
-                <h3 className="text-[0.98rem] font-extrabold leading-tight">{title}</h3>
-                {lines.map((l) => (
-                  <p key={l} className="mt-1 text-[0.85rem] leading-snug text-body">
-                    {l}
-                  </p>
-                ))}
-                {pill && (
-                  <span className="mt-2 inline-block rounded bg-open-green px-2.5 py-1 text-[0.7rem] font-bold text-white">
-                    {pill}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {link && (
-              <a
-                href={contact.mapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-3 inline-block rounded-md bg-brand-blue px-3.5 py-1.5 text-[0.74rem] font-bold text-white transition-colors hover:bg-brand-blue-dark"
-              >
-                {link}
-              </a>
-            )}
+          {/* The three actions always stay on one line — no wrapping.
+              On phones they share the available width and the label may wrap
+              inside its own button rather than the row breaking. */}
+          <div className="mt-5 flex flex-nowrap gap-2 sm:gap-3">
+            <a
+              href={`tel:${contact.phone1}`}
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <Phone className="size-4 shrink-0" />
+              <span className="min-w-0">Call Now</span>
+            </a>
+            <a
+              href={contact.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <BrandWhatsApp className="size-4 shrink-0" />
+              <span className="min-w-0">WhatsApp</span>
+            </a>
+            <a
+              href={contact.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <MapPin className="size-4 shrink-0" />
+              <span className="min-w-0">Get Direction</span>
+            </a>
           </div>
-        ))}
+        </div>
+
+        {/* ------------------------------------------------- info-card panel -- */}
+        {/* A light translucent plate so the three white cards keep their contrast
+             now that they sit on a photograph. */}
+        <div className="flex flex-col gap-2.5 rounded-2xl bg-gradient-to-br from-white/95 via-[#F3F8FD]/92 to-[#E6EFF9]/90 p-3.5 shadow-[0_18px_50px_-18px_rgba(10,27,78,0.65)] backdrop-blur-sm sm:p-4">
+          {cards.map(({ ring, fg, Icon, title, lines, pill, link }) => (
+            <div
+              key={title}
+              className="rounded-xl bg-white p-3 shadow-[0_4px_20px_-6px_rgba(10,27,78,0.18)]"
+            >
+              <div className="flex items-start gap-3.5">
+                {/* circular icon badge, as in the reference */}
+                <span className={`grid size-11 shrink-0 place-items-center rounded-full ${ring}`}>
+                  <Icon className={`size-5 ${fg}`} />
+                </span>
+
+                <div className="min-w-0">
+                  <h3 className="text-[0.98rem] font-extrabold leading-tight">{title}</h3>
+                  {lines.map((l) => (
+                    <p key={l} className="mt-1 text-[0.85rem] leading-snug text-body">
+                      {l}
+                    </p>
+                  ))}
+                  {pill && (
+                    <span className="mt-2 inline-block rounded bg-open-green px-2.5 py-1 text-[0.7rem] font-bold text-white">
+                      {pill}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {link && (
+                <a
+                  href={contact.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded-md bg-brand-blue px-3.5 py-1.5 text-[0.74rem] font-bold text-white transition-colors hover:bg-brand-blue-dark"
+                >
+                  {link}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

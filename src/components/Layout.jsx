@@ -1,7 +1,7 @@
-import { MapPin, Phone, Mail, Star, MapPinned, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { contact, nav, hero, addressFull } from '../data/site';
+import { contact, nav, hero, addressFull, socials } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -48,12 +48,28 @@ export function TopBar() {
           <div className="hidden items-center gap-1.5 sm:flex">
             {Object.keys(SOCIALS).map((k) => {
               const S = SOCIALS[k];
+              const url = socials[k];
+              const className = `grid size-6 place-items-center rounded-[5px] text-white ${SOCIAL_BG[k]}`;
+
+              // No URL yet for this network: draw the square, but not as a link.
+              // A clickable `href="#"` would just jump the visitor to the top of
+              // the page, which looks like a broken button.
+              if (!url) {
+                return (
+                  <span key={k} aria-hidden="true" className={`${className} opacity-60`}>
+                    <S className="size-3.5" />
+                  </span>
+                );
+              }
+
               return (
                 <a
                   key={k}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
                   aria-label={k}
-                  className={`grid size-6 place-items-center rounded-[5px] text-white transition-opacity hover:opacity-85 ${SOCIAL_BG[k]}`}
+                  className={`${className} transition-opacity hover:opacity-85`}
                 >
                   <S className="size-3.5" />
                 </a>
@@ -79,12 +95,56 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [activeId, setActiveId] = useState('home');
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* Scroll-spy: marks whichever section the visitor is actually looking at, so
+     the menu tracks the page instead of always pointing at Home.
+     The probe line sits just under the sticky header — measuring against the
+     top of the viewport would pick a section that is still hidden behind it. */
+  useEffect(() => {
+    /* Contact lives on the <footer>, not on a <main> section — querying only
+       `main > section[id]` left it out, so the Contact item could never light
+       up. querySelectorAll returns document order, which keeps Contact last. */
+    const sections = () =>
+      [...document.querySelectorAll('main > section[id], footer[id]')].filter(
+        (s) => s.offsetHeight > 0
+      );
+
+    const pick = () => {
+      const list = sections();
+      if (!list.length) return;
+
+      const headerH = headerRef.current?.offsetHeight ?? 88;
+      const line = window.scrollY + headerH + 24;
+
+      let current = list[0].id;
+      for (const s of list) {
+        if (s.offsetTop <= line) current = s.id;
+      }
+
+      // At the very bottom the last section can be too short to ever cross the
+      // line, so pin the highlight to the last one instead.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) current = list[list.length - 1].id;
+
+      setActiveId((prev) => (prev === current ? prev : current));
+    };
+
+    pick();
+    window.addEventListener('scroll', pick, { passive: true });
+    window.addEventListener('resize', pick);
+    return () => {
+      window.removeEventListener('scroll', pick);
+      window.removeEventListener('resize', pick);
+    };
   }, []);
 
   useEffect(() => {
@@ -94,8 +154,17 @@ export function Header() {
     };
   }, [open]);
 
+  /* Only the first nav item pointing at the visible section is highlighted.
+     "Services" and "Price List" both link to #services; lighting both up at
+     once reads as a mistake, so the first match wins and Price List stays
+     neutral. */
+  const activeIndex = nav.findIndex((item) => item.href === `#${activeId}`);
+
   return (
-    <header className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}>
+    <header
+      ref={headerRef}
+      className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}
+    >
       <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
         <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
           <img
@@ -119,10 +188,16 @@ export function Header() {
             >
               <a
                 href={item.href}
-                className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] xl:px-3.5 xl:text-[0.92rem] font-semibold transition-colors ${
-                  i === 0
-                    ? 'bg-brand-blue text-white'
-                    : 'text-ink hover:text-brand-blue'
+className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] font-semibold transition-colors xl:px-3.5 xl:text-[0.92rem] ${
+                  /* Dark blue for the section currently in view, and while this
+                     item's menu is open. The open state has to be part of the
+                     class, not just `:hover`: once the cursor leaves the link to
+                     travel down into the dropdown panel the link is no longer
+                     hovered, so a hover-only rule turned the button pale while
+                     its own menu was still on screen. */
+                  i === activeIndex || openDrop === i
+                    ? 'bg-brand-blue-dark text-white'
+                    : 'bg-p-blue text-brand-blue-dark hover:bg-brand-blue-dark hover:text-white'
                 }`}
               >
                 {/* the active Home item carries a house glyph in the reference */}
@@ -132,8 +207,12 @@ export function Header() {
               </a>
 
               {item.children && (
+                /* All services now live in this menu, so it is taller than the
+                   viewport on a laptop. Capped to the viewport and given its own
+                   scrollbar; a mouse wheel over the panel still reaches the list
+                   because it is the only thing under the cursor. */
                 <div
-                  className={`absolute left-0 top-full w-56 overflow-hidden rounded-lg border border-slate-100 bg-white shadow-xl transition-all ${
+                  className={`scrollbar-thin absolute left-0 top-full max-h-[min(26rem,70vh)] w-56 overflow-y-auto overscroll-contain rounded-lg border border-slate-100 bg-white shadow-xl transition-all lg:max-h-[min(32rem,75vh)] ${
                     openDrop === i
                       ? 'visible translate-y-0 opacity-100'
                       : 'invisible -translate-y-1 opacity-0'
@@ -215,153 +294,102 @@ export function Header() {
 }
 
 /* ================================================================== HERO == */
-/* Three zones, exactly as the reference: dark navy panel · shop photo (centre)
-   · light panel carrying the three info cards.                            */
+/* The shop front is the section background; the heading and the three actions
+   sit on top of it. */
 export function Hero() {
-  const cards = [
-    {
-      ring: 'bg-[#E3EEFB]',
-      fg: 'text-brand-blue',
-      Icon: Clock,
-      title: 'Open Today',
-      lines: [contact.hoursToday],
-      pill: contact.openLabel,
-    },
-    {
-      ring: 'bg-[#FEF6D6]',
-      fg: 'text-[#E8A800]',
-      Icon: Star,
-      title: 'Customer Support',
-      lines: ['Always Ready to Help'],
-    },
-    {
-      ring: 'bg-[#FDE7EA]',
-      fg: 'text-brand-red',
-      Icon: MapPinned,
-      title: 'Our Location',
-      lines: [addressFull],
-      link: 'View on Google Maps',
-    },
-  ];
-
   return (
-    <section id="home" className="grid xl:grid-cols-[1.2fr_1.08fr_0.62fr]">
-      {/* ---------------------------------------------- 1. navy text panel -- */}
-      <div className="hero-grad order-1 flex flex-col justify-center px-6 py-3 sm:px-10 sm:py-4 xl:pl-14 xl:pr-10">
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15">
-          <span className="text-brand-yellow">#</span>
-          {hero.badge}
-        </span>
+    /* One single hero block. The shop front is now the background of the whole
+       section instead of a panel of its own, so the heading, the three actions
+       and the info cards all sit on one picture instead of three columns that
+       read as separate pages. */
+    <section id="home" className="relative isolate overflow-hidden bg-navy-2">
+      <img
+        src="./images/shop-hero.jpg"
+        alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
+        className="absolute inset-0 size-full object-cover object-center"
+      />
+      {/* Legibility wash. It has to be at its heaviest on the left, where the
+          white heading sits, and lightest on the right so the shop stays
+          visible behind the info cards. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/45"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
+      />
 
-        <h1 className="mt-4 text-[1.85rem] font-extrabold leading-[1.1] text-white sm:text-[2.2rem] xl:text-[2.35rem]">
-          {hero.title1}
-          <br />
-          <span className="text-brand-yellow">{hero.title2}</span>
-        </h1>
+      <div className="relative wrap py-5 xl:py-4">
+        {/* ------------------------------------------------ heading + actions -- */}
+        {/* Capped width so the heading does not stretch into one very long line
+             now that the right-hand card column is gone — and the shop photo
+             stays visible beside the text instead of being covered by it. */}
+        <div className="flex max-w-3xl flex-col justify-center">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[0.82rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
+            <span className="text-brand-yellow">#</span>
+            {hero.badge}
+          </span>
 
-        <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-white/90 sm:text-[1.05rem]">
-          {hero.subtitleHindi}
-        </p>
+          <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2rem] xl:text-[2.05rem]">
+            {hero.title1}
+            <br />
+            <span className="text-brand-yellow">{hero.title2}</span>
+          </h1>
 
-        <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
-          {hero.ticks.map((t) => (
-            <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white">
-              <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
-                <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              {t}
-            </li>
-          ))}
-        </ul>
+          <p className="mt-2 max-w-lg text-[0.92rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1rem]">
+            {hero.subtitleHindi}
+          </p>
 
-        {/* The three actions always stay on one line — no wrapping.
-            On phones they share the available width and the label may wrap
-            inside its own button rather than the row breaking. */}
-        <div className="mt-5 flex flex-nowrap gap-2 sm:gap-3">
-          <a
-            href={`tel:${contact.phone1}`}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <Phone className="size-4 shrink-0" />
-            <span className="min-w-0">Call Now</span>
-          </a>
-          <a
-            href={contact.whatsapp}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <BrandWhatsApp className="size-4 shrink-0" />
-            <span className="min-w-0">WhatsApp</span>
-          </a>
-          <a
-            href={contact.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2.5 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
-          >
-            <MapPin className="size-4 shrink-0" />
-            <span className="min-w-0">Get Direction</span>
-          </a>
-        </div>
-      </div>
+          <ul className="mt-3 flex flex-wrap gap-x-7 gap-y-2">
+            {hero.ticks.map((t) => (
+              <li key={t} className="inline-flex items-center gap-2.5 text-[0.98rem] font-medium text-white drop-shadow-[0_1px_5px_rgba(0,0,0,0.55)]">
+                <span className="grid size-5 place-items-center rounded-full bg-brand-yellow text-navy">
+                  <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                {t}
+              </li>
+            ))}
+          </ul>
 
-      {/* ----------------------------------------------- 2. shop photo (mid) -- */}
-      <div className="relative order-2 min-h-[11rem] bg-navy-2 lg:min-h-[13.5rem]">
-        <img
-          src="./images/shop-hero.jpg"
-          alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
-          className="absolute inset-0 size-full object-cover object-top"
-        />
-        {/* soft navy wash on the left edge so the photo blends into the panel */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-navy/70 via-navy/10 to-transparent"
-        />
-      </div>
-
-      {/* ------------------------------------------ 3. light info-card panel -- */}
-      <div className="order-3 flex flex-col justify-center gap-2.5 bg-gradient-to-br from-white via-[#F3F8FD] to-[#E6EFF9] px-5 py-4 sm:px-7 lg:flex-row xl:flex-col">
-        {cards.map(({ ring, fg, Icon, title, lines, pill, link }) => (
-          <div
-            key={title}
-            className="rounded-xl bg-white p-3 shadow-[0_4px_20px_-6px_rgba(10,27,78,0.18)]"
-          >
-            <div className="flex items-start gap-3.5">
-              {/* circular icon badge, as in the reference */}
-              <span className={`grid size-11 shrink-0 place-items-center rounded-full ${ring}`}>
-                <Icon className={`size-5 ${fg}`} />
-              </span>
-
-              <div className="min-w-0">
-                <h3 className="text-[0.98rem] font-extrabold leading-tight">{title}</h3>
-                {lines.map((l) => (
-                  <p key={l} className="mt-1 text-[0.85rem] leading-snug text-body">
-                    {l}
-                  </p>
-                ))}
-                {pill && (
-                  <span className="mt-2 inline-block rounded bg-open-green px-2.5 py-1 text-[0.7rem] font-bold text-white">
-                    {pill}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {link && (
-              <a
-                href={contact.mapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-3 inline-block rounded-md bg-brand-blue px-3.5 py-1.5 text-[0.74rem] font-bold text-white transition-colors hover:bg-brand-blue-dark"
-              >
-                {link}
-              </a>
-            )}
+          {/* The three actions always stay on one line — no wrapping.
+              On phones they share the available width and the label may wrap
+              inside its own button rather than the row breaking. */}
+          <div className="mt-4 flex flex-nowrap gap-2 sm:gap-3">
+            <a
+              href={`tel:${contact.phone1}`}
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-red px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-red-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <Phone className="size-4 shrink-0" />
+              <span className="min-w-0">Call Now</span>
+            </a>
+            <a
+              href={contact.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-wa-green px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-[#1eb957] sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <BrandWhatsApp className="size-4 shrink-0" />
+              <span className="min-w-0">WhatsApp</span>
+            </a>
+            <a
+              href={contact.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+            >
+              <MapPin className="size-4 shrink-0" />
+              <span className="min-w-0">Get Direction</span>
+            </a>
           </div>
-        ))}
+        </div>
+
+        {/* ------------------------------------------------- info-card panel -- */}
+        {/* Removed at the client's request. The hours, the support promise and
+             the full address are still on the page — in the top bar, in the
+             "Get Direction" button and in the footer — so nothing was lost. */}
       </div>
     </section>
   );

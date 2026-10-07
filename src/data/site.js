@@ -52,9 +52,33 @@ export const contact = {
   hoursToday: '9:00 AM - 8:00 PM',
   openLabel: 'Open Now',
 
-  mapsUrl: 'https://maps.app.goo.gl/',
+  /* Google Maps link for the shop's location — the owner's own listing, shared
+     from their phone. It resolves to "Susma Computer & Video Mixing Lab" at
+     25.579741, 85.946581, about 4.7 km east of Bachhwara town centre and inside
+     the Kadrabad area. The listing carries a place id and a CID, so Maps opens
+     the shop by name rather than dropping a bare pin, which is why a short
+     maps.app.goo.gl link is used instead of a /maps/dir/ URL — the dir/ form has
+     to guess the shop from address text and opens whatever name matched first.
+     Read by BOTH the hero's "Get Direction" button and the location square in
+     the top bar (see `socials.maps`), so changing this one line moves the pin
+     everywhere at once. Swap it for a new short link if the shop ever moves. */
+  mapsUrl: 'https://maps.app.goo.gl/7gcz5sgknpWjqhbA6',
   // wa.me needs the number in international form, no + or spaces
   whatsapp: 'https://wa.me/919534699946',
+};
+
+/* Social profile links for the coloured squares in the top bar.
+   Keys must match `SOCIALS` in components/Icons.jsx. A key set to `null` is not
+   drawn as a link at all, so the square cannot be clicked and bounce the visitor
+   to the top of the page — which is what a bare `href="#"` does. */
+export const socials = {
+  youtube: 'http://www.youtube.com/@susmacomputer',
+  facebook: 'https://www.facebook.com/profile.php?id=61595040813380',
+  instagram: 'https://www.instagram.com/susmacomputer?stkn=MTZoY3ZqcGZvNHFsMA==',
+  // The green square is the location mark rather than a social profile, so it
+  // points at the same pin the hero's "Get Direction" button uses. Reading it
+  // from `contact.mapsUrl` keeps the two from drifting apart if the shop moves.
+  maps: contact.mapsUrl,
 };
 
 /** One-line form of the address, built from the parts above. */
@@ -101,7 +125,6 @@ export const services = [
   { id: 19, label: 'Digital Busva Profile Setup', img: '19-digital-profile.jpg', tone: 'lav' },
   { id: 20, label: 'Google Business Profile Setup', img: '20-google-business.jpg', tone: 'mint' },
   { id: 21, label: 'Advertising Photo & Video', img: '21-advertising.jpg', tone: 'cream' },
-  { id: 22, label: 'All Services', img: '22-all-services.jpg', tone: 'lav' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */
@@ -160,14 +183,12 @@ export const nav = [
   {
     label: 'Services',
     href: '#services',
-    children: [
-      'Computer Job Work',
-      'Computer Assemble',
-      'Videography Services',
-      'Video Mixing & Editing',
-      'Website Designing',
-      'ITR & GST Filing',
-    ],
+    /* Built from the `services` list rather than written out by hand.
+       A second hand-kept copy of these names is exactly how a menu ends up
+       showing "Computer Assemble" twice while the strip shows it once, so the
+       menu is derived instead. `new Set` also collapses any repeat, making a
+       duplicate entry impossible even if the services list grows one. */
+    children: [...new Set(services.map((s) => s.label))],
   },
   {
     label: 'Gallery',

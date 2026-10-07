@@ -30,6 +30,9 @@
 
   /* Service card pastels — rotating set, exactly as in the design */
   --color-p-blue: #e4efff;
+  /* One step deeper than p-blue, for the nav hover state. Kept light enough that
+     the dark blue label stays legible on it without flipping to white text. */
+  --color-p-blue-dark: #c3dcfa;
   --color-p-peach: #ffe8da;
   --color-p-pink: #ffe3ea;
   --color-p-lav: #ede7ff;
@@ -133,6 +136,26 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Slim scrollbar for the Services dropdown.
+     The global rule above is an 11px navy bar sized for the page; inside a
+     14rem-wide menu that reads as a second panel, so this is narrower and
+     neutral. The plain `scrollbar-width` line is what Firefox honours. */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #c3cddf transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #c3cddf;
+    border: 0;
+    border-radius: 99px;
+  }
 }
 
 /* Continuous service strip — shifts by exactly half so the doubled list loops */
@@ -162,17 +185,41 @@
 .service-in {
   animation: service-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+/* Gallery steps one photo at a time, so each swap gets a short fade. */
+@keyframes gallery-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .service-in {
     animation: none;
   }
 }
-/* Two complete photos touch edge to edge, without gutters or cropping. */
+/* Full-screen viewer keeps the photo whole: `contain` inside a height-capped box
+   so a tall poster is never cropped just to fill the width. */
 .gallery-full-image {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+/* Soft fade as the gallery steps to the next photo, so the swap reads as a
+   slideshow instead of a jump cut. The img is keyed on `src`, which is what
+   restarts this animation for every photo. */
+.gallery-fade {
+  animation: gallery-fade-in 450ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-fade {
+    animation: none;
+  }
 }
 
 .gallery-viewport {

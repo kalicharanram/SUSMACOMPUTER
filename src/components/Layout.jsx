@@ -1,7 +1,7 @@
-import { MapPin, Phone, Mail, Star, MapPinned, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
+import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
-import { contact, nav, hero, addressFull } from '../data/site';
+import { SOCIALS, SOCIAL_BG, BrandWhatsApp, Icon } from './Icons';
+import { contact, nav, hero, addressFull, infoCards } from '../data/site';
 
 /* ================================================================ TOP BAR == */
 export function TopBar() {
@@ -218,6 +218,45 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
           ))}
         </nav>
 
+        {/* Business info cards, to the right of the menu.
+            Compact by necessity: three of them plus the seven menu buttons have
+            to share one row, so each is a small icon with a one-line value.
+            Hidden below 2xl, where the hero carries them instead. */}
+        <div className="hidden items-center gap-2 2xl:flex">
+          {infoCards.map(({ ring, fg, icon, title, lines, link }) => (
+            <div
+              key={title}
+              className="flex min-w-0 items-center gap-2.5 rounded-xl border border-slate-100 bg-white px-3 py-2 shadow-[0_2px_10px_-4px_rgba(10,27,78,0.18)]"
+            >
+              <span className={`grid size-8 shrink-0 place-items-center rounded-full ${ring}`}>
+                <Icon name={icon} className={`size-4 ${fg}`} />
+              </span>
+
+              <span className="min-w-0">
+                <span className="block text-[0.58rem] font-bold uppercase tracking-[0.12em] text-body/60">
+                  {title}
+                </span>
+                <span className="block max-w-[11rem] truncate text-[0.74rem] font-bold leading-tight text-ink">
+                  {lines[0]}
+                </span>
+              </span>
+
+              {link && (
+                <a
+                  href={contact.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${title} — ${link}`}
+                  title={link}
+                  className="ml-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-dark"
+                >
+                  <MapPin className="size-3.5" />
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+
         {/* search + toggle */}
         <div className="flex items-center gap-2">
           <div className="hidden 2xl:flex">
@@ -278,34 +317,11 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 }
 
 /* ================================================================== HERO == */
-/* Three zones, exactly as the reference: dark navy panel · shop photo (centre)
-   · light panel carrying the three info cards.                            */
+/* The shop front is the section background; the heading and the three actions
+   sit on top of it. On wide screens the business info cards live in the header
+   instead (see Header), so they are rendered here only on narrow ones. */
 export function Hero() {
-  const cards = [
-    {
-      ring: 'bg-[#E3EEFB]',
-      fg: 'text-brand-blue',
-      Icon: Clock,
-      title: 'Open Today',
-      lines: [contact.hoursToday],
-      pill: contact.openLabel,
-    },
-    {
-      ring: 'bg-[#FEF6D6]',
-      fg: 'text-[#E8A800]',
-      Icon: Star,
-      title: 'Customer Support',
-      lines: ['Always Ready to Help'],
-    },
-    {
-      ring: 'bg-[#FDE7EA]',
-      fg: 'text-brand-red',
-      Icon: MapPinned,
-      title: 'Our Location',
-      lines: [addressFull],
-      link: 'View on Google Maps',
-    },
-  ];
+  const cards = infoCards;
 
   return (
     /* One single hero block. The shop front is now the background of the whole
@@ -330,7 +346,7 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
       />
 
-      <div className="relative wrap grid items-center gap-6 py-7 xl:grid-cols-[1.1fr_0.9fr] xl:py-6">
+      <div className="relative wrap grid items-center gap-6 py-7 xl:grid-cols-[1.1fr_0.9fr] xl:py-6 2xl:grid-cols-1">
         {/* ------------------------------------------------ heading + actions -- */}
         <div className="flex flex-col justify-center">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[0.85rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
@@ -394,10 +410,11 @@ export function Hero() {
         </div>
 
         {/* ------------------------------------------------- info-card panel -- */}
-        {/* A light translucent plate so the three white cards keep their contrast
-             now that they sit on a photograph. */}
-        <div className="flex flex-col gap-2.5 rounded-2xl bg-gradient-to-br from-white/95 via-[#F3F8FD]/92 to-[#E6EFF9]/90 p-3.5 shadow-[0_18px_50px_-18px_rgba(10,27,78,0.65)] backdrop-blur-sm sm:p-4">
-          {cards.map(({ ring, fg, Icon, title, lines, pill, link }) => (
+        {/* Narrow screens only. From 2xl up these cards sit in the header beside
+             the menu instead, so rendering them in both places would show the
+             hours and the address twice on a desktop. */}
+        <div className="flex flex-col gap-2.5 rounded-2xl bg-gradient-to-br from-white/95 via-[#F3F8FD]/92 to-[#E6EFF9]/90 p-3.5 shadow-[0_18px_50px_-18px_rgba(10,27,78,0.65)] backdrop-blur-sm sm:p-4 2xl:hidden">
+          {cards.map(({ ring, fg, icon, title, lines, pill, link }) => (
             <div
               key={title}
               className="rounded-xl bg-white p-3 shadow-[0_4px_20px_-6px_rgba(10,27,78,0.18)]"
@@ -405,7 +422,7 @@ export function Hero() {
               <div className="flex items-start gap-3.5">
                 {/* circular icon badge, as in the reference */}
                 <span className={`grid size-11 shrink-0 place-items-center rounded-full ${ring}`}>
-                  <Icon className={`size-5 ${fg}`} />
+                  <Icon name={icon} className={`size-5 ${fg}`} />
                 </span>
 
                 <div className="min-w-0">

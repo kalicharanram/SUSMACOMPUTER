@@ -467,12 +467,9 @@ function VisitCounter() {
 
   if (!visitCounter.enabled || count === null) return null;
 
-  // No margin of its own: it sits in the middle cell of the footer's bottom
-  // row. `sm:col-start-2` places it explicitly, because the social squares are
-  // pinned to column 3 — without this the counter would be pushed past them and
-  // land in a fourth column, off to the right.
+  // Own centred line below the copyright row, as in the design reference.
   return (
-    <p className="text-center text-[0.78rem] text-white/55 sm:col-start-2">
+    <p className="mt-5 text-center text-[0.78rem] text-white/55">
       Visitor Count : {count}
     </p>
   );
@@ -546,19 +543,11 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Three cells rather than justify-between: the counter has to sit in the
-            true middle of the row, and with justify-between it would just land
-            wherever the free space happened to fall. The 1fr sides keep it
-            centred no matter how wide the social squares get. */}
-        <div className="mt-8 grid items-center gap-4 border-t border-white/10 pt-6 sm:grid-cols-[1fr_auto_1fr]">
-          <p className="text-center text-[0.78rem] text-white/55 sm:text-left">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-[0.78rem] text-white/55">
             © {new Date().getFullYear()} {business.nameFull}. {t('All rights reserved.')}
           </p>
-          {/* `sm:col-start-3` pins the squares to the third column. Without it they
-              slide into the middle `auto` column whenever VisitCounter renders
-              nothing — which it does until the database exists — leaving them
-              stranded in the middle of the footer. */}
-          <div className="flex items-center justify-center gap-2 sm:col-start-3 sm:justify-end">
+          <div className="flex items-center gap-2">
             {/* Same profiles as the top-bar squares, read from the same `socials`
                 map so the two rows can never point at different places. */}
             {['facebook', 'instagram', 'youtube', 'maps'].map((k) => {
@@ -594,9 +583,13 @@ export function Footer() {
               );
             })}
           </div>
-
-          <VisitCounter />
         </div>
+
+        {/* Counter sits on its own centred line under the row, matching the design
+            reference. It was briefly placed inside the row instead, which needs
+            the three columns pinned explicitly and still breaks the moment the
+            counter renders nothing — so it is a separate line, which cannot. */}
+        <VisitCounter />
       </div>
     </footer>
   );

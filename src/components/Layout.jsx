@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Search, Menu, X, ChevronDown, House } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Search, Menu, X, ChevronDown, House } from 'lucide-react';
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { SOCIALS, SOCIAL_BG, BrandWhatsApp } from './Icons';
 import { contact, nav, hero, socials } from '../data/site';
@@ -41,6 +41,17 @@ export function TopBar() {
             <Mail className="size-3.5 shrink-0" />
             {contact.email}
           </a>
+
+          {/* Opening hours. These disappeared when the business info cards were
+              removed from the hero, which left the site saying nothing about
+              when the shop is open — the first thing a caller wants to know. */}
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="size-3.5 shrink-0" />
+            {t(contact.hoursToday)}
+            <span className="rounded bg-open-green px-1.5 py-0.5 text-[0.62rem] font-bold leading-tight text-white">
+              {t(contact.openLabel)}
+            </span>
+          </span>
         </div>
 
         {/* mobile */}

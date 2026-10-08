@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Icon, TONES, Logo } from './Icons';
-import { services, whyUs, gallery, reviews, contact, business, visitCounter } from '../data/site';
+import { services, whyUs, gallery, reviews, contact, business, visitCounter, socials } from '../data/site';
 import { useLang } from '../i18n';
 
 /* ============================================================== SERVICES == */
@@ -530,16 +530,40 @@ export function Footer() {
             © {new Date().getFullYear()} {business.nameFull}. {t('All rights reserved.')}
           </p>
           <div className="flex items-center gap-2">
-            {['facebook', 'instagram', 'youtube', 'maps'].map((k) => (
-              <a
-                key={k}
-                href="#"
-                aria-label={k}
-                className="grid size-9 place-items-center rounded-md bg-white/10 text-white transition-colors hover:bg-brand-red"
-              >
-                <SocialGlyph k={k} />
-              </a>
-            ))}
+            {/* Same profiles as the top-bar squares, read from the same `socials`
+                map so the two rows can never point at different places. */}
+            {['facebook', 'instagram', 'youtube', 'maps'].map((k) => {
+              const url = socials[k];
+              const className =
+                'grid size-9 place-items-center rounded-md text-white transition-colors';
+
+              // No profile URL for this network yet: draw it dimmed instead of
+              // linking to "#", which would just jump the visitor to the top.
+              if (!url) {
+                return (
+                  <span
+                    key={k}
+                    aria-hidden="true"
+                    className={`${className} cursor-default bg-white/10 opacity-55`}
+                  >
+                    <SocialGlyph k={k} />
+                  </span>
+                );
+              }
+
+              return (
+                <a
+                  key={k}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={k}
+                  className={`${className} bg-white/10 hover:bg-brand-red`}
+                >
+                  <SocialGlyph k={k} />
+                </a>
+              );
+            })}
           </div>
         </div>
 

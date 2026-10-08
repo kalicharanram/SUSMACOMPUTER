@@ -69,22 +69,31 @@ export const contact = {
 
 /* ---------------------------------------------------------- VISIT COUNTER -- */
 /**
- * Visitor counter for the bottom of the footer.
+ * Visitor counter for the centre of the footer.
  *
- * Uses the Realtime Database of the existing `kadrabadmarts` Firebase project,
- * over its plain REST API. Set `enabled` to false to hide it entirely without
- * deleting the component.
+ * `backend: 'local'` keeps the number in this browser's own storage. It works
+ * straight away with no account, no server and no cost, but it can only ever
+ * count visits made on this one device — so it is a rough figure, not a traffic
+ * report.
  *
- * The database instance has to exist and its rules have to allow reads and
- * writes at `/susma/visits`; Firebase refuses to create a Realtime Database
- * instance on the free (Spark) plan, so the project needs the Blaze plan before
- * this returns a number. Until then the component renders nothing rather than a
- * zero, so the footer never shows a false count.
+ * Switching to `backend: 'firebase'` gives a real, shared count across every
+ * visitor. It needs the `kadrabadmarts` Firebase project on the Blaze plan
+ * (Realtime Database creation is refused on the free Spark plan) and a database
+ * instance whose rules allow reads and writes at `/susma/visits`. Change this one
+ * line once those exist; no component code needs touching.
  */
 export const visitCounter = {
   enabled: true,
+  backend: 'local',
+
+  // -- local backend
+  storeKey: 'susma:visits',
+
+  // -- firebase backend
   dbUrl: 'https://kadrabadmarts-default-rtdb.asia-southeast1.firebasedatabase.app',
-  // Marks that this tab has already been counted, so a refresh is not a new visit.
+
+  // Marks that this tab has already been counted, so pressing F5 is not a new
+  // visit. Applies to both backends.
   sessionKey: 'susma:counted',
 };
 

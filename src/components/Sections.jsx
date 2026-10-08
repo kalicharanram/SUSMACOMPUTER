@@ -389,26 +389,22 @@ export function Reviews() {
 /* ================================================================ FOOTER == */
 /* ======================================================== VISITOR COUNTER == */
 /**
- * Shows how many people have visited, bottom-centre of the footer.
+ * Shows the visit count, in the centre of the footer's bottom row.
  *
- * Backs onto the Firebase Realtime Database in the `kadrabadmarts` project using
- * the plain REST API — no SDK — so it costs nothing in page weight on a site
- * this small.
+ * Two backends, chosen by `visitCounter.backend` in src/data/site.js:
  *
- * Two things worth knowing about how it counts:
+ * - `local` — keeps the number in this browser. Works immediately, no account,
+ *   no server, no cost, but it can only count visits on this one device.
+ * - `firebase` — a real count shared by every visitor, via the Realtime
+ *   Database REST API (no SDK, so it adds nothing to page weight). Needs the
+ *   project on the Blaze plan and a database with rules open at /susma/visits.
  *
- * - Once per browser tab, not once per page view. sessionStorage is the marker,
- *   so refreshing a page does not inflate the total. A "visitor" number that
- *   jumps when you press F5 is worse than useless; it stops meaning anything.
- * - It counts every visit including the owner's own, so treat it as a rough
- *   figure rather than a traffic report.
+ * Both backends count once per browser tab rather than once per page view.
+ * sessionStorage holds the marker, so pressing F5 does not inflate the total —
+ * a visitor number that jumps on refresh stops meaning anything.
  *
- * PATCHing `{"count": 1}` is the Realtime Database REST spelling of "add one to
- * the existing number" — it applies server-side, so two people opening the site
- * at the same instant cannot overwrite each other.
- *
- * Renders nothing at all when the database is unreachable, which is what keeps a
- * missing or locked-down database from showing an error in the footer.
+ * Renders nothing when no count is available, so a blocked storage API or an
+ * unreachable database can never put an error in the footer.
  */
 function VisitCounter() {
   const [count, setCount] = useState(null);
@@ -416,6 +412,24 @@ function VisitCounter() {
   useEffect(() => {
     let cancelled = false;
 
+    /* ------------------------------------------------------- local backend -- */
+    if (visitCounter.backend === 'local') {
+      try {
+        if (!sessionStorage.getItem(visitCounter.sessionKey)) {
+          sessionStorage.setItem(visitCounter.sessionKey, '1');
+          const next = Number(localStorage.getItem(visitCounter.storeKey) || '0') + 1;
+          localStorage.setItem(visitCounter.storeKey, String(next));
+          setCount(next);
+        } else {
+          setCount(Number(localStorage.getItem(visitCounter.storeKey) || '0'));
+        }
+      } catch {
+        /* storage blocked in private mode — leave the counter hidden */
+      }
+      return undefined;
+    }
+
+    /* ----------------------------------------------------- firebase backend -- */
     const show = (data) => {
       if (!cancelled && data && typeof data.count === 'number') setCount(data.count);
     };
@@ -429,6 +443,9 @@ function VisitCounter() {
     try {
       if (!sessionStorage.getItem(visitCounter.sessionKey)) {
         sessionStorage.setItem(visitCounter.sessionKey, '1');
+        // PATCHing a number is the Realtime Database REST spelling of "add one".
+        // It is applied server-side, so two simultaneous visitors cannot
+        // overwrite each other's increment.
         fetch(`${visitCounter.dbUrl}/susma/visits.json`, {
           method: 'PATCH',
           body: '{"count":1}',

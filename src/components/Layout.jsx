@@ -351,7 +351,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
                 placeholder={t('Search Services...')}
                 className="h-11 flex-1 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm"
               />
-              <button className="grid h-11 w-12 place-items-center rounded-r-md bg-navy text-white" aria-label="Search">
+              <button className="btn-primary grid h-11 w-12 place-items-center rounded-r-md" aria-label="Search">
                 <Search className="size-4" />
               </button>
             </div>
@@ -451,7 +451,7 @@ export function Hero() {
               href={contact.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand-blue px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight text-white shadow-lg transition-colors hover:bg-brand-blue-dark sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
+              className="btn-primary inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2.5 py-2 text-center text-[0.72rem] font-bold leading-tight shadow-lg transition-colors sm:flex-none sm:gap-2 sm:px-3.5 sm:py-2.5 sm:text-base"
             >
               <MapPin className="size-4 shrink-0" />
               <span className="min-w-0">{t('Get Direction')}</span>

@@ -21,7 +21,7 @@ export function Services() {
   const [paused, setPaused] = useState(false);
 
   return (
-    <section id="services" className="bg-white py-5 sm:py-6">
+    <section id="services" className="bg-white py-5 sm:py-6 dark:bg-slate-950">
       {/* Caption for the strip: a hairline in the brand blue running the full width,
           with the tiny label sitting in the middle of it. Two flex-1 rules of
           equal weight either side keep the label dead centre. */}
@@ -91,7 +91,7 @@ export function Services() {
 export function WhyUs() {
   const { t } = useLang();
   return (
-    <section id="about" className="bg-white pb-14">
+    <section id="about" className="bg-white pb-14 dark:bg-slate-950">
       <div className="wrap">
         <div className="hero-grad rounded-2xl p-6 sm:p-9">
           <h2 className="text-[1.5rem] font-extrabold text-white sm:text-[1.8rem]">{t(whyUs.heading)}</h2>
@@ -173,7 +173,7 @@ export function Gallery() {
   }, [paused, hovered]);
 
   return (
-    <section id="gallery" className="bg-white pb-14">
+    <section id="gallery" className="bg-white pb-14 dark:bg-slate-950">
       {/* Same treatment as the Services strip: a light-blue hairline running the
           full width with the tiny label sitting in the middle of it. Two flex-1
           rules of equal weight keep the label dead centre. */}
@@ -320,9 +320,9 @@ export function Reviews() {
   const r = reviews[i];
 
   return (
-    <section id="reviews" className="bg-slate-50 py-14">
+    <section id="reviews" className="bg-slate-50 py-14 dark:bg-slate-900">
       <div className="wrap">
-        <div className="rounded-2xl border border-slate-100 bg-white p-6 sm:p-8">
+        <div className="rounded-2xl border border-slate-100 bg-white p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900">
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-[1.6rem] font-extrabold sm:text-[1.9rem]">{t('Customer Reviews')}</h2>
             <a
@@ -348,7 +348,7 @@ export function Reviews() {
                   {r.name.charAt(0)}
                 </div>
                 <div>
-                  <div className="font-extrabold text-ink">{r.name}</div>
+                  <div className="font-extrabold text-ink dark:text-white">{r.name}</div>
                   <div className="flex gap-0.5" aria-label="5 out of 5 stars">
                     {Array.from({ length: 5 }).map((_, k) => (
                       <svg key={k} viewBox="0 0 24 24" className="size-4 fill-brand-yellow text-brand-yellow" aria-hidden="true">
@@ -358,7 +358,7 @@ export function Reviews() {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 leading-relaxed text-body">{t(r.text)}</p>
+              <p className="mt-4 leading-relaxed text-body dark:text-slate-300">{t(r.text)}</p>
             </div>
 
             <button

@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+/* Class-based dark mode. Tailwind 4 defaults to the media query, which follows the
+   operating system; the customiser's "Light / Dark / System" switch has to be able
+   to override that, so the variant keys off a `.dark` class on <html> instead. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ===========================================================================
    COLOURS — sampled directly from the design reference
    =========================================================================== */
@@ -41,6 +46,18 @@
 
   --color-ink: #101c38;
   --color-body: #3d4a63;
+
+  /* Corner-radius scale for the theme customiser's slider.
+     Tailwind's rounded-lg/xl/2xl/3xl utilities all read these, so writing a new
+     `--radius` value on <html> rounds every corner on the site in one step.
+     The multipliers stop a 0 slider from making buttons unreadably square. */
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) * 0.34);
+  --radius-md: calc(var(--radius) * 0.55);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.32);
+  --radius-2xl: calc(var(--radius) * 1.72);
+  --radius-3xl: calc(var(--radius) * 2.1);
 }
 
 @layer base {
@@ -71,6 +88,13 @@
     background: #fff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Dark mode: the body is the canvas every section sits on, so it has to
+       change too or the bands show white seams between them. */
+    transition: background-color 0.2s ease;
+  }
+  .dark body {
+    background: #020617;
+    color: #cbd5e1;
   }
 
   h1,
@@ -107,6 +131,28 @@
 }
 
 @layer utilities {
+  /* Primary action button.
+     `btn-primary` is the single hook the customiser's Button Style setting pulls:
+     in "Outline" mode these lose their fill and become a coloured outline, so the
+     setting works across every button marked primary instead of needing a second
+     version of each one. */
+  .btn-primary {
+    background-color: var(--color-brand-blue);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-brand-blue-dark);
+  }
+  [data-btn-style='outline'] .btn-primary {
+    background-color: transparent;
+    color: var(--color-brand-blue);
+    box-shadow: inset 0 0 0 2px var(--color-brand-blue);
+  }
+  [data-btn-style='outline'] .btn-primary:hover {
+    background-color: var(--color-brand-blue);
+    color: #fff;
+  }
+
   .wrap {
     width: 100%;
     max-width: 82rem;

@@ -13,7 +13,7 @@ export function TopBar() {
     <div className="bg-navy text-white/90">
       <div className="wrap flex min-h-11 items-center justify-between gap-4 py-1.5 text-[0.8rem]">
         {/* ---- left: contact details ---- */}
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden min-w-0 items-center gap-5 lg:flex">
           {/* `truncate` + `min-w-0`: the address is the longest item here, so when the
             bar gets tight it gives up characters rather than wrapping to a second
             line and doubling the height of the whole header. */}
@@ -26,7 +26,7 @@ export function TopBar() {
             </span>
           </span>
 
-          <a href={`tel:${contact.phone1}`} className="inline-flex items-center gap-1.5 hover:text-white">
+          <a href={`tel:${contact.phone1}`} className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap hover:text-white">
             <Phone className="size-3.5 shrink-0" />
             {contact.phone1}
           </a>
@@ -36,7 +36,7 @@ export function TopBar() {
             href={contact.whatsapp}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-white"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap hover:text-white"
           >
             <BrandWhatsApp className="size-3.5" />
             {contact.phone2}
@@ -74,7 +74,7 @@ export function TopBar() {
         </span>
 
         {/* ---- right: coloured social squares + call button ---- */}
-        <div className="flex flex-col items-end gap-1.5">
+        <div className="flex shrink-0 flex-col items-end gap-1.5">
           <div className="hidden items-center gap-1.5 sm:flex">
             {Object.keys(SOCIALS).map((k) => {
               const S = SOCIALS[k];
@@ -110,7 +110,7 @@ export function TopBar() {
                     <a
                       href={`tel:${contact.phone1}`}
                       aria-label={t('Call Now')}
-                      className="inline-flex h-6 items-center gap-1 rounded-[5px] bg-brand-red px-2 text-[0.66rem] font-bold text-white transition-colors hover:bg-brand-red-dark"
+                      className="inline-flex h-6 shrink-0 items-center gap-1 whitespace-nowrap rounded-[5px] bg-brand-red px-2 text-[0.66rem] font-bold text-white transition-colors hover:bg-brand-red-dark"
                     >
                       <Phone className="size-3" />
                       {t('Call Now')}

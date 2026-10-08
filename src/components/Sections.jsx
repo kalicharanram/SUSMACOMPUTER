@@ -535,7 +535,11 @@ export function Footer() {
           <p className="text-center text-[0.78rem] text-white/55 sm:text-left">
             © {new Date().getFullYear()} {business.nameFull}. {t('All rights reserved.')}
           </p>
-          <div className="flex items-center justify-center gap-2 sm:justify-end">
+          {/* `sm:col-start-3` pins the squares to the third column. Without it they
+              slide into the middle `auto` column whenever VisitCounter renders
+              nothing — which it does until the database exists — leaving them
+              stranded in the middle of the footer. */}
+          <div className="flex items-center justify-center gap-2 sm:col-start-3 sm:justify-end">
             {/* Same profiles as the top-bar squares, read from the same `socials`
                 map so the two rows can never point at different places. */}
             {['facebook', 'instagram', 'youtube', 'maps'].map((k) => {

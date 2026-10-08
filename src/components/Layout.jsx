@@ -14,11 +14,16 @@ export function TopBar() {
       <div className="wrap flex min-h-11 items-center justify-between gap-4 py-1.5 text-[0.8rem]">
         {/* ---- left: contact details ---- */}
         <div className="hidden items-center gap-5 lg:flex">
-          <span className="inline-flex items-center gap-1.5">
+          {/* `truncate` + `min-w-0`: the address is the longest item here, so when the
+            bar gets tight it gives up characters rather than wrapping to a second
+            line and doubling the height of the whole header. */}
+          <span className="inline-flex min-w-0 items-center gap-1.5">
             <MapPin className="size-3.5 shrink-0" />
             {/* Built here rather than via the shared `addressFull` so the street half can
             be translated; the town, district, state and PIN are proper nouns. */}
-            {t(contact.street)}, {contact.town}, {contact.district}, {contact.state} - {contact.pin}
+            <span className="truncate">
+              {t(contact.street)}, {contact.town}, {contact.district}, {contact.state} - {contact.pin}
+            </span>
           </span>
 
           <a href={`tel:${contact.phone1}`} className="inline-flex items-center gap-1.5 hover:text-white">
@@ -45,10 +50,10 @@ export function TopBar() {
           {/* Opening hours. These disappeared when the business info cards were
               removed from the hero, which left the site saying nothing about
               when the shop is open — the first thing a caller wants to know. */}
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap">
             <Clock className="size-3.5 shrink-0" />
             {t(contact.hoursToday)}
-            <span className="rounded bg-open-green px-1.5 py-0.5 text-[0.62rem] font-bold leading-tight text-white">
+            <span className="rounded bg-open-green px-1.5 py-0.5 text-[0.62rem] font-bold leading-tight whitespace-nowrap text-white">
               {t(contact.openLabel)}
             </span>
           </span>

@@ -468,9 +468,11 @@ function VisitCounter() {
   if (!visitCounter.enabled || count === null) return null;
 
   // No margin of its own: it sits in the middle cell of the footer's bottom
-  // row, between the copyright line and the social squares.
+  // row. `sm:col-start-2` places it explicitly, because the social squares are
+  // pinned to column 3 — without this the counter would be pushed past them and
+  // land in a fourth column, off to the right.
   return (
-    <p className="text-center text-[0.78rem] text-white/55">
+    <p className="text-center text-[0.78rem] text-white/55 sm:col-start-2">
       Visitor Count : {count}
     </p>
   );

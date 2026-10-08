@@ -232,7 +232,7 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? 'shadow-md' : ''}`}
+      className={`sticky top-0 z-50 bg-white transition-shadow dark:bg-slate-900 ${scrolled ? 'shadow-md' : ''}`}
     >
       <div className="wrap flex h-[5.5rem] items-center justify-between gap-4">
         <a href="#home" className="block min-w-0 shrink" aria-label="Susma Computer & Video Mixing Lab — Home">
@@ -309,7 +309,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
             <input
               type="search"
               placeholder={t('Search Services...')}
-              className="h-10 w-40 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm outline-none focus:border-brand-blue xl:w-44"
+              className="h-10 w-40 rounded-l-md border border-r-0 border-slate-200 bg-white px-3 text-sm text-ink outline-none focus:border-brand-blue dark:border-slate-700 dark:bg-slate-800 dark:text-white xl:w-44"
             />
             <button
               aria-label="Search"
@@ -324,7 +324,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
             aria-label={open ? t('Close menu') : t('Open menu')}
             aria-expanded={open}
             aria-controls="mobile-navigation"
-            className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink lg:hidden"
+            className="grid size-11 place-items-center rounded-md border border-slate-200 text-ink dark:border-slate-700 dark:text-white lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -333,14 +333,14 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 
       {/* mobile drawer */}
       {open && (
-        <div id="mobile-navigation" className="border-t border-slate-100 bg-white lg:hidden">
+        <div id="mobile-navigation" className="border-t border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden">
           <div className="wrap flex flex-col py-3">
             {nav.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-slate-100 py-3 text-[0.95rem] font-semibold text-ink last:border-0"
+                className="border-b border-slate-100 py-3 text-[0.95rem] font-semibold text-ink last:border-0 dark:border-slate-800 dark:text-white"
               >
                 {t(item.label)}
               </a>
@@ -349,7 +349,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
               <input
                 type="search"
                 placeholder={t('Search Services...')}
-                className="h-11 flex-1 rounded-l-md border border-r-0 border-slate-200 px-3 text-sm"
+                className="h-11 flex-1 rounded-l-md border border-r-0 border-slate-200 bg-white px-3 text-sm text-ink dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               />
               <button className="btn-primary grid h-11 w-12 place-items-center rounded-r-md" aria-label="Search">
                 <Search className="size-4" />

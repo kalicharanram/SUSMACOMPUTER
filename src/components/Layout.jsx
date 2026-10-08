@@ -42,7 +42,15 @@ export function TopBar() {
             {contact.phone2}
           </a>
 
-          <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1.5 hover:text-white">
+          {/* Dropped below xl. With the address, two numbers, the hours and the badge all
+              in this bar there is no width left for the email as well, and a
+              half-cut row looks worse than an absent one. The address, the number
+              and the opening hours are what a visitor needs at a glance; the email
+              is still in the footer. */}
+          <a
+            href={`mailto:${contact.email}`}
+            className="hidden items-center gap-1.5 hover:text-white xl:inline-flex"
+          >
             <Mail className="size-3.5 shrink-0" />
             {contact.email}
           </a>

@@ -450,8 +450,10 @@ function VisitCounter() {
 
   if (!visitCounter.enabled || count === null) return null;
 
+  // No margin of its own: it sits in the middle cell of the footer's bottom
+  // row, between the copyright line and the social squares.
   return (
-    <p className="mt-6 text-center text-[0.78rem] text-white/55">
+    <p className="text-center text-[0.78rem] text-white/55">
       Visitor Count : {count}
     </p>
   );
@@ -525,11 +527,15 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-[0.78rem] text-white/55">
+        {/* Three cells rather than justify-between: the counter has to sit in the
+            true middle of the row, and with justify-between it would just land
+            wherever the free space happened to fall. The 1fr sides keep it
+            centred no matter how wide the social squares get. */}
+        <div className="mt-8 grid items-center gap-4 border-t border-white/10 pt-6 sm:grid-cols-[1fr_auto_1fr]">
+          <p className="text-center text-[0.78rem] text-white/55 sm:text-left">
             © {new Date().getFullYear()} {business.nameFull}. {t('All rights reserved.')}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2 sm:justify-end">
             {/* Same profiles as the top-bar squares, read from the same `socials`
                 map so the two rows can never point at different places. */}
             {['facebook', 'instagram', 'youtube', 'maps'].map((k) => {
@@ -565,9 +571,9 @@ export function Footer() {
               );
             })}
           </div>
-        </div>
 
-        <VisitCounter />
+          <VisitCounter />
+        </div>
       </div>
     </footer>
   );

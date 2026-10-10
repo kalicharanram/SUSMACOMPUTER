@@ -138,8 +138,6 @@ export const services = [
   { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
   { id: 2, label: 'Online Form Filling', img: '02-online-form-filling.jpg', tone: 'peach' },
   { id: 3, label: 'Videography Services', img: '03-videography.jpg', tone: 'pink' },
-  { id: 4, label: 'Photography Services', img: '04-photography.jpg', tone: 'lav' },
-  { id: 5, label: 'Video Mixing & Editing', img: '05-video-mixing.jpg', tone: 'mint' },
   { id: 6, label: 'Computer Assemble', img: '06-computer-assemble.jpg', tone: 'lav' },
   { id: 7, label: 'Computer Accessories', img: '07-computer-accessories.jpg', tone: 'pink' },
   { id: 8, label: 'Mobile Accessories', img: '08-mobile-accessories.jpg', tone: 'blue' },

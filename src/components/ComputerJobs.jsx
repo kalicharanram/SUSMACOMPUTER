@@ -16,11 +16,11 @@ export function ComputerJobs({ slug }) {
   const missing = Boolean(slug && !service);
   const title = missing ? 'Service not found' : service?.title || 'Computer Job Work';
   return <section id="computer-job-work" className="job-page">
-    <div className="job-heading">
+    {slug ? <div className="job-heading">
       <nav aria-label="Breadcrumb" className="job-breadcrumb"><a href="#home">{t('Home')}</a><span>/</span><a href={jobBase}>{t('Computer Job Work')}</a>{slug && <><span>/</span><span>{t(title)}</span></>}</nav>
       <h1>{t(title)}</h1>
-      {!slug && <p>Choose a service to view details and contact us.</p>}
-    </div>
+
+    </div> : <h1 className="sr-only">{t(title)}</h1>}
     {missing ? <div className="job-detail"><p>This service page could not be found.</p><a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a></div> : service ?
       <div className="job-detail">
         <a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a>

@@ -276,7 +276,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
               >
                 {/* the active Home item carries a house glyph in the reference */}
                 {i === 0 && <House className="size-4" strokeWidth={2.4} />}
-                {jobPage && item.label === 'Services' ? <span className="flex flex-col items-start leading-tight"><span>{t(item.label)}</span><span className="mt-1 text-[0.62rem] font-medium" data-job-menu-label>{t('Computer Job Work')}</span></span> : t(item.label)}
+                {t(item.label)}
                 {item.children && <ChevronDown className="size-3.5" />}
               </a>
 
@@ -342,7 +342,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
           <div className="wrap flex flex-col py-3">
             {nav.map((item, i) => (
               <div key={item.label} className="border-b border-slate-100 dark:border-slate-800">
-                {item.children ? <button type="button" onClick={() => setOpenDrop(openDrop === i ? null : i)} aria-expanded={openDrop === i} className="flex w-full items-center justify-between py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{jobPage && item.label === 'Services' ? <span className="flex flex-col items-start leading-tight"><span>{t(item.label)}</span><span className="mt-1 text-[0.62rem] font-medium" data-job-menu-label>{t('Computer Job Work')}</span></span> : t(item.label)}<ChevronDown size={16} /></button> : <a href={item.href} onClick={() => setOpen(false)} className="block py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{jobPage && item.label === 'Services' ? <span className="flex flex-col items-start leading-tight"><span>{t(item.label)}</span><span className="mt-1 text-[0.62rem] font-medium" data-job-menu-label>{t('Computer Job Work')}</span></span> : t(item.label)}</a>}
+                {item.children ? <button type="button" onClick={() => setOpenDrop(openDrop === i ? null : i)} aria-expanded={openDrop === i} className="flex w-full items-center justify-between py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}<ChevronDown size={16} /></button> : <a href={item.href} onClick={() => setOpen(false)} className="block py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}</a>}
                 {item.children && openDrop === i && <div className="pb-3 pl-4">{item.children.map(c => <a key={c} href={c === 'Computer Job Work' ? '#/services/computer-job-work' : item.href} onClick={() => { setOpen(false); setOpenDrop(null); }} className="block py-2 text-sm text-brand-blue dark:text-white">{t(c)}</a>)}</div>}
               </div>
             ))}

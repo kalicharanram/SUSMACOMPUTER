@@ -144,7 +144,6 @@ export const services = [
   { id: 13, label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg', tone: 'pink' },
   { id: 16, label: 'School & Other ID Card', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
-  { id: 20, label: 'Google Business Profile Setup', img: '20-google-business.jpg', tone: 'mint' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

@@ -58,7 +58,6 @@ export const translations = {
     'YouTube Channel Setup': 'यूट्यूब चैनल सेटअप',
     'School & Other ID Card': 'स्कूल और अन्य पहचान पत्र',
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
-    'Google Business Profile Setup': 'गूगल बिज़नेस प्रोफ़ाइल सेटअप',
 
     // ---- why choose us
     'Why Choose Us?': 'हमें क्यों चुनें?',
@@ -145,7 +144,6 @@ export const translations = {
     'YouTube Channel Setup': 'یوٹیوب چینل سیٹ اپ',
     'School & Other ID Card': 'اسکول اور دیگر شناختی کارڈ',
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
-    'Google Business Profile Setup': 'گوگل بزنس پروفائل سیٹ اپ',
 
     // ---- why choose us
     'Why Choose Us?': 'ہمیں کیوں منتخب کریں؟',

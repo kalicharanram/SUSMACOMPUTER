@@ -24,7 +24,7 @@ export default function App() {
   }, [hash, jobPage, slug]);
   return <>
     <TopBar /><Header jobPage={jobPage} />
-    <main>{jobPage ? <><Hero /><ComputerJobs slug={slug} /></> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
+    <main>{jobPage ? <ComputerJobs slug={slug} /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
     <Footer /><ThemeCustomizer />
   </>;
 }

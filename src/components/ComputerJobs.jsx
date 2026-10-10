@@ -20,7 +20,7 @@ export function ComputerJobs({ slug }) {
       <nav aria-label="Breadcrumb" className="job-breadcrumb"><a href="#home">{t('Home')}</a><span>/</span><a href={jobBase}>{t('Computer Job Work')}</a>{slug && <><span>/</span><span>{t(title)}</span></>}</nav>
       <h1>{t(title)}</h1>
 
-    </div> : <h1 className="sr-only">{t(title)}</h1>}
+    </div> : <h1 className="pt-6 text-center text-2xl font-extrabold sm:text-3xl">{t(title)}</h1>}
     {missing ? <div className="job-detail"><p>This service page could not be found.</p><a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a></div> : service ?
       <div className="job-detail">
         <a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a>

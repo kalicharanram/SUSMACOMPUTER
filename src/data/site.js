@@ -138,8 +138,10 @@ export const services = [
   { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
   { id: 2, label: 'Online Form Filling', img: '02-online-form-filling.jpg', tone: 'peach' },
   { id: 3, label: 'Videography Services', img: '03-videography.jpg', tone: 'pink' },
-  { id: 6, label: 'Computer Assemble', img: '06-computer-assemble.jpg', tone: 'lav' },
-  { id: 7, label: 'Computer Accessories', img: '07-computer-accessories.jpg', tone: 'pink' },
+  // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
+  // assemble artwork, which was the closest fit already on disk and is no longer
+  // spoken for; point `img` at a different file if a proper photo arrives.
+  { id: 23, label: 'Computer Work', img: '06-computer-assemble.jpg', tone: 'lav' },
   { id: 8, label: 'Mobile Accessories', img: '08-mobile-accessories.jpg', tone: 'blue' },
   { id: 9, label: 'House Hold Item Sale', img: '09-household-items.jpg', tone: 'pink' },
   { id: 11, label: 'Mobile Recharge', img: '11-mobile-recharge.jpg', tone: 'mint' },

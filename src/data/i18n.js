@@ -51,6 +51,7 @@ export const translations = {
 
     // ---- services (19)
     'Computer Job Work': 'कंप्यूटर जॉब वर्क',
+    'Computer Work': 'कंप्यूटर का काम',
     'Online Form Filling': 'ऑनलाइन फॉर्म भरना',
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
     'Computer Assemble': 'कंप्यूटर असेंबल',
@@ -146,6 +147,7 @@ export const translations = {
 
     // ---- services (19)
     'Computer Job Work': 'کمپیوٹر کا کام',
+    'Computer Work': 'کمپیوٹر کا کام',
     'Online Form Filling': 'آن لائن فارم بھرنا',
     'Videography Services': 'ویڈیوگرافی خدمات',
     'Computer Assemble': 'کمپیوٹر اسمبل',

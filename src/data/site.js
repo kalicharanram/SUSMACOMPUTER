@@ -142,9 +142,7 @@ export const services = [
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 23, label: 'Computer Work', img: '06-computer-assemble.jpg', tone: 'lav' },
-  { id: 8, label: 'Mobile Accessories', img: '08-mobile-accessories.jpg', tone: 'blue' },
   { id: 9, label: 'House Hold Item Sale', img: '09-household-items.jpg', tone: 'pink' },
-  { id: 11, label: 'Mobile Recharge', img: '11-mobile-recharge.jpg', tone: 'mint' },
   { id: 12, label: 'Website Designing', img: '12-website-designing.jpg', tone: 'blue' },
   { id: 13, label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg', tone: 'pink' },
   { id: 14, label: 'Poster Design', img: '14-poster-design.jpg', tone: 'blue' },
@@ -153,7 +151,6 @@ export const services = [
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
   { id: 18, label: 'Digital Seva Kendra', img: '18-digital-seva-kendra.jpg', tone: 'blue' },
   { id: 20, label: 'Google Business Profile Setup', img: '20-google-business.jpg', tone: 'mint' },
-  { id: 21, label: 'Advertising Photo & Video', img: '21-advertising.jpg', tone: 'cream' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

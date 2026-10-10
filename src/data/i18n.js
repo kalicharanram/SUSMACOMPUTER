@@ -56,9 +56,7 @@ export const translations = {
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
     'Computer Assemble': 'कंप्यूटर असेंबल',
     'Computer Accessories': 'कंप्यूटर एक्सेसरीज़',
-    'Mobile Accessories': 'मोबाइल एक्सेसरीज़',
     'House Hold Item Sale': 'घरेलू सामान की बिक्री',
-    'Mobile Recharge': 'मोबाइल रिचार्ज',
     'Website Designing': 'वेबसाइट डिज़ाइनिंग',
     'YouTube Channel Setup': 'यूट्यूब चैनल सेटअप',
     'Poster Design': 'पोस्टर डिज़ाइन',
@@ -67,7 +65,6 @@ export const translations = {
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
     'Digital Seva Kendra': 'डिजिटल सेवा केंद्र',
     'Google Business Profile Setup': 'गूगल बिज़नेस प्रोफ़ाइल सेटअप',
-    'Advertising Photo & Video': 'विज्ञापन फोटो और वीडियो',
 
     // ---- why choose us
     'Why Choose Us?': 'हमें क्यों चुनें?',
@@ -152,9 +149,7 @@ export const translations = {
     'Videography Services': 'ویڈیوگرافی خدمات',
     'Computer Assemble': 'کمپیوٹر اسمبل',
     'Computer Accessories': 'کمپیوٹر ایکسیسریز',
-    'Mobile Accessories': 'موبائل ایکسیسریز',
     'House Hold Item Sale': 'گھریلو سامان کی فروخت',
-    'Mobile Recharge': 'موبائل ریچارج',
     'Website Designing': 'ویب سائٹ ڈیزائننگ',
     'YouTube Channel Setup': 'یوٹیوب چینل سیٹ اپ',
     'Poster Design': 'پوسٹر ڈیزائن',
@@ -163,7 +158,6 @@ export const translations = {
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
     'Digital Seva Kendra': 'ڈیجیٹل سیوا کینڈرہ',
     'Google Business Profile Setup': 'گوگل بزنس پروفائل سیٹ اپ',
-    'Advertising Photo & Video': 'اشتہاری فوٹو اور ویڈیو',
 
     // ---- why choose us
     'Why Choose Us?': 'ہمیں کیوں منتخب کریں؟',

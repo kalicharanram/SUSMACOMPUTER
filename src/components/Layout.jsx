@@ -159,7 +159,7 @@ export function TopBar() {
 }
 
 /* ================================================================= HEADER == */
-export function Header() {
+export function Header({ jobPage = false }) {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
@@ -227,7 +227,7 @@ export function Header() {
      "Services" and "Price List" both link to #services; lighting both up at
      once reads as a mistake, so the first match wins and Price List stays
      neutral. */
-  const activeIndex = nav.findIndex((item) => item.href === `#${activeId}`);
+  const activeIndex = nav.findIndex((item) => jobPage ? item.label === 'Services' : item.href === `#${activeId}`);
 
   return (
     <header
@@ -254,9 +254,14 @@ export function Header() {
               className="relative"
               onMouseEnter={() => item.children && setOpenDrop(i)}
               onMouseLeave={() => setOpenDrop(null)}
+              onKeyDown={(event) => { if (event.key === 'Escape') { setOpenDrop(null); event.currentTarget.querySelector('a')?.focus(); } }}
+              onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpenDrop(null); }}
             >
               <a
                 href={item.href}
+                aria-expanded={item.children ? openDrop === i : undefined}
+                onClick={(event) => { if (item.children) { event.preventDefault(); setOpenDrop(i); } }}
+                onKeyDown={(event) => { if (event.key === 'Escape') setOpenDrop(null); }}
 className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85rem] font-semibold transition-colors xl:px-3.5 xl:text-[0.92rem] ${
                   /* Dark blue for the section currently in view, and while this
                      item's menu is open. The open state has to be part of the
@@ -290,7 +295,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
                   {item.children.map((c) => (
                     <a
                       key={c}
-                      href={item.href}
+                      href={c === 'Computer Job Work' ? '#/services/computer-job-work' : item.href}
                       onClick={() => setOpenDrop(null)}
                       className="block border-b border-slate-50 px-4 py-2.5 text-sm text-body transition-colors last:border-0 hover:bg-p-blue hover:text-brand-blue"
                     >
@@ -333,17 +338,13 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
 
       {/* mobile drawer */}
       {open && (
-        <div id="mobile-navigation" className="border-t border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden">
+        <div id="mobile-navigation" className="max-h-[calc(100dvh-6rem)] overflow-y-auto border-t border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden">
           <div className="wrap flex flex-col py-3">
-            {nav.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-slate-100 py-3 text-[0.95rem] font-semibold text-ink last:border-0 dark:border-slate-800 dark:text-white"
-              >
-                {t(item.label)}
-              </a>
+            {nav.map((item, i) => (
+              <div key={item.label} className="border-b border-slate-100 dark:border-slate-800">
+                {item.children ? <button type="button" onClick={() => setOpenDrop(openDrop === i ? null : i)} aria-expanded={openDrop === i} className="flex w-full items-center justify-between py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}<ChevronDown size={16} /></button> : <a href={item.href} onClick={() => setOpen(false)} className="block py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}</a>}
+                {item.children && openDrop === i && <div className="pb-3 pl-4">{item.children.map(c => <a key={c} href={c === 'Computer Job Work' ? '#/services/computer-job-work' : item.href} onClick={() => { setOpen(false); setOpenDrop(null); }} className="block py-2 text-sm text-brand-blue dark:text-white">{t(c)}</a>)}</div>}
+              </div>
             ))}
             <div className="mt-3 flex lg:hidden">
               <input

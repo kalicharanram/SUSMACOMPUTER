@@ -277,3 +277,39 @@
 .gallery-track { display: flex; width: max-content; }
 .gallery-group { display: flex; align-items: flex-start; gap: 0; padding: 0; }
 .gallery-card { flex: 0 0 auto; width: 50cqw; margin: 0; padding: 0; scroll-snap-align: start; }
+
+/* Computer Job Work: supplied promotional artwork with real, accessible links. */
+.job-page { background: #fff; padding-bottom: 2rem; }
+.job-heading { text-align: center; padding: 1.4rem 1rem; background: #f2f5ff; }
+.job-heading h1 { font-size: clamp(1.7rem, 3vw, 2.7rem); margin: .3rem 0; }
+.job-heading p { font-size: .9rem; }
+.job-breadcrumb { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; font-size: .8rem; }
+.job-breadcrumb a, .job-back { color: var(--color-brand-blue); }
+.job-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; max-width: 1440px; margin: 1.4rem auto 0; padding: 0 1rem; }
+.job-card { display: block; overflow: hidden; border-radius: 20px; border: 1px solid #d7e3ef; background: #f6faff; transition: transform .2s, box-shadow .2s; }
+.job-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px #0a1b4e24; }
+.job-artwork { display: block; width: 100%; height: auto; }
+.job-card-link { display: flex; justify-content: center; align-items: center; gap: .6rem; font-size: .85rem; padding: .6rem; color: var(--color-brand-blue); font-weight: 700; }
+.job-detail { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+.job-back { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
+.job-detail-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 2.5rem; align-items: start; }
+.job-detail-art { overflow: hidden; border-radius: 20px; }
+.job-detail-copy h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.4; }
+.job-detail-copy ul { display: grid; gap: 1rem; margin: 1.5rem 0; }
+.job-detail-copy li { display: flex; gap: .7rem; align-items: start; }
+.job-detail-copy li svg { color: var(--color-brand-blue); flex-shrink: 0; }
+.job-detail-copy h3 { margin-bottom: .5rem; font-size: 1.15rem; }
+.job-detail-copy p { line-height: 1.8; }
+.job-note { margin-top: 1rem; font-size: .85rem; }
+.job-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+.job-actions a { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.2rem; border-radius: 10px; color: white; font-weight: 700; }
+.job-call { background: #d91f26; } .job-whatsapp { background: #127f3e; }
+.job-other-title { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.25rem; }
+.job-related { display: flex; flex-wrap: wrap; gap: .75rem; }
+.job-related a { display: flex; align-items: center; gap: .5rem; padding: .7rem 1rem; border: 1px solid #cbd5e1; border-radius: 10px; }
+.dark .job-page { background: #020617; color: #e2e8f0; }
+.dark .job-heading, .dark .job-card { background: #0f172a; }
+.dark .job-page h1, .dark .job-page h2, .dark .job-page h3 { color: #f8fafc; }
+.dark .job-back, .dark .job-breadcrumb a, .dark .job-card-link { color: #93c5fd; }
+@media(max-width: 767px) { .job-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; padding: 0 .65rem; } .job-detail-grid { grid-template-columns: 1fr; gap: 1.5rem; } .job-detail-art { max-width: 460px; } }
+@media(max-width: 479px) { .job-grid { grid-template-columns: 1fr; } }

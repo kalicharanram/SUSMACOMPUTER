@@ -57,8 +57,11 @@ export function Services() {
           {[...services, ...services].map((s, i) => {
             const tone = TONES[s.tone] ?? TONES.blue;
             const dupe = i >= services.length;
+            const Card = s.id === 1 ? 'a' : 'div';
             return (
-              <div
+              <Card
+                href={s.id === 1 ? "#/services/computer-job-work" : undefined}
+                tabIndex={s.id === 1 ? (dupe ? -1 : 0) : undefined}
                 key={`${s.id}-${i}`}
                 aria-hidden={dupe}
                 className={`flex w-[124px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg sm:w-[144px] lg:w-[158px] ${tone.bg} ${tone.hov}`}
@@ -77,7 +80,7 @@ export function Services() {
                 <span className="px-1.5 py-1.5 text-[0.68rem] font-bold leading-tight text-ink">
                   {t(s.label)}
                 </span>
-              </div>
+              </Card>
             );
           })}
         </div>

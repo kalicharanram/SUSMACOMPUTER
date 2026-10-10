@@ -206,7 +206,7 @@ export const nav = [
        showing "Computer Assemble" twice while the strip shows it once, so the
        menu is derived instead. `new Set` also collapses any repeat, making a
        duplicate entry impossible even if the services list grows one. */
-    children: [...new Set(services.map((s) => s.label))],
+    children: [...new Set(['Computer Job Work', ...services.map((s) => s.label)])],
   },
   {
     label: 'Gallery',

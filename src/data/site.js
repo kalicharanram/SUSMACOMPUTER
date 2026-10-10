@@ -136,20 +136,14 @@ export const hero = {
  */
 export const services = [
   { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
-  { id: 2, label: 'Online Form Filling', img: '02-online-form-filling.jpg', tone: 'peach' },
   { id: 3, label: 'Videography Services', img: '03-videography.jpg', tone: 'pink' },
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 23, label: 'Computer Work', img: '06-computer-assemble.jpg', tone: 'lav' },
-  { id: 9, label: 'House Hold Item Sale', img: '09-household-items.jpg', tone: 'pink' },
-  { id: 12, label: 'Website Designing', img: '12-website-designing.jpg', tone: 'blue' },
   { id: 13, label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg', tone: 'pink' },
-  { id: 14, label: 'Poster Design', img: '14-poster-design.jpg', tone: 'blue' },
-  { id: 15, label: 'ITR & GST Filing', img: '15-itr-gst-filing.jpg', tone: 'cream' },
   { id: 16, label: 'School & Other ID Card', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
-  { id: 18, label: 'Digital Seva Kendra', img: '18-digital-seva-kendra.jpg', tone: 'blue' },
   { id: 20, label: 'Google Business Profile Setup', img: '20-google-business.jpg', tone: 'mint' },
 ];
 

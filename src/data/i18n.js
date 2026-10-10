@@ -52,18 +52,12 @@ export const translations = {
     // ---- services (19)
     'Computer Job Work': 'कंप्यूटर जॉब वर्क',
     'Computer Work': 'कंप्यूटर का काम',
-    'Online Form Filling': 'ऑनलाइन फॉर्म भरना',
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
     'Computer Assemble': 'कंप्यूटर असेंबल',
     'Computer Accessories': 'कंप्यूटर एक्सेसरीज़',
-    'House Hold Item Sale': 'घरेलू सामान की बिक्री',
-    'Website Designing': 'वेबसाइट डिज़ाइनिंग',
     'YouTube Channel Setup': 'यूट्यूब चैनल सेटअप',
-    'Poster Design': 'पोस्टर डिज़ाइन',
-    'ITR & GST Filing': 'आईटीआर और जीएसटी फाइलिंग',
     'School & Other ID Card': 'स्कूल और अन्य पहचान पत्र',
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
-    'Digital Seva Kendra': 'डिजिटल सेवा केंद्र',
     'Google Business Profile Setup': 'गूगल बिज़नेस प्रोफ़ाइल सेटअप',
 
     // ---- why choose us
@@ -145,18 +139,12 @@ export const translations = {
     // ---- services (19)
     'Computer Job Work': 'کمپیوٹر کا کام',
     'Computer Work': 'کمپیوٹر کا کام',
-    'Online Form Filling': 'آن لائن فارم بھرنا',
     'Videography Services': 'ویڈیوگرافی خدمات',
     'Computer Assemble': 'کمپیوٹر اسمبل',
     'Computer Accessories': 'کمپیوٹر ایکسیسریز',
-    'House Hold Item Sale': 'گھریلو سامان کی فروخت',
-    'Website Designing': 'ویب سائٹ ڈیزائننگ',
     'YouTube Channel Setup': 'یوٹیوب چینل سیٹ اپ',
-    'Poster Design': 'پوسٹر ڈیزائن',
-    'ITR & GST Filing': 'آئی ٹی آر اور جی ایس ٹی فائلنگ',
     'School & Other ID Card': 'اسکول اور دیگر شناختی کارڈ',
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
-    'Digital Seva Kendra': 'ڈیجیٹل سیوا کینڈرہ',
     'Google Business Profile Setup': 'گوگل بزنس پروفائل سیٹ اپ',
 
     // ---- why choose us

@@ -228,6 +228,27 @@
     transform: translateY(0) scale(1);
   }
 }
+/* Service card width.
+
+   The strip is full-bleed rather than inside `.wrap`, so the only way to keep a
+   fixed number of whole cards on screen at any desktop width is to derive the
+   width from the viewport. Six cards plus the five 12px gaps between them, plus
+   the track's own 8px padding each side, leaves 76px of chrome; 96px is used so
+   a scrollbar-width viewport cannot squeeze a sliver of a seventh card in. */
+.service-card {
+  width: 124px;
+}
+@media (min-width: 640px) {
+  .service-card {
+    width: 144px;
+  }
+}
+@media (min-width: 1024px) {
+  .service-card {
+    width: calc((100vw - 96px) / 6);
+  }
+}
+
 .service-in {
   animation: service-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

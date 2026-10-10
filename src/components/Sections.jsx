@@ -64,7 +64,7 @@ export function Services() {
                 tabIndex={s.id === 1 ? (dupe ? -1 : 0) : undefined}
                 key={`${s.id}-${i}`}
                 aria-hidden={dupe}
-                className={`flex w-[124px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg sm:w-[144px] lg:w-[158px] ${tone.bg} ${tone.hov}`}
+                className={`service-card flex shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg ${tone.bg} ${tone.hov}`}
               >
                 {/* aspect-[5/3] matches the 200x120 files exactly, so the whole
                     image is visible — a fixed height with object-cover was

@@ -365,7 +365,9 @@
 .price-card-4 h2,.price-why-card h2 { background:linear-gradient(100deg,#0757b7,#087ce2); }
 .price-category-icon { display:grid; place-items:center; width:44px; height:44px; flex:none; border:2px solid #fff8; border-radius:50%; background:#ffffff24; }
 .price-poster-card ol { margin:0; padding:.35rem .65rem 0; list-style:none; }
-.price-poster-row { display:grid; grid-template-columns:27px 28px minmax(0,1fr) auto; gap:.45rem; align-items:center; min-height:50px; padding:.37rem 0; border-bottom:1px solid #dbeaf6; }
+.price-poster-row { display:grid; grid-template-columns:27px 28px minmax(0,1fr) auto; gap:.45rem; align-items:center; min-height:50px; padding:.37rem 0; border-bottom:1px solid #dbeaf6; color:inherit; text-decoration:none; cursor:pointer; transition:background-color .16s ease,transform .16s ease; }
+.price-poster-row:hover { background:#eaf5ff; transform:translateX(2px); }
+.price-poster-row:focus-visible { position:relative; z-index:1; border-radius:8px; outline:3px solid #ff9b22; outline-offset:2px; }
 .price-poster-row:last-child { border-bottom:0; }
 .price-row-number { display:grid; place-items:center; width:25px; height:25px; border-radius:50%; background:var(--poster-deep); color:white; font-size:.65rem; font-weight:900; }
 .price-service-icon { color:var(--poster-blue); }

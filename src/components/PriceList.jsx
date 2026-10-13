@@ -2,10 +2,25 @@ import {
   BadgeCheck, BriefcaseBusiness, Camera, ChartNoAxesColumnIncreasing,
   CircleDollarSign, Clock3, Clapperboard, ContactRound, FileText,
   GraduationCap, IdCard, Images, Keyboard, Megaphone, MessageCircle,
-  Monitor, Palette, Play, Printer, Receipt, School, Settings, Share2,
+  Monitor, Palette, Play, Printer, Receipt, School, Settings, Share2, Globe2,
   ShieldCheck, Sparkles, Stamp, ThumbsUp, UserRound, Video,
 } from 'lucide-react';
 import { priceCategories } from '../data/prices';
+import { computerJobs, jobBase } from '../data/computerJobs';
+
+const serviceBases = [
+  jobBase,
+  '#/services/videography-services',
+  '#/services/digital-marketing-social-media',
+  '#/services/id-card-design-printing',
+  '#/services/stamp-making',
+];
+
+const slugify = (value) => value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const serviceHref = (categoryIndex, serviceName) => {
+  const computerService = categoryIndex === 0 && computerJobs.find((item) => item.title === serviceName);
+  return `${serviceBases[categoryIndex]}/${computerService?.slug || slugify(serviceName)}`;
+};
 
 const categoryIcons = [Monitor, Camera, Megaphone, IdCard, Stamp];
 const serviceIcons = [
@@ -33,12 +48,12 @@ export function PriceList() {
             <h2><span className="price-category-icon"><CategoryIcon size={25} /></span><span>{category.title}</span></h2>
             <ol>{category.services.map((service, index) => {
               const ServiceIcon = icons[index] || Sparkles;
-              return <li className="price-poster-row" key={service.name}>
+              return <li key={service.name}><a className="price-poster-row" href={serviceHref(categoryIndex, service.name)} aria-label={`${service.name} — view service details`}>
                 <span className="price-row-number">{String(index + 1).padStart(2, '0')}</span>
                 <ServiceIcon className="price-service-icon" size={22} strokeWidth={2.2} />
                 <div className="price-service-copy"><h3>{service.name}</h3><p>{service.basis}</p></div>
                 <strong className="price-tag">{service.price}</strong>
-              </li>;
+              </a></li>;
             })}</ol>
             {categoryIndex === 1 && <div className="price-card-callout"><Camera size={26} /><span>Capture Your<br /><b>Special Moments</b></span></div>}
             {categoryIndex === 2 && <div className="price-card-callout"><Play size={25} /><span>Grow Your<br /><b>Business Online</b></span></div>}

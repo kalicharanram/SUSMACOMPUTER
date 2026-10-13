@@ -251,7 +251,7 @@ export const nav = [
     href: '#gallery',
     children: ['Our Shop', 'Video Mixing Setup', 'Store Interior'],
   },
-  { label: 'Price List', href: '#services' },
+  { label: 'Price List', href: '#/price-list' },
   { label: 'Blog', href: '#reviews' },
   { label: 'Contact', href: '#contact' },
 ];

@@ -159,7 +159,7 @@ export function TopBar() {
 }
 
 /* ================================================================= HEADER == */
-export function Header({ jobPage = false }) {
+export function Header({ jobPage = false, pricePage = false }) {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
@@ -227,7 +227,7 @@ export function Header({ jobPage = false }) {
      "Services" and "Price List" both link to #services; lighting both up at
      once reads as a mistake, so the first match wins and Price List stays
      neutral. */
-  const activeIndex = nav.findIndex((item) => jobPage ? item.label === 'Services' : item.href === `#${activeId}`);
+  const activeIndex = nav.findIndex((item) => pricePage ? item.label === 'Price List' : jobPage ? item.label === 'Services' : item.href === `#${activeId}`);
 
   return (
     <header

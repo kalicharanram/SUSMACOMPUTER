@@ -52,7 +52,7 @@ export default function App() {
   }, [hash, jobPage, videographyPage, digitalMarketingPage, idCardPage, stampPage, pricePage, aboutPage, galleryPage, slug, detailService]);
   return <>
     <TopBar /><Header jobPage={jobPage || videographyPage || digitalMarketingPage || idCardPage || stampPage} pricePage={pricePage} aboutPage={aboutPage} galleryPage={galleryPage} />
-    <main>{aboutPage ? <AboutUs /> : galleryPage ? <Gallery /> : pricePage ? <PriceList /> : jobPage ? <ComputerJobs slug={slug} /> : detailService && detailCategory ? <PricedServiceDetail categoryIndex={detailCategoryIndex} category={detailCategory} service={detailService} /> : videographyPage ? <VideographyServices /> : digitalMarketingPage ? <DigitalMarketingServices /> : idCardPage ? <IdCardServices /> : stampPage ? <StampServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Reviews /></>}</main>
+    <main>{aboutPage ? <><Hero /><AboutUs /></> : galleryPage ? <Gallery /> : pricePage ? <PriceList /> : jobPage ? <ComputerJobs slug={slug} /> : detailService && detailCategory ? <PricedServiceDetail categoryIndex={detailCategoryIndex} category={detailCategory} service={detailService} /> : videographyPage ? <VideographyServices /> : digitalMarketingPage ? <DigitalMarketingServices /> : idCardPage ? <IdCardServices /> : stampPage ? <StampServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Reviews /></>}</main>
     <Footer /><ThemeCustomizer />
   </>;
 }

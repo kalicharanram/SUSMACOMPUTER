@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, ShieldCheck, UsersRound, Settings2, Handshake, Target, Eye, MapPin, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShieldCheck, UsersRound, Handshake, Target, Eye, MapPin, CheckCircle2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { TONES, Logo } from './Icons';
 import { services, gallery, reviews, contact, business, visitCounter, socials } from '../data/site';
+import { priceCategories } from '../data/prices';
 import { useLang } from '../i18n';
 
 /* ============================================================== SERVICES == */
@@ -93,67 +94,72 @@ export function Services() {
 
 /* ================================================================ WHY US == */
 export function AboutUs() {
+  const categoryLinks = [
+    '#/services/computer-job-work',
+    '#/services/videography-services',
+    '#/services/digital-marketing-social-media',
+    '#/services/id-card-design-printing',
+    '#/services/stamp-making',
+  ];
+  const reasons = [
+    [UsersRound, 'Experienced Team', 'Skilled and trained professionals'],
+    [CheckCircle2, 'Quality Work', 'Careful work and customer satisfaction'],
+    [Target, 'On-Time Delivery', 'Your time matters to us'],
+    [ShieldCheck, 'Affordable Price', 'Clear and reasonable pricing'],
+    [Handshake, 'Multiple Services', 'Many digital services under one roof'],
+  ];
+
   return (
     <section id="about-us" className="about-page">
       <div className="about-wrap">
-        <div className="about-hero">
-          <div className="about-intro">
-            <p className="about-kicker">ABOUT US</p>
-            <h2><span>SUSMA</span> <strong>COMPUTER</strong><br /><b>&amp; Video Mixing Lab</b></h2>
-            <h3>Your Trusted Partner for Digital Solutions</h3>
-            <p className="about-intro-copy">SUSMA COMPUTER &amp; Video Mixing Lab, Kadrabad, Bachhwara, Begusarai में हम Computer, Online Services, Digital Marketing, Photography, Videography और अन्य डिजिटल सेवाएँ प्रदान करते हैं। हमारा लक्ष्य है हर ग्राहक को तेज़, भरोसेमंद और किफायती डिजिटल समाधान देना।</p>
-            <ul className="about-trust-list">
-              {[
-                [ShieldCheck, 'Trusted', 'Service'],
-                [UsersRound, 'Customer', 'First'],
-                [Settings2, 'Latest', 'Technology'],
-                [Handshake, 'Long Term', 'Support'],
-              ].map(([Icon, title, sub]) => <li key={title}><span><Icon size={20} /></span><b>{title}<small>{sub}</small></b></li>)}
-            </ul>
+        <div className="about-reference-story">
+          <article className="about-reference-story-copy">
+            <p className="about-reference-kicker"><UsersRound size={24} /> OUR STORY</p>
+            <h2>Our <strong>Story</strong></h2>
+            <h3>एक छोटे से प्रयास से आज भरोसे का नाम</h3>
+            <p>SUSMA COMPUTER की शुरुआत इस सोच के साथ हुई कि स्थानीय लोगों, विद्यार्थियों, दुकानदारों, संस्थानों और छोटे व्यवसायों को डिजिटल सेवाओं के लिए अलग-अलग जगह न भटकना पड़े।</p>
+            <p>आज हम Computer Job Work, Online Applications, Typing, Printing, Photography, Video Editing, Social Media Setup और Business Promotion जैसी डिजिटल सेवाएँ प्रदान करते हैं।</p>
+            <p>हमारे लिए हर ग्राहक महत्त्वपूर्ण है। हम आपकी ज़रूरत को समझकर साफ़ जानकारी, भरोसेमंद काम और अच्छा अनुभव देने की कोशिश करते हैं।</p>
+          </article>
+          <div className="about-reference-story-image">
+            <img src="./images/services/premium/pexels-28728925.webp" alt="Camera and computer equipment for digital, photo and video services" />
+            <div className="about-reference-image-note">Digital Solutions<br /><strong>for a Better Tomorrow</strong></div>
           </div>
-
-          <div className="about-shop-photo">
-            <img src="./images/shop-hero.webp" alt="Susma Computer and Video Mixing Lab storefront" />
-            <div className="about-service-ribbon"><span>Computer Services</span><span>Online Form</span><span>Photo &amp; Video</span><span>Digital Marketing</span></div>
-          </div>
-
-          <aside className="about-grow-panel">
-            <strong>Grow<br />with<br />Us</strong>
-            <i />
-            <p>आपके डिजिटल<br />सपनों की<br />साथी</p>
-          </aside>
         </div>
 
-        <div className="about-lower-grid">
-          <article className="about-journey">
-            <p className="about-kicker">OUR JOURNEY</p>
-            <h3>Small Step, Big Vision</h3>
-            <p>SUSMA COMPUTER की शुरुआत Kadrabad, Bachhwara, Begusarai से एक छोटे से प्रयास के रूप में हुई थी। हमारा उद्देश्य था—डिजिटल सेवाओं को हर व्यक्ति तक पहुँचाना। आज हम अपने ग्राहकों के विश्वास और सहयोग से एक भरोसेमंद नाम बन चुके हैं।</p>
-            <strong className="about-quote">आपका विश्वास ही<br />हमारी सफलता है!</strong>
+        <div className="about-reference-purpose-grid">
+          <article className="about-reference-purpose about-reference-mission">
+            <span className="about-reference-icon"><Target size={27} /></span>
+            <div><h2>Our <strong>Mission</strong></h2><h3>सरल तकनीक, सबके लिए</h3><p>हमारा मिशन आधुनिक तकनीक और डिजिटल सेवाओं को स्थानीय लोगों तक सरल, उपयोगी और किफायती तरीके से पहुँचाना है। हम चाहते हैं कि विद्यार्थी, परिवार, दुकानदार और छोटे व्यवसाय अपनी ज़रूरतों के काम आसानी से कर सकें।</p></div>
           </article>
-
-          <div className="about-journey-visual">
-            <img src="./images/services/premium/pexels-28728925.webp" alt="Camera equipment for photography and videography services" />
-            <div className="about-location-card"><MapPin size={23} /><span><b>Our Location</b><small>Kadrabad, Bachhwara, Begusarai</small></span></div>
-          </div>
-
-          <article className="about-offer">
-            <p className="about-kicker">WHAT WE OFFER</p>
-            <h3>More Than Just a Computer Shop</h3>
-            <p>हम केवल सेवाएँ नहीं, बल्कि डिजिटल युग के लिए समाधान देते हैं। यहाँ आपको Online Services, Form Filling, Website Designing, Video Editing, Photography और अन्य डिजिटल सेवाएँ मिलती हैं। SUSMA COMPUTER हर कदम पर आपके साथ है।</p>
-            <ul>
-              {['Personal & Business Support', 'Professional Guidance', 'Easy & Affordable Pricing', '100% Customer Satisfaction'].map((item) => <li key={item}><CheckCircle2 size={15} />{item}</li>)}
-            </ul>
+          <article className="about-reference-purpose about-reference-vision">
+            <span className="about-reference-icon"><Eye size={27} /></span>
+            <div><h2>Our <strong>Vision</strong></h2><h3>हर कदम पर डिजिटल विकास</h3><p>हम Kadrabad, Bachhwara, Begusarai और आसपास के क्षेत्र में एक भरोसेमंद Digital Service Center बनना चाहते हैं, जो नई तकनीकों और ग्राहकों की बदलती ज़रूरतों के साथ आगे बढ़े।</p></div>
           </article>
+        </div>
 
-          <div className="about-purpose-cards">
-            <article className="about-purpose mission-card">
-              <span><Target size={27} /></span><div><h3>Our Mission</h3><p>हर ग्राहक को आधुनिक डिजिटल सुविधाओं से जोड़ना और उन्हें कम कीमत में बेहतर सेवा प्रदान करना।</p></div>
-            </article>
-            <article className="about-purpose vision-card">
-              <span><Eye size={27} /></span><div><h3>Our Vision</h3><p>Kadrabad और आसपास के क्षेत्र में डिजिटल सेवाओं के लिए सबसे भरोसेमंद नाम बनना।</p></div>
-            </article>
+        <section className="about-reference-offers" aria-labelledby="about-offers-title">
+          <div className="about-reference-section-heading"><span className="about-reference-icon orange"><CheckCircle2 size={26} /></span><div><p className="about-reference-kicker">OUR SERVICES</p><h2 id="about-offers-title">What We <strong>Offer</strong></h2></div><p className="about-reference-heading-note">एक ही छत के नीचे सभी डिजिटल सेवाएँ</p></div>
+          <div className="about-reference-service-grid">
+            {priceCategories.map((category, index) => (
+              <article className={`about-reference-service-card service-tone-${index}`} key={category.title}>
+                <h3>{category.title}</h3>
+                <ul>{category.services.map((service) => <li key={service.name}>{service.name}</li>)}</ul>
+                <a href={categoryLinks[index]}>View services <span aria-hidden="true">→</span></a>
+              </article>
+            ))}
           </div>
+        </section>
+
+        <section className="about-reference-why" aria-labelledby="about-why-title">
+          <div className="about-reference-why-heading"><span className="about-reference-icon"><ShieldCheck size={26} /></span><div><h2 id="about-why-title">Why Choose <strong>SUSMA COMPUTER?</strong></h2><p>हम क्यों हैं आपके लिए सही विकल्प?</p></div></div>
+          <div className="about-reference-reasons">{reasons.map(([Icon, title, copy]) => <article key={title}><span><Icon size={24} /></span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
+        </section>
+
+        <div className="about-reference-bottom-grid">
+          <article className="about-reference-bottom-card values-card"><h2>Our <strong>Values</strong></h2><h3>हमारे मूल मूल्य</h3><ul>{['ईमानदारी और पारदर्शिता', 'ग्राहक सम्मान', 'स्पष्ट संवाद', 'जिम्मेदारी और गुणवत्ता', 'लगातार सीखना और बेहतर बनना'].map((value) => <li key={value}><CheckCircle2 size={15} />{value}</li>)}</ul></article>
+          <article className="about-reference-bottom-card commitment-card"><h2>Our <strong>Commitment</strong></h2><h3>हमारा वादा</h3><p>हम हर काम को ध्यान से समझते हैं, सही जानकारी देते हैं और आपकी ज़रूरत के अनुसार अच्छा काम पूरा करने की कोशिश करते हैं। किसी भी सेवा या ज़रूरी दस्तावेज़ के बारे में काम शुरू करने से पहले आपको साफ़ जानकारी दी जाती है।</p></article>
+          <article className="about-reference-bottom-card visit-card"><MapPin size={27} /><h2>Visit <strong>Us</strong></h2><p>SUSMA COMPUTER &amp; Video Mixing Lab</p><p>{contact.town}, {contact.district}, {contact.state}</p><a href={contact.mapsUrl} target="_blank" rel="noreferrer">Get Directions <span aria-hidden="true">→</span></a></article>
         </div>
       </div>
     </section>

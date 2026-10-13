@@ -249,5 +249,5 @@ export const nav = [
   { label: 'Gallery', href: '#/gallery' },
   { label: 'Price List', href: '#/price-list' },
   { label: 'Blog', href: '#reviews' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '#/contact' },
 ];

@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, ShieldCheck, UsersRound, Handshake, Target, Eye, MapPin, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShieldCheck, UsersRound, Handshake, Target, Eye, MapPin, CheckCircle2, Phone, Mail, Clock, Send, MessageCircle, Navigation, PlaySquare, Image as ImageIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { TONES, Logo } from './Icons';
 import { services, gallery, reviews, contact, business, visitCounter, socials } from '../data/site';
@@ -160,6 +160,78 @@ export function AboutUs() {
           <article className="about-reference-bottom-card values-card"><h2>Our <strong>Values</strong></h2><h3>हमारे मूल मूल्य</h3><ul>{['ईमानदारी और पारदर्शिता', 'ग्राहक सम्मान', 'स्पष्ट संवाद', 'जिम्मेदारी और गुणवत्ता', 'लगातार सीखना और बेहतर बनना'].map((value) => <li key={value}><CheckCircle2 size={15} />{value}</li>)}</ul></article>
           <article className="about-reference-bottom-card commitment-card"><h2>Our <strong>Commitment</strong></h2><h3>हमारा वादा</h3><p>हम हर काम को ध्यान से समझते हैं, सही जानकारी देते हैं और आपकी ज़रूरत के अनुसार अच्छा काम पूरा करने की कोशिश करते हैं। किसी भी सेवा या ज़रूरी दस्तावेज़ के बारे में काम शुरू करने से पहले आपको साफ़ जानकारी दी जाती है।</p></article>
           <article className="about-reference-bottom-card visit-card"><MapPin size={27} /><h2>Visit <strong>Us</strong></h2><p>SUSMA COMPUTER &amp; Video Mixing Lab</p><p>{contact.town}, {contact.district}, {contact.state}</p><a href={contact.mapsUrl} target="_blank" rel="noreferrer">Get Directions <span aria-hidden="true">→</span></a></article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =============================================================== CONTACT == */
+export function ContactPage() {
+  const [form, setForm] = useState({ name: '', phone: '', email: '', service: '', message: '' });
+  const serviceOptions = priceCategories.flatMap((category) => category.services.map((service) => service.name));
+  const socialsToShow = [
+    { label: 'YouTube', href: socials.youtube, Icon: PlaySquare },
+    { label: 'Facebook', href: socials.facebook, Icon: UsersRound },
+    { label: 'Instagram', href: socials.instagram, Icon: ImageIcon },
+  ];
+  const update = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  const sendMessage = (event) => {
+    event.preventDefault();
+    const lines = [
+      'Hello Susma Computer & Video Mixing Lab,',
+      `Name: ${form.name}`,
+      form.phone && `Mobile: ${form.phone}`,
+      form.email && `Email: ${form.email}`,
+      `Service Needed: ${form.service}`,
+      `Message: ${form.message}`,
+    ].filter(Boolean);
+    window.location.assign(`${contact.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`);
+  };
+
+  return (
+    <section className="contact-page">
+      <div className="contact-page-wrap">
+        <div className="contact-reference-main">
+          <section className="contact-reference-info" aria-labelledby="contact-info-title">
+            <p className="contact-reference-kicker">CONTACT INFORMATION</p>
+            <h2 id="contact-info-title">हमसे संपर्क करें</h2>
+            <p className="contact-reference-intro">आप हमें निम्नलिखित माध्यमों से आसानी से संपर्क कर सकते हैं।</p>
+
+            <div className="contact-reference-info-grid">
+              <article className="contact-info-card location-info"><span><MapPin size={20} /></span><div><h3>Our Location</h3><p>Kadrabad, Bachhwara,<br />Begusarai, Bihar</p></div></article>
+              <a className="contact-info-card call-info" href={`tel:${contact.phone1}`}><span><Phone size={19} /></span><div><h3>Call Us</h3><p>{contact.phone1}<br />कॉल या WhatsApp करें</p></div></a>
+              <a className="contact-info-card whatsapp-info" href={contact.whatsapp} target="_blank" rel="noreferrer"><span><MessageCircle size={20} /></span><div><h3>WhatsApp</h3><p>सीधे हमें संदेश भेजें<br />जल्दी सहायता पाएँ</p></div></a>
+              <a className="contact-info-card email-info" href={`mailto:${contact.email}`}><span><Mail size={19} /></span><div><h3>Email</h3><p>{contact.email}<br />हमसे ईमेल पर जुड़ें</p></div></a>
+              <article className="contact-info-card hours-info"><span><Clock size={20} /></span><div><h3>Working Hours</h3><p>हर दिन · {contact.hoursToday}<br />Call us before visiting</p></div></article>
+              <article className="contact-info-card follow-info"><span><Navigation size={19} /></span><div><h3>Follow Us</h3><div className="contact-social-links">{socialsToShow.map(({ label, href, Icon }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}><Icon size={17} /></a>)}</div></div></article>
+            </div>
+          </section>
+
+          <section className="contact-reference-form-card" aria-labelledby="contact-form-title">
+            <div className="contact-form-heading"><span><MessageCircle size={22} /></span><div><h2 id="contact-form-title">Send Us a <strong>Message</strong></h2><p>अपना संदेश भेजें</p></div></div>
+            <p className="contact-form-note">अगर आपको कोई सवाल, सुझाव या सेवा की जानकारी चाहिए, तो नीचे फ़ॉर्म भरें।</p>
+            <form className="contact-reference-form" onSubmit={sendMessage}>
+              <label>Your Name (नाम) *<input name="name" value={form.name} onChange={update} autoComplete="name" placeholder="अपना नाम यहाँ लिखें" required /></label>
+              <label>Mobile Number (मोबाइल नंबर)<input name="phone" value={form.phone} onChange={update} autoComplete="tel" inputMode="tel" placeholder="अपना मोबाइल नंबर लिखें" /></label>
+              <label className="contact-form-full">Email (ईमेल)<input type="email" name="email" value={form.email} onChange={update} autoComplete="email" placeholder="अपना ईमेल लिखें" /></label>
+              <label className="contact-form-full">Service You Need (आप कौन-सी सेवा चाहते हैं?) *<select name="service" value={form.service} onChange={update} required><option value="">सेवा चुनें</option>{priceCategories.map((category) => <optgroup label={category.title} key={category.title}>{category.services.map((service) => <option key={service.name} value={service.name}>{service.name}</option>)}</optgroup>)}</select></label>
+              <label className="contact-form-full">Your Message (आपका संदेश) *<textarea name="message" value={form.message} onChange={update} rows="3" placeholder="आपका संदेश यहाँ लिखें..." required /></label>
+              <button className="contact-send-button contact-form-full" type="submit"><Send size={16} /> Send Message <span>संदेश भेजें</span></button>
+              <p className="contact-form-footnote contact-form-full">आपका संदेश WhatsApp पर खुलेगा; भेजने से पहले आप उसे देख सकते हैं।</p>
+            </form>
+          </section>
+        </div>
+
+        <div className="contact-reference-lower-grid">
+          <a className="contact-map-card" href={contact.mapsUrl} target="_blank" rel="noreferrer" aria-label="Open Susma Computer location in Google Maps">
+            <div className="contact-map-art" aria-hidden="true"><span className="map-road map-road-one" /><span className="map-road map-road-two" /><span className="map-road map-road-three" /><span className="map-water" /><span className="map-pin"><MapPin size={25} fill="currentColor" /></span><small className="map-label map-label-one">Kadrabad</small><small className="map-label map-label-two">Bachhwara</small><small className="map-label map-label-three">Begusarai</small></div>
+            <span className="contact-map-button"><MapPin size={15} /> View on Google Maps</span>
+          </a>
+
+          <article className="contact-lower-card contact-lower-location"><span className="contact-lower-icon"><MapPin size={21} /></span><h2>Our Location</h2><h3>हमारा स्थान</h3><p>SUSMA COMPUTER &amp; Video Mixing Lab<br />Kadrabad, Bachhwara,<br />Begusarai, Bihar - {contact.pin}</p><a href={contact.mapsUrl} target="_blank" rel="noreferrer">Get Directions <span aria-hidden="true">→</span></a></article>
+
+          <article className="contact-lower-card contact-why-visit"><span className="contact-lower-icon"><CheckCircle2 size={21} /></span><h2>Why Visit Us?</h2><h3>हमसे क्यों संपर्क करें?</h3><ul>{['भरोसेमंद और किफायती सेवाएँ', 'सभी डिजिटल सेवाएँ एक ही जगह', 'अनुभवी और मददगार टीम', 'साफ़ जानकारी और सही मार्गदर्शन', 'आपकी ज़रूरत पर व्यक्तिगत सहायता'].map((reason) => <li key={reason}><CheckCircle2 size={14} />{reason}</li>)}</ul><strong>Your Success<br />Our Priority</strong></article>
         </div>
       </div>
     </section>

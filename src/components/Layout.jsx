@@ -374,27 +374,28 @@ export function Hero() {
        section instead of a panel of its own, so the heading, the three actions
        and the info cards all sit on one picture instead of three columns that
        read as separate pages. */
-    <section id="home" className="relative isolate overflow-hidden bg-navy-2">
+    <section id="home" className="home-hero relative isolate overflow-hidden bg-navy-2">
       <img
         src="./images/shop-hero.jpg"
         alt="Susma Computer & Video Mixing Lab shop front in Kadrabad, Begusarai"
-        className="absolute inset-0 size-full object-cover object-center"
+        className="home-hero-photo absolute inset-0 size-full object-cover object-center"
       />
       {/* Legibility wash. It has to be at its heaviest on the left, where the
           white heading sits, and lightest on the right so the shop stays
           visible behind the info cards. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/45"
+        className="home-hero-wash absolute inset-0"
       />
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy/70 to-transparent"
       />
 
-      <div className="relative wrap py-5 xl:py-4">
+      <div className="home-hero-inner relative wrap py-5 xl:py-4">
         {/* ------------------------------------------------ heading + actions -- */}
         <div className="home-about-card flex max-w-3xl flex-col justify-center">
+          <p className="home-hero-kicker">WELCOME TO</p>
           <h1 className="home-about-title">
             SUSMA <strong>COMPUTER</strong>
             <br />

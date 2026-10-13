@@ -471,8 +471,8 @@
 .dark .price-benefits>div { color:#e0efff; border-color:#334155; }
 .home-about-card { padding:1.15rem 1.35rem; border:0; border-radius:0; background:transparent; box-shadow:none; }
 .home-about-title { margin:0; color:#fff; font-size:clamp(1.8rem,3.2vw,2.6rem); font-weight:1000; letter-spacing:-.045em; line-height:1.02; text-shadow:0 2px 9px #001431b8; }
-.home-about-title strong { color:#f15a10; }
-.home-about-title span { color:#fff; font-size:.64em; letter-spacing:-.02em; }
+.home-about-title strong { color:#fff; }
+.home-about-title span { color:#f15a10; font-size:.64em; letter-spacing:-.02em; }
 .home-about-tagline { margin:.5rem 0 .35rem; color:#fff; font-size:1rem; font-weight:800; text-shadow:0 1px 7px #001431c9; }
 .home-about-copy { max-width:52rem; margin:0; color:#fff; font-size:.9rem; line-height:1.65; text-shadow:0 1px 6px #001431d9; }
 .home-about-card>ul { margin-top:.8rem; }

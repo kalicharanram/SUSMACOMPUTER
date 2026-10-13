@@ -307,6 +307,11 @@
 .job-breadcrumb { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; font-size: .8rem; }
 .job-breadcrumb a, .job-back { color: var(--color-brand-blue); }
 .job-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; max-width: 1440px; margin: 1.4rem auto 0; padding: 0 1rem; }
+.computer-job-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .65rem; max-width: 1200px; margin-top: .75rem; }
+.computer-job-card { display: grid; grid-template-rows: 82px auto 28px; align-content: start; border-radius: 12px; }
+.computer-job-card .job-artwork { height: 82px; padding: 4px; background: #eef3fa; }
+.computer-job-card h2 { min-height: 38px; display: grid; place-items: center; padding: .3rem .45rem 0; text-align: center; font-size: .9rem; line-height: 1.2; color: var(--color-ink); }
+.computer-job-card .job-card-link { padding: .2rem .4rem .35rem; font-size: .75rem; }
 .job-card { display: block; overflow: hidden; border-radius: 20px; border: 1px solid #d7e3ef; background: #f6faff; transition: transform .2s, box-shadow .2s; }
 .job-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px #0a1b4e24; }
 .job-artwork { display: block; width: 100%; height: auto; }
@@ -332,5 +337,5 @@
 .dark .job-heading, .dark .job-card { background: #0f172a; }
 .dark .job-page h1, .dark .job-page h2, .dark .job-page h3 { color: #f8fafc; }
 .dark .job-back, .dark .job-breadcrumb a, .dark .job-card-link { color: #93c5fd; }
-@media(max-width: 767px) { .job-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; padding: 0 .65rem; } .job-detail-grid { grid-template-columns: 1fr; gap: 1.5rem; } .job-detail-art { max-width: 460px; } }
-@media(max-width: 479px) { .job-grid { grid-template-columns: 1fr; } }
+@media(max-width: 767px) { .job-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; padding: 0 .65rem; } .computer-job-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem; } .computer-job-card { grid-template-rows: 72px auto 26px; } .computer-job-card .job-artwork { height: 72px; } .computer-job-card h2 { min-height: 36px; padding-inline: .25rem; font-size: .82rem; } .job-detail-grid { grid-template-columns: 1fr; gap: 1.5rem; } .job-detail-art { max-width: 460px; } }
+@media(max-width: 479px) { .job-grid { grid-template-columns: 1fr; } .computer-job-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }

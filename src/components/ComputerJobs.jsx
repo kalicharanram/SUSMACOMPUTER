@@ -36,7 +36,7 @@ export function ComputerJobs({ slug }) {
         </div>
         <h2 className="job-other-title">Explore other services</h2><div className="job-related">{computerJobs.filter(item => item !== service).map(item => <a key={item.slug} href={jobBase + '/' + item.slug}>{t(item.title)} <ArrowRight size={16} /></a>)}</div>
       </div> :
-      <div className="job-grid">{computerJobs.map(item => <a key={item.slug} className="job-card" href={jobBase + '/' + item.slug} aria-label={t(item.title) + ' — View details'}><ServiceArtwork service={item} /><h2 className="sr-only">{t(item.title)}</h2><span className="job-card-link">View details <ArrowRight size={18} aria-hidden="true" /></span></a>)}</div>
+      <div className="job-grid computer-job-grid">{computerJobs.map(item => <a key={item.slug} className="job-card computer-job-card" href={jobBase + '/' + item.slug} aria-label={t(item.title) + ' — View details'}><ServiceArtwork service={item} /><h2>{t(item.title)}</h2><span className="job-card-link">View details <ArrowRight size={18} aria-hidden="true" /></span></a>)}</div>
     }
   </section>;
 }

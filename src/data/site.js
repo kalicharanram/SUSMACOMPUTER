@@ -136,17 +136,21 @@ export const hero = {
  */
 export const services = [
   { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
-  { id: 3, label: 'Videography', img: '03-videography.jpg', tone: 'pink' },
-  { id: 4, label: 'Photography', img: '04-photography.jpg', tone: 'peach' },
-  { id: 5, label: 'Video Mixing Lab', img: '05-video-mixing.jpg', tone: 'lav' },
-  { id: 23, label: 'Album Designing', img: '04-photography.jpg', tone: 'pink' },
-  { id: 24, label: 'Advertising Video & Poster', img: '21-advertising.jpg', tone: 'blue' },
+  { id: 3, label: 'Videography Services', href: '#/services/videography-services', img: '03-videography.jpg', tone: 'pink' },
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 13, label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg', tone: 'pink' },
   { id: 16, label: 'School & Other ID Card', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
+];
+
+export const videographyServices = [
+  { label: 'Videography', img: '03-videography.jpg' },
+  { label: 'Photography', img: '04-photography.jpg' },
+  { label: 'Video Mixing Lab', img: '05-video-mixing.jpg' },
+  { label: 'Album Designing', img: '04-photography.jpg' },
+  { label: 'Advertising Video & Poster', img: '21-advertising.jpg' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

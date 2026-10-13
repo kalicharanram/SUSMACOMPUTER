@@ -52,6 +52,11 @@ export const translations = {
     // ---- services (19)
     'Computer Job Work': 'कंप्यूटर जॉब वर्क',
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
+    'Videography': 'वीडियोग्राफी',
+    'Photography': 'फोटोग्राफी',
+    'Video Mixing Lab': 'वीडियो मिक्सिंग लैब',
+    'Album Designing': 'एल्बम डिज़ाइनिंग',
+    'Advertising Video & Poster': 'विज्ञापन वीडियो और पोस्टर',
     'Computer Assemble': 'कंप्यूटर असेंबल',
     'Computer Accessories': 'कंप्यूटर एक्सेसरीज़',
     'YouTube Channel Setup': 'यूट्यूब चैनल सेटअप',
@@ -137,6 +142,11 @@ export const translations = {
     // ---- services (19)
     'Computer Job Work': 'کمپیوٹر کا کام',
     'Videography Services': 'ویڈیوگرافی خدمات',
+    'Videography': 'ویڈیوگرافی',
+    'Photography': 'فوٹوگرافی',
+    'Video Mixing Lab': 'ویڈیو مکسنگ لیب',
+    'Album Designing': 'البم ڈیزائننگ',
+    'Advertising Video & Poster': 'اشتہاری ویڈیو اور پوسٹر',
     'Computer Assemble': 'کمپیوٹر اسمبل',
     'Computer Accessories': 'کمپیوٹر ایکسیسریز',
     'YouTube Channel Setup': 'یوٹیوب چینل سیٹ اپ',

@@ -57,11 +57,12 @@ export function Services() {
           {[...services, ...services].map((s, i) => {
             const tone = TONES[s.tone] ?? TONES.blue;
             const dupe = i >= services.length;
-            const Card = s.id === 1 ? 'a' : 'div';
+            const href = s.href || (s.id === 1 ? '#/services/computer-job-work' : undefined);
+            const Card = href ? 'a' : 'div';
             return (
               <Card
-                href={s.id === 1 ? "#/services/computer-job-work" : undefined}
-                tabIndex={s.id === 1 ? (dupe ? -1 : 0) : undefined}
+                href={href}
+                tabIndex={href ? (dupe ? -1 : 0) : undefined}
                 key={`${s.id}-${i}`}
                 aria-hidden={dupe}
                 className={`service-card flex shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-lg ${tone.bg} ${tone.hov}`}

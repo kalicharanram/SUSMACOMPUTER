@@ -4,6 +4,9 @@ import { Services, WhyUs, Gallery, Reviews, Footer } from './components/Sections
 import { ThemeCustomizer } from './components/ThemeCustomizer';
 import { ComputerJobs } from './components/ComputerJobs';
 import { computerJobs, jobBase } from './data/computerJobs';
+import { VideographyServices } from './components/VideographyServices';
+
+const videographyBase = '#/services/videography-services';
 
 export default function App() {
   const [hash, setHash] = useState(() => window.location.hash);
@@ -13,18 +16,19 @@ export default function App() {
     return () => window.removeEventListener('hashchange', update);
   }, []);
   const jobPage = hash === jobBase || hash.startsWith(jobBase + '/');
+  const videographyPage = hash === videographyBase;
   const slug = jobPage ? hash.slice(jobBase.length + 1).replace(/\/$/, '') : '';
   useEffect(() => {
-    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer Job Work') + ' | Susma Computer' : 'Susma Computer & Video Mixing Lab';
+    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer Job Work') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : 'Susma Computer & Video Mixing Lab';
     const frame = requestAnimationFrame(() => {
       if (jobPage || hash.startsWith('#/')) window.scrollTo({ top: 0, behavior: 'instant' });
       else if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
     });
     return () => cancelAnimationFrame(frame);
-  }, [hash, jobPage, slug]);
+  }, [hash, jobPage, videographyPage, slug]);
   return <>
-    <TopBar /><Header jobPage={jobPage} />
-    <main>{jobPage ? <ComputerJobs slug={slug} /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
+    <TopBar /><Header jobPage={jobPage || videographyPage} />
+    <main>{jobPage ? <ComputerJobs slug={slug} /> : videographyPage ? <VideographyServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
     <Footer /><ThemeCustomizer />
   </>;
 }

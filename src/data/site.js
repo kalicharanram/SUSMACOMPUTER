@@ -140,7 +140,7 @@ export const services = [
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
-  { id: 13, label: 'Digital Marketing & Social Media', img: '19-digital-profile.jpg', tone: 'pink' },
+  { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: '19-digital-profile.jpg', tone: 'pink' },
   { id: 16, label: 'School & Other ID Card', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
 ];
@@ -151,6 +151,16 @@ export const videographyServices = [
   { label: 'Video Mixing Lab', img: '05-video-mixing.jpg' },
   { label: 'Album Designing', img: '04-photography.jpg' },
   { label: 'Advertising Video & Poster', img: '21-advertising.jpg' },
+];
+
+export const digitalMarketingServices = [
+  { label: 'Social Media Channel Setup', img: '19-digital-profile.jpg' },
+  { label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg' },
+  { label: 'WhatsApp Channel Setup', img: '19-digital-profile.jpg' },
+  { label: 'Facebook Page Setup', img: '19-digital-profile.jpg' },
+  { label: 'Instagram Account Setup', img: '19-digital-profile.jpg' },
+  { label: 'Social Media Management', img: '19-digital-profile.jpg' },
+  { label: 'Digital Promotion & Advertising', img: '14-poster-design.jpg' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

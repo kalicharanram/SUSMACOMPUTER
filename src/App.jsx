@@ -5,8 +5,10 @@ import { ThemeCustomizer } from './components/ThemeCustomizer';
 import { ComputerJobs } from './components/ComputerJobs';
 import { computerJobs, jobBase } from './data/computerJobs';
 import { VideographyServices } from './components/VideographyServices';
+import { DigitalMarketingServices } from './components/DigitalMarketingServices';
 
 const videographyBase = '#/services/videography-services';
+const digitalMarketingBase = '#/services/digital-marketing-social-media';
 
 export default function App() {
   const [hash, setHash] = useState(() => window.location.hash);
@@ -17,18 +19,19 @@ export default function App() {
   }, []);
   const jobPage = hash === jobBase || hash.startsWith(jobBase + '/');
   const videographyPage = hash === videographyBase;
+  const digitalMarketingPage = hash === digitalMarketingBase;
   const slug = jobPage ? hash.slice(jobBase.length + 1).replace(/\/$/, '') : '';
   useEffect(() => {
-    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer Job Work') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : 'Susma Computer & Video Mixing Lab';
+    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer Job Work') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : digitalMarketingPage ? 'Digital Marketing & Social Media | Susma Computer' : 'Susma Computer & Video Mixing Lab';
     const frame = requestAnimationFrame(() => {
       if (jobPage || hash.startsWith('#/')) window.scrollTo({ top: 0, behavior: 'instant' });
       else if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
     });
     return () => cancelAnimationFrame(frame);
-  }, [hash, jobPage, videographyPage, slug]);
+  }, [hash, jobPage, videographyPage, digitalMarketingPage, slug]);
   return <>
-    <TopBar /><Header jobPage={jobPage || videographyPage} />
-    <main>{jobPage ? <ComputerJobs slug={slug} /> : videographyPage ? <VideographyServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
+    <TopBar /><Header jobPage={jobPage || videographyPage || digitalMarketingPage} />
+    <main>{jobPage ? <ComputerJobs slug={slug} /> : videographyPage ? <VideographyServices /> : digitalMarketingPage ? <DigitalMarketingServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><WhyUs /><Reviews /></>}</main>
     <Footer /><ThemeCustomizer />
   </>;
 }

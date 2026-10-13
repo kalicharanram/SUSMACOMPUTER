@@ -128,7 +128,7 @@ export function WhyUs() {
           <article className="about-journey">
             <p className="about-kicker">OUR JOURNEY</p>
             <h3>Small Step, Big Vision</h3>
-            <p>SUSMA COMPUTER की शुरुआत Kadrabad, Bachhwara, Begusarai से एक छोटे से प्रयास के रूप में हुई थी। हमारा उद्देश्य था—डिजिटल सेवाओं को हर व्यक्ति तक पहुँचाना। आज हम अपने ग्राहकों के विश्वास और सहयोग से एक भरोसेमंद नाम बन रहे हैं।</p>
+            <p>SUSMA COMPUTER की शुरुआत Kadrabad, Bachhwara, Begusarai से एक छोटे से प्रयास के रूप में हुई थी। हमारा उद्देश्य था—डिजिटल सेवाओं को हर व्यक्ति तक पहुँचाना। आज हम अपने ग्राहकों के विश्वास और सहयोग से एक भरोसेमंद नाम बन चुके हैं।</p>
             <strong className="about-quote">आपका विश्वास ही<br />हमारी सफलता है!</strong>
           </article>
 

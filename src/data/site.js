@@ -136,7 +136,11 @@ export const hero = {
  */
 export const services = [
   { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
-  { id: 3, label: 'Videography Services', img: '03-videography.jpg', tone: 'pink' },
+  { id: 3, label: 'Videography', img: '03-videography.jpg', tone: 'pink' },
+  { id: 4, label: 'Photography', img: '04-photography.jpg', tone: 'peach' },
+  { id: 5, label: 'Video Mixing Lab', img: '05-video-mixing.jpg', tone: 'lav' },
+  { id: 23, label: 'Album Designing', img: '04-photography.jpg', tone: 'pink' },
+  { id: 24, label: 'Advertising Video & Poster', img: '21-advertising.jpg', tone: 'blue' },
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.

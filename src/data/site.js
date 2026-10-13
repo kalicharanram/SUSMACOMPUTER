@@ -235,7 +235,7 @@ export const reviews = [
 /* ------------------------------------------------------------------- NAV --- */
 export const nav = [
   { label: 'Home', href: '#home' },
-  { label: 'About Us', href: '#about' },
+  { label: 'About Us', href: '#/about-us' },
   {
     label: 'Services',
     href: '#services',

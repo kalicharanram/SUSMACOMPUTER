@@ -92,9 +92,9 @@ export function Services() {
 }
 
 /* ================================================================ WHY US == */
-export function WhyUs() {
+export function AboutUs() {
   return (
-    <section id="about" className="about-page">
+    <section id="about-us" className="about-page">
       <div className="about-wrap">
         <div className="about-hero">
           <div className="about-intro">

@@ -135,52 +135,52 @@ export const hero = {
  * Naya service add karna ho: neeche ek line copy-paste kar do.
  */
 export const services = [
-  { id: 1, label: 'Computer & Online Services', img: '01-computer-job-work.jpg', tone: 'blue' },
-  { id: 3, label: 'Videography Services', href: '#/services/videography-services', img: '03-videography.jpg', tone: 'pink' },
+  { id: 1, label: 'Computer & Online Services', img: 'premium/pexels-6930432.webp', tone: 'blue' },
+  { id: 3, label: 'Videography Services', href: '#/services/videography-services', img: 'premium/pexels-28728925.webp', tone: 'pink' },
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
-  { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: '19-digital-profile.jpg', tone: 'pink' },
-  { id: 16, label: 'ID Card Design & Printing', href: '#/services/id-card-design-printing', img: '16-id-card.jpg', tone: 'pink' },
-  { id: 17, label: 'Stamp Making', href: '#/services/stamp-making', img: '17-rubber-stamp.jpg', tone: 'mint' },
+  { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: 'premium/pexels-6476246.webp', tone: 'pink' },
+  { id: 16, label: 'ID Card Design & Printing', href: '#/services/id-card-design-printing', img: 'premium/pexels-8761297.webp', tone: 'pink' },
+  { id: 17, label: 'Stamp Making', href: '#/services/stamp-making', img: 'premium/pexels-6445417.webp', tone: 'mint' },
 ];
 
 export const videographyServices = [
-  { label: 'Videography', img: '03-videography.jpg' },
-  { label: 'Photography', img: '04-photography.jpg' },
-  { label: 'Video Mixing Lab', img: '05-video-mixing.jpg' },
-  { label: 'Album Designing', img: '04-photography.jpg' },
-  { label: 'Advertising Video & Poster', img: '21-advertising.jpg' },
+  { label: 'Videography', img: 'premium/pexels-28728925.webp' },
+  { label: 'Photography', img: 'premium/pexels-31953041.webp' },
+  { label: 'Video Mixing Lab', img: 'premium/pexels-695730.webp' },
+  { label: 'Album Designing', img: 'premium/pexels-15548877.webp' },
+  { label: 'Advertising Video & Poster', img: 'premium/pexels-6476252.webp' },
 ];
 
 export const digitalMarketingServices = [
-  { label: 'Social Media Channel Setup', img: '19-digital-profile.jpg' },
-  { label: 'YouTube Channel Setup', img: '13-youtube-setup.jpg' },
-  { label: 'WhatsApp Channel Setup', img: '19-digital-profile.jpg' },
-  { label: 'Facebook Page Setup', img: '19-digital-profile.jpg' },
-  { label: 'Instagram Account Setup', img: '19-digital-profile.jpg' },
-  { label: 'Social Media Management', img: '19-digital-profile.jpg' },
-  { label: 'Digital Promotion & Advertising', img: '14-poster-design.jpg' },
+  { label: 'Social Media Channel Setup', img: 'premium/pexels-14765792.webp' },
+  { label: 'YouTube Channel Setup', img: 'premium/pexels-6953869.webp' },
+  { label: 'WhatsApp Channel Setup', img: 'premium/pexels-46924.webp' },
+  { label: 'Facebook Page Setup', img: 'premium/pexels-267350.webp' },
+  { label: 'Instagram Account Setup', img: 'premium/pexels-18610082.webp' },
+  { label: 'Social Media Management', img: 'premium/pexels-6476246.webp' },
+  { label: 'Digital Promotion & Advertising', img: 'premium/pexels-7948008.webp' },
 ];
 
 export const idCardServices = [
-  { label: 'School ID Card', img: '16-id-card.jpg' },
-  { label: 'College ID Card', img: '16-id-card.jpg' },
-  { label: 'Coaching ID Card', img: '16-id-card.jpg' },
-  { label: 'Office / Employee ID Card', img: '16-id-card.jpg' },
-  { label: 'Teacher ID Card', img: '16-id-card.jpg' },
-  { label: 'Visitor ID Card', img: '16-id-card.jpg' },
-  { label: 'Other ID Card Designing & Printing', img: '16-id-card.jpg' },
+  { label: 'School ID Card', img: 'premium/pexels-26224976.webp' },
+  { label: 'College ID Card', img: 'premium/pexels-5553971.webp' },
+  { label: 'Coaching ID Card', img: 'premium/pexels-6929182.webp' },
+  { label: 'Office / Employee ID Card', img: 'premium/pexels-8465275.webp' },
+  { label: 'Teacher ID Card', img: 'premium/pexels-8419196.webp' },
+  { label: 'Visitor ID Card', img: 'premium/pexels-7648051.webp' },
+  { label: 'Other ID Card Designing & Printing', img: 'premium/pexels-7319158.webp' },
 ];
 
 export const stampServices = [
-  { label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg' },
-  { label: 'Office Stamp', img: '17-rubber-stamp.jpg' },
-  { label: 'Name Stamp', img: '17-rubber-stamp.jpg' },
-  { label: 'Self-Inking Stamp', img: '17-rubber-stamp.jpg' },
-  { label: 'Address Stamp', img: '17-rubber-stamp.jpg' },
-  { label: 'Round & Signature Stamp', img: '17-rubber-stamp.jpg' },
-  { label: 'Custom Business Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Rubber Stamp Making', img: 'premium/pexels-6445417.webp' },
+  { label: 'Office Stamp', img: 'premium/pexels-7657392.webp' },
+  { label: 'Name Stamp', img: 'premium/pexels-3838333.webp' },
+  { label: 'Self-Inking Stamp', img: 'premium/pexels-6358840.webp' },
+  { label: 'Address Stamp', img: 'premium/pexels-11544367.webp' },
+  { label: 'Round & Signature Stamp', img: 'premium/pexels-17311370.webp' },
+  { label: 'Custom Business Stamp', img: 'premium/pexels-6445417.webp' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

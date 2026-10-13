@@ -3,11 +3,8 @@ import { computerJobs, jobBase } from '../data/computerJobs';
 import { contact } from '../data/site';
 import { useLang } from '../i18n';
 
-// Reuse the supplied artwork without baking the page header/footer into each card.
 function ServiceArtwork({ service }) {
-  return <svg viewBox={service.crop.join(' ')} className="job-artwork" aria-hidden="true" focusable="false">
-    <image href="./images/computer-job-work/service-artwork.jpg" width="1334" height="1888" preserveAspectRatio="none" />
-  </svg>;
+  return <img src={`./images/services/${service.img}`} alt={service.title} className="job-artwork" />;
 }
 
 export function ComputerJobs({ slug }) {

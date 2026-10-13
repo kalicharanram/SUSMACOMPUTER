@@ -309,17 +309,18 @@
 .job-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; max-width: 1440px; margin: 1.4rem auto 0; padding: 0 1rem; }
 .computer-job-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .65rem; max-width: 1200px; margin-top: .75rem; }
 .computer-job-card { display: grid; grid-template-rows: 82px auto 28px; align-content: start; border-radius: 12px; }
-.computer-job-card .job-artwork { height: 82px; padding: 4px; background: #eef3fa; }
+.computer-job-card .job-artwork { height: 82px; padding: 4px; background: #eef3fa; object-fit: cover; }
 .computer-job-card h2 { min-height: 38px; display: grid; place-items: center; padding: .3rem .45rem 0; text-align: center; font-size: .9rem; line-height: 1.2; color: var(--color-ink); }
 .computer-job-card .job-card-link { padding: .2rem .4rem .35rem; font-size: .75rem; }
 .job-card { display: block; overflow: hidden; border-radius: 20px; border: 1px solid #d7e3ef; background: #f6faff; transition: transform .2s, box-shadow .2s; }
 .job-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px #0a1b4e24; }
-.job-artwork { display: block; width: 100%; height: auto; }
+.job-artwork { display: block; width: 100%; height: auto; object-fit: cover; }
 .job-card-link { display: flex; justify-content: center; align-items: center; gap: .6rem; font-size: .85rem; padding: .6rem; color: var(--color-brand-blue); font-weight: 700; }
 .job-detail { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
 .job-back { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.5rem; }
 .job-detail-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 2.5rem; align-items: start; }
 .job-detail-art { overflow: hidden; border-radius: 20px; }
+.job-detail-art .job-artwork { width: 100%; max-height: 520px; object-fit: cover; }
 .job-detail-copy h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.4; }
 .job-detail-copy ul { display: grid; gap: 1rem; margin: 1.5rem 0; }
 .job-detail-copy li { display: flex; gap: .7rem; align-items: start; }

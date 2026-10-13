@@ -14,16 +14,16 @@ export function ComputerJobs({ slug }) {
   const { t } = useLang();
   const service = computerJobs.find(item => item.slug === slug);
   const missing = Boolean(slug && !service);
-  const title = missing ? 'Service not found' : service?.title || 'Computer Job Work';
+  const title = missing ? 'Service not found' : service?.title || 'Computer & Online Services';
   return <section id="computer-job-work" className="job-page">
     {slug ? <div className="job-heading">
-      <nav aria-label="Breadcrumb" className="job-breadcrumb"><a href="#home">{t('Home')}</a><span>/</span><a href={jobBase}>{t('Computer Job Work')}</a>{slug && <><span>/</span><span>{t(title)}</span></>}</nav>
+      <nav aria-label="Breadcrumb" className="job-breadcrumb"><a href="#home">{t('Home')}</a><span>/</span><a href={jobBase}>{t('Computer & Online Services')}</a>{slug && <><span>/</span><span>{t(title)}</span></>}</nav>
       <h1>{t(title)}</h1>
 
     </div> : <h1 className="pt-6 text-center text-2xl font-extrabold sm:text-3xl">{t(title)}</h1>}
-    {missing ? <div className="job-detail"><p>This service page could not be found.</p><a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a></div> : service ?
+    {missing ? <div className="job-detail"><p>This service page could not be found.</p><a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer & Online Services</a></div> : service ?
       <div className="job-detail">
-        <a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer Job Work</a>
+        <a className="job-back" href={jobBase}><ArrowLeft size={18} />Back to Computer & Online Services</a>
         <div className="job-detail-grid">
           <div className="job-detail-art"><ServiceArtwork service={service} /></div>
           <div className="job-detail-copy">

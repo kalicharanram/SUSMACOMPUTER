@@ -135,7 +135,7 @@ export const hero = {
  * Naya service add karna ho: neeche ek line copy-paste kar do.
  */
 export const services = [
-  { id: 1, label: 'Computer Job Work', img: '01-computer-job-work.jpg', tone: 'blue' },
+  { id: 1, label: 'Computer & Online Services', img: '01-computer-job-work.jpg', tone: 'blue' },
   { id: 3, label: 'Videography Services', href: '#/services/videography-services', img: '03-videography.jpg', tone: 'pink' },
   // Replaces "Computer Assemble" and "Computer Accessories". It reuses the
   // assemble artwork, which was the closest fit already on disk and is no longer
@@ -244,7 +244,7 @@ export const nav = [
        showing "Computer Assemble" twice while the strip shows it once, so the
        menu is derived instead. `new Set` also collapses any repeat, making a
        duplicate entry impossible even if the services list grows one. */
-    children: [...new Set(['Computer Job Work', ...services.map((s) => s.label)])],
+    children: [...new Set(['Computer & Online Services', ...services.map((s) => s.label)])],
   },
   {
     label: 'Gallery',

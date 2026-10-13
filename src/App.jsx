@@ -28,7 +28,7 @@ export default function App() {
   const stampPage = hash === stampBase;
   const slug = jobPage ? hash.slice(jobBase.length + 1).replace(/\/$/, '') : '';
   useEffect(() => {
-    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer Job Work') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : digitalMarketingPage ? 'Digital Marketing & Social Media | Susma Computer' : idCardPage ? 'ID Card Design & Printing | Susma Computer' : stampPage ? 'Stamp Making | Susma Computer' : 'Susma Computer & Video Mixing Lab';
+    document.title = jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer & Online Services') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : digitalMarketingPage ? 'Digital Marketing & Social Media | Susma Computer' : idCardPage ? 'ID Card Design & Printing | Susma Computer' : stampPage ? 'Stamp Making | Susma Computer' : 'Susma Computer & Video Mixing Lab';
     const frame = requestAnimationFrame(() => {
       if (jobPage || hash.startsWith('#/')) window.scrollTo({ top: 0, behavior: 'instant' });
       else if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();

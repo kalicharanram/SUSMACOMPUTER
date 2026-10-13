@@ -50,7 +50,7 @@ export const translations = {
     'Get Direction': 'दिशा देखें',
 
     // ---- services (19)
-    'Computer Job Work': 'कंप्यूटर जॉब वर्क',
+    'Computer & Online Services': 'कंप्यूटर और ऑनलाइन सेवाएँ',
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
     'Videography': 'वीडियोग्राफी',
     'Photography': 'फोटोग्राफी',
@@ -161,7 +161,7 @@ export const translations = {
     'Get Direction': 'راستہ دیکھیں',
 
     // ---- services (19)
-    'Computer Job Work': 'کمپیوٹر کا کام',
+    'Computer & Online Services': 'کمپیوٹر اور آن لائن خدمات',
     'Videography Services': 'ویڈیوگرافی خدمات',
     'Videography': 'ویڈیوگرافی',
     'Photography': 'فوٹوگرافی',

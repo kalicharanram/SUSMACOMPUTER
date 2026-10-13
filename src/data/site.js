@@ -142,7 +142,7 @@ export const services = [
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: '19-digital-profile.jpg', tone: 'pink' },
   { id: 16, label: 'ID Card Design & Printing', href: '#/services/id-card-design-printing', img: '16-id-card.jpg', tone: 'pink' },
-  { id: 17, label: 'Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
+  { id: 17, label: 'Stamp Making', href: '#/services/stamp-making', img: '17-rubber-stamp.jpg', tone: 'mint' },
 ];
 
 export const videographyServices = [
@@ -171,6 +171,16 @@ export const idCardServices = [
   { label: 'Teacher ID Card', img: '16-id-card.jpg' },
   { label: 'Visitor ID Card', img: '16-id-card.jpg' },
   { label: 'Other ID Card Designing & Printing', img: '16-id-card.jpg' },
+];
+
+export const stampServices = [
+  { label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg' },
+  { label: 'Office Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Name Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Self-Inking Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Address Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Round & Signature Stamp', img: '17-rubber-stamp.jpg' },
+  { label: 'Custom Business Stamp', img: '17-rubber-stamp.jpg' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

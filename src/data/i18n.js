@@ -76,6 +76,13 @@ export const translations = {
     'Visitor ID Card': 'विज़िटर आईडी कार्ड',
     'Other ID Card Designing & Printing': 'अन्य आईडी कार्ड डिज़ाइन और प्रिंटिंग',
     'Stamp Making': 'स्टैंप बनाना',
+    'Rubber Stamp Making': 'रबर स्टैंप बनाना',
+    'Office Stamp': 'ऑफिस स्टैंप',
+    'Name Stamp': 'नाम का स्टैंप',
+    'Self-Inking Stamp': 'सेल्फ-इंकिंग स्टैंप',
+    'Address Stamp': 'पते का स्टैंप',
+    'Round & Signature Stamp': 'गोल और हस्ताक्षर स्टैंप',
+    'Custom Business Stamp': 'कस्टम बिज़नेस स्टैंप',
 
     // ---- why choose us
     'Why Choose Us?': 'हमें क्यों चुनें?',
@@ -180,6 +187,13 @@ export const translations = {
     'Visitor ID Card': 'وزیٹر آئی ڈی کارڈ',
     'Other ID Card Designing & Printing': 'دیگر آئی ڈی کارڈ ڈیزائننگ اور پرنٹنگ',
     'Stamp Making': 'اسٹیمپ بنانا',
+    'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
+    'Office Stamp': 'آفس اسٹیمپ',
+    'Name Stamp': 'نام کا اسٹیمپ',
+    'Self-Inking Stamp': 'سیلف اِنکنگ اسٹیمپ',
+    'Address Stamp': 'پتے کا اسٹیمپ',
+    'Round & Signature Stamp': 'گول اور دستخط کا اسٹیمپ',
+    'Custom Business Stamp': 'حسب ضرورت کاروباری اسٹیمپ',
 
     // ---- why choose us
     'Why Choose Us?': 'ہمیں کیوں منتخب کریں؟',

@@ -67,7 +67,7 @@ export const translations = {
     'Instagram Account Setup': 'Instagram अकाउंट सेटअप',
     'Social Media Management': 'सोशल मीडिया मैनेजमेंट',
     'Digital Promotion & Advertising': 'डिजिटल प्रमोशन और विज्ञापन',
-    'School & Other ID Card': 'स्कूल और अन्य पहचान पत्र',
+    'ID Card Design & Printing': 'आईडी कार्ड डिज़ाइन और प्रिंटिंग',
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
 
     // ---- why choose us
@@ -164,7 +164,7 @@ export const translations = {
     'Instagram Account Setup': 'Instagram اکاؤنٹ سیٹ اپ',
     'Social Media Management': 'سوشل میڈیا مینجمنٹ',
     'Digital Promotion & Advertising': 'ڈیجیٹل پروموشن اور اشتہارات',
-    'School & Other ID Card': 'اسکول اور دیگر شناختی کارڈ',
+    'ID Card Design & Printing': 'آئی ڈی کارڈ ڈیزائن اور پرنٹنگ',
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
 
     // ---- why choose us

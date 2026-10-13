@@ -295,7 +295,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
                   {item.children.map((c) => (
                     <a
                       key={c}
-                      href={c === 'Computer Job Work' ? '#/services/computer-job-work' : c === 'Videography Services' ? '#/services/videography-services' : c === 'Digital Marketing & Social Media' ? '#/services/digital-marketing-social-media' : item.href}
+                      href={c === 'Computer Job Work' ? '#/services/computer-job-work' : c === 'Videography Services' ? '#/services/videography-services' : c === 'Digital Marketing & Social Media' ? '#/services/digital-marketing-social-media' : c === 'ID Card Design & Printing' ? '#/services/id-card-design-printing' : item.href}
                       onClick={() => setOpenDrop(null)}
                       className="block border-b border-slate-50 px-4 py-2.5 text-sm text-body transition-colors last:border-0 hover:bg-p-blue hover:text-brand-blue"
                     >
@@ -343,7 +343,7 @@ className={`inline-flex items-center gap-1.5 rounded-md px-2 py-2.5 text-[0.85re
             {nav.map((item, i) => (
               <div key={item.label} className="border-b border-slate-100 dark:border-slate-800">
                 {item.children ? <button type="button" onClick={() => setOpenDrop(openDrop === i ? null : i)} aria-expanded={openDrop === i} className="flex w-full items-center justify-between py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}<ChevronDown size={16} /></button> : <a href={item.href} onClick={() => setOpen(false)} className="block py-3 text-[0.95rem] font-semibold text-ink dark:text-white">{t(item.label)}</a>}
-                {item.children && openDrop === i && <div className="pb-3 pl-4">{item.children.map(c => <a key={c} href={c === 'Computer Job Work' ? '#/services/computer-job-work' : c === 'Videography Services' ? '#/services/videography-services' : c === 'Digital Marketing & Social Media' ? '#/services/digital-marketing-social-media' : item.href} onClick={() => { setOpen(false); setOpenDrop(null); }} className="block py-2 text-sm text-brand-blue dark:text-white">{t(c)}</a>)}</div>}
+                {item.children && openDrop === i && <div className="pb-3 pl-4">{item.children.map(c => <a key={c} href={c === 'Computer Job Work' ? '#/services/computer-job-work' : c === 'Videography Services' ? '#/services/videography-services' : c === 'Digital Marketing & Social Media' ? '#/services/digital-marketing-social-media' : c === 'ID Card Design & Printing' ? '#/services/id-card-design-printing' : item.href} onClick={() => { setOpen(false); setOpenDrop(null); }} className="block py-2 text-sm text-brand-blue dark:text-white">{t(c)}</a>)}</div>}
               </div>
             ))}
             <div className="mt-3 flex lg:hidden">

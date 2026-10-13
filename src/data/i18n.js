@@ -68,6 +68,13 @@ export const translations = {
     'Social Media Management': 'सोशल मीडिया मैनेजमेंट',
     'Digital Promotion & Advertising': 'डिजिटल प्रमोशन और विज्ञापन',
     'ID Card Design & Printing': 'आईडी कार्ड डिज़ाइन और प्रिंटिंग',
+    'School ID Card': 'स्कूल आईडी कार्ड',
+    'College ID Card': 'कॉलेज आईडी कार्ड',
+    'Coaching ID Card': 'कोचिंग आईडी कार्ड',
+    'Office / Employee ID Card': 'ऑफिस / कर्मचारी आईडी कार्ड',
+    'Teacher ID Card': 'शिक्षक आईडी कार्ड',
+    'Visitor ID Card': 'विज़िटर आईडी कार्ड',
+    'Other ID Card Designing & Printing': 'अन्य आईडी कार्ड डिज़ाइन और प्रिंटिंग',
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
 
     // ---- why choose us
@@ -165,6 +172,13 @@ export const translations = {
     'Social Media Management': 'سوشل میڈیا مینجمنٹ',
     'Digital Promotion & Advertising': 'ڈیجیٹل پروموشن اور اشتہارات',
     'ID Card Design & Printing': 'آئی ڈی کارڈ ڈیزائن اور پرنٹنگ',
+    'School ID Card': 'اسکول آئی ڈی کارڈ',
+    'College ID Card': 'کالج آئی ڈی کارڈ',
+    'Coaching ID Card': 'کوچنگ آئی ڈی کارڈ',
+    'Office / Employee ID Card': 'دفتر / ملازم آئی ڈی کارڈ',
+    'Teacher ID Card': 'استاد آئی ڈی کارڈ',
+    'Visitor ID Card': 'وزیٹر آئی ڈی کارڈ',
+    'Other ID Card Designing & Printing': 'دیگر آئی ڈی کارڈ ڈیزائننگ اور پرنٹنگ',
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
 
     // ---- why choose us

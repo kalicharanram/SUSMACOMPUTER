@@ -141,7 +141,7 @@ export const services = [
   // assemble artwork, which was the closest fit already on disk and is no longer
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: '19-digital-profile.jpg', tone: 'pink' },
-  { id: 16, label: 'ID Card Design & Printing', img: '16-id-card.jpg', tone: 'pink' },
+  { id: 16, label: 'ID Card Design & Printing', href: '#/services/id-card-design-printing', img: '16-id-card.jpg', tone: 'pink' },
   { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
 ];
 
@@ -161,6 +161,16 @@ export const digitalMarketingServices = [
   { label: 'Instagram Account Setup', img: '19-digital-profile.jpg' },
   { label: 'Social Media Management', img: '19-digital-profile.jpg' },
   { label: 'Digital Promotion & Advertising', img: '14-poster-design.jpg' },
+];
+
+export const idCardServices = [
+  { label: 'School ID Card', img: '16-id-card.jpg' },
+  { label: 'College ID Card', img: '16-id-card.jpg' },
+  { label: 'Coaching ID Card', img: '16-id-card.jpg' },
+  { label: 'Office / Employee ID Card', img: '16-id-card.jpg' },
+  { label: 'Teacher ID Card', img: '16-id-card.jpg' },
+  { label: 'Visitor ID Card', img: '16-id-card.jpg' },
+  { label: 'Other ID Card Designing & Printing', img: '16-id-card.jpg' },
 ];
 
 /* --------------------------------------------------------------- WHY US --- */

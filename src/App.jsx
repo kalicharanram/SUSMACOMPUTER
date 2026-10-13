@@ -33,6 +33,7 @@ export default function App() {
   const stampPage = hash === stampBase || hash.startsWith(stampBase + '/');
   const pricePage = hash === '#/price-list';
   const aboutPage = hash === '#/about-us';
+  const galleryPage = hash === '#/gallery';
   const slug = jobPage ? hash.slice(jobBase.length + 1).replace(/\/$/, '') : '';
   const detailCategoryIndex = serviceBases.findIndex((base) => hash.startsWith(base + '/'));
   const detailSlug = detailCategoryIndex >= 0 ? hash.slice(serviceBases[detailCategoryIndex].length + 1).replace(/\/$/, '') : '';
@@ -42,16 +43,16 @@ export default function App() {
     return slugify(service.name) === detailSlug;
   });
   useEffect(() => {
-    document.title = aboutPage ? 'About Us | Susma Computer' : pricePage ? 'Price List | Susma Computer' : detailService ? `${detailService.name} | Susma Computer` : jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer & Online Services') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : digitalMarketingPage ? 'Digital Marketing & Social Media | Susma Computer' : idCardPage ? 'ID Card Design & Printing | Susma Computer' : stampPage ? 'Stamp Making | Susma Computer' : 'Susma Computer & Video Mixing Lab';
+    document.title = aboutPage ? 'About Us | Susma Computer' : galleryPage ? 'Gallery | Susma Computer' : pricePage ? 'Price List | Susma Computer' : detailService ? `${detailService.name} | Susma Computer` : jobPage ? (computerJobs.find(item => item.slug === slug)?.title || 'Computer & Online Services') + ' | Susma Computer' : videographyPage ? 'Videography Services | Susma Computer' : digitalMarketingPage ? 'Digital Marketing & Social Media | Susma Computer' : idCardPage ? 'ID Card Design & Printing | Susma Computer' : stampPage ? 'Stamp Making | Susma Computer' : 'Susma Computer & Video Mixing Lab';
     const frame = requestAnimationFrame(() => {
       if (jobPage || hash.startsWith('#/')) window.scrollTo({ top: 0, behavior: 'instant' });
       else if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
     });
     return () => cancelAnimationFrame(frame);
-  }, [hash, jobPage, videographyPage, digitalMarketingPage, idCardPage, stampPage, pricePage, aboutPage, slug, detailService]);
+  }, [hash, jobPage, videographyPage, digitalMarketingPage, idCardPage, stampPage, pricePage, aboutPage, galleryPage, slug, detailService]);
   return <>
-    <TopBar /><Header jobPage={jobPage || videographyPage || digitalMarketingPage || idCardPage || stampPage} pricePage={pricePage} aboutPage={aboutPage} />
-    <main>{aboutPage ? <AboutUs /> : pricePage ? <PriceList /> : jobPage ? <ComputerJobs slug={slug} /> : detailService && detailCategory ? <PricedServiceDetail categoryIndex={detailCategoryIndex} category={detailCategory} service={detailService} /> : videographyPage ? <VideographyServices /> : digitalMarketingPage ? <DigitalMarketingServices /> : idCardPage ? <IdCardServices /> : stampPage ? <StampServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Gallery /><Reviews /></>}</main>
+    <TopBar /><Header jobPage={jobPage || videographyPage || digitalMarketingPage || idCardPage || stampPage} pricePage={pricePage} aboutPage={aboutPage} galleryPage={galleryPage} />
+    <main>{aboutPage ? <AboutUs /> : galleryPage ? <Gallery /> : pricePage ? <PriceList /> : jobPage ? <ComputerJobs slug={slug} /> : detailService && detailCategory ? <PricedServiceDetail categoryIndex={detailCategoryIndex} category={detailCategory} service={detailService} /> : videographyPage ? <VideographyServices /> : digitalMarketingPage ? <DigitalMarketingServices /> : idCardPage ? <IdCardServices /> : stampPage ? <StampServices /> : hash.startsWith('#/') ? <ComputerJobs slug="not-found" /> : <><Hero /><Services /><Reviews /></>}</main>
     <Footer /><ThemeCustomizer />
   </>;
 }

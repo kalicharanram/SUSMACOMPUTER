@@ -1,7 +1,7 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShieldCheck, UsersRound, Settings2, Handshake, Target, Eye, MapPin, CheckCircle2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { Icon, TONES, Logo } from './Icons';
-import { services, whyUs, gallery, reviews, contact, business, visitCounter, socials } from '../data/site';
+import { TONES, Logo } from './Icons';
+import { services, gallery, reviews, contact, business, visitCounter, socials } from '../data/site';
 import { useLang } from '../i18n';
 
 /* ============================================================== SERVICES == */
@@ -93,27 +93,67 @@ export function Services() {
 
 /* ================================================================ WHY US == */
 export function WhyUs() {
-  const { t } = useLang();
   return (
-    <section id="about" className="bg-white pb-14 dark:bg-slate-950">
-      <div className="wrap">
-        <div className="hero-grad rounded-2xl p-6 sm:p-9">
-          <h2 className="text-[1.5rem] font-extrabold text-white sm:text-[1.8rem]">{t(whyUs.heading)}</h2>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {whyUs.items.map((item) => (
-              <li key={item.title} className="flex items-start gap-3">
-                <span className="text-brand-yellow">
-                  <Icon name={item.icon} className="size-7" strokeWidth={1.7} />
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-[0.98rem] font-bold text-white">{t(item.title)}</span>
-                  {item.sub && (
-                    <span className="block text-[0.9rem] text-white/75">{t(item.sub)}</span>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
+    <section id="about" className="about-page">
+      <div className="about-wrap">
+        <div className="about-hero">
+          <div className="about-intro">
+            <p className="about-kicker">ABOUT US</p>
+            <h2><span>SUSMA</span> <strong>COMPUTER</strong><br /><b>&amp; Video Mixing Lab</b></h2>
+            <h3>Your Trusted Partner for Digital Solutions</h3>
+            <p className="about-intro-copy">SUSMA COMPUTER &amp; Video Mixing Lab, Kadrabad, Bachhwara, Begusarai में हम Computer, Online Services, Digital Marketing, Photography, Videography और अन्य डिजिटल सेवाएँ प्रदान करते हैं। हमारा लक्ष्य है हर ग्राहक को तेज़, भरोसेमंद और किफायती डिजिटल समाधान देना।</p>
+            <ul className="about-trust-list">
+              {[
+                [ShieldCheck, 'Trusted', 'Service'],
+                [UsersRound, 'Customer', 'First'],
+                [Settings2, 'Latest', 'Technology'],
+                [Handshake, 'Long Term', 'Support'],
+              ].map(([Icon, title, sub]) => <li key={title}><span><Icon size={20} /></span><b>{title}<small>{sub}</small></b></li>)}
+            </ul>
+          </div>
+
+          <div className="about-shop-photo">
+            <img src="./images/shop-hero.webp" alt="Susma Computer and Video Mixing Lab storefront" />
+            <div className="about-service-ribbon"><span>Computer Services</span><span>Online Form</span><span>Photo &amp; Video</span><span>Digital Marketing</span></div>
+          </div>
+
+          <aside className="about-grow-panel">
+            <strong>Grow<br />with<br />Us</strong>
+            <i />
+            <p>आपके डिजिटल<br />सपनों की<br />साथी</p>
+          </aside>
+        </div>
+
+        <div className="about-lower-grid">
+          <article className="about-journey">
+            <p className="about-kicker">OUR JOURNEY</p>
+            <h3>Small Step, Big Vision</h3>
+            <p>SUSMA COMPUTER की शुरुआत Kadrabad, Bachhwara, Begusarai से एक छोटे से प्रयास के रूप में हुई थी। हमारा उद्देश्य था—डिजिटल सेवाओं को हर व्यक्ति तक पहुँचाना। आज हम अपने ग्राहकों के विश्वास और सहयोग से एक भरोसेमंद नाम बन रहे हैं।</p>
+            <strong className="about-quote">आपका विश्वास ही<br />हमारी सफलता है!</strong>
+          </article>
+
+          <div className="about-journey-visual">
+            <img src="./images/services/premium/pexels-28728925.webp" alt="Camera equipment for photography and videography services" />
+            <div className="about-location-card"><MapPin size={23} /><span><b>Our Location</b><small>Kadrabad, Bachhwara, Begusarai</small></span></div>
+          </div>
+
+          <article className="about-offer">
+            <p className="about-kicker">WHAT WE OFFER</p>
+            <h3>More Than Just a Computer Shop</h3>
+            <p>हम केवल सेवाएँ नहीं, बल्कि डिजिटल युग के लिए समाधान देते हैं। यहाँ आपको Online Services, Form Filling, Website Designing, Video Editing, Photography और अन्य डिजिटल सेवाएँ मिलती हैं। SUSMA COMPUTER हर कदम पर आपके साथ है।</p>
+            <ul>
+              {['Personal & Business Support', 'Professional Guidance', 'Easy & Affordable Pricing', '100% Customer Satisfaction'].map((item) => <li key={item}><CheckCircle2 size={15} />{item}</li>)}
+            </ul>
+          </article>
+
+          <div className="about-purpose-cards">
+            <article className="about-purpose mission-card">
+              <span><Target size={27} /></span><div><h3>Our Mission</h3><p>हर ग्राहक को आधुनिक डिजिटल सुविधाओं से जोड़ना और उन्हें कम कीमत में बेहतर सेवा प्रदान करना।</p></div>
+            </article>
+            <article className="about-purpose vision-card">
+              <span><Eye size={27} /></span><div><h3>Our Vision</h3><p>Kadrabad और आसपास के क्षेत्र में डिजिटल सेवाओं के लिए सबसे भरोसेमंद नाम बनना।</p></div>
+            </article>
+          </div>
         </div>
       </div>
     </section>

@@ -142,7 +142,7 @@ export const services = [
   // spoken for; point `img` at a different file if a proper photo arrives.
   { id: 13, label: 'Digital Marketing & Social Media', href: '#/services/digital-marketing-social-media', img: '19-digital-profile.jpg', tone: 'pink' },
   { id: 16, label: 'ID Card Design & Printing', href: '#/services/id-card-design-printing', img: '16-id-card.jpg', tone: 'pink' },
-  { id: 17, label: 'Rubber Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
+  { id: 17, label: 'Stamp Making', img: '17-rubber-stamp.jpg', tone: 'mint' },
 ];
 
 export const videographyServices = [

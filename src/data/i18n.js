@@ -75,7 +75,7 @@ export const translations = {
     'Teacher ID Card': 'शिक्षक आईडी कार्ड',
     'Visitor ID Card': 'विज़िटर आईडी कार्ड',
     'Other ID Card Designing & Printing': 'अन्य आईडी कार्ड डिज़ाइन और प्रिंटिंग',
-    'Rubber Stamp Making': 'रबर स्टैंप बनाना',
+    'Stamp Making': 'स्टैंप बनाना',
 
     // ---- why choose us
     'Why Choose Us?': 'हमें क्यों चुनें?',
@@ -179,7 +179,7 @@ export const translations = {
     'Teacher ID Card': 'استاد آئی ڈی کارڈ',
     'Visitor ID Card': 'وزیٹر آئی ڈی کارڈ',
     'Other ID Card Designing & Printing': 'دیگر آئی ڈی کارڈ ڈیزائننگ اور پرنٹنگ',
-    'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
+    'Stamp Making': 'اسٹیمپ بنانا',
 
     // ---- why choose us
     'Why Choose Us?': 'ہمیں کیوں منتخب کریں؟',

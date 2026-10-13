@@ -246,11 +246,7 @@ export const nav = [
        duplicate entry impossible even if the services list grows one. */
     children: [...new Set(['Computer & Online Services', ...services.map((s) => s.label)])],
   },
-  {
-    label: 'Gallery',
-    href: '#gallery',
-    children: ['Our Shop', 'Video Mixing Setup', 'Store Interior'],
-  },
+  { label: 'Gallery', href: '#gallery' },
   { label: 'Price List', href: '#/price-list' },
   { label: 'Blog', href: '#reviews' },
   { label: 'Contact', href: '#contact' },

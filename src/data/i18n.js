@@ -59,7 +59,7 @@ export const translations = {
     'Advertising Video & Poster': 'विज्ञापन वीडियो और पोस्टर',
     'Computer Assemble': 'कंप्यूटर असेंबल',
     'Computer Accessories': 'कंप्यूटर एक्सेसरीज़',
-    'YouTube Channel Setup': 'यूट्यूब चैनल सेटअप',
+    'Digital Marketing & Social Media': 'डिजिटल मार्केटिंग और सोशल मीडिया',
     'School & Other ID Card': 'स्कूल और अन्य पहचान पत्र',
     'Rubber Stamp Making': 'रबर स्टैंप बनाना',
 
@@ -149,7 +149,7 @@ export const translations = {
     'Advertising Video & Poster': 'اشتہاری ویڈیو اور پوسٹر',
     'Computer Assemble': 'کمپیوٹر اسمبل',
     'Computer Accessories': 'کمپیوٹر ایکسیسریز',
-    'YouTube Channel Setup': 'یوٹیوب چینل سیٹ اپ',
+    'Digital Marketing & Social Media': 'ڈیجیٹل مارکیٹنگ اور سوشل میڈیا',
     'School & Other ID Card': 'اسکول اور دیگر شناختی کارڈ',
     'Rubber Stamp Making': 'ربر اسٹیمپ بنانا',
 

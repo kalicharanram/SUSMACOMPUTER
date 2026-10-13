@@ -51,6 +51,8 @@ export const translations = {
 
     // ---- services (19)
     'Computer & Online Services': 'कंप्यूटर और ऑनलाइन सेवाएँ',
+    'Hindi & English Typing': 'हिंदी और अंग्रेज़ी टाइपिंग',
+    'Resume / Bio-Data Making': 'रिज़्यूमे / बायोडाटा बनाना',
     'Videography Services': 'वीडियोग्राफी सेवाएँ',
     'Videography': 'वीडियोग्राफी',
     'Photography': 'फोटोग्राफी',
@@ -162,6 +164,8 @@ export const translations = {
 
     // ---- services (19)
     'Computer & Online Services': 'کمپیوٹر اور آن لائن خدمات',
+    'Hindi & English Typing': 'ہندی اور انگریزی ٹائپنگ',
+    'Resume / Bio-Data Making': 'ریزیومے / بائیو ڈیٹا بنانا',
     'Videography Services': 'ویڈیوگرافی خدمات',
     'Videography': 'ویڈیوگرافی',
     'Photography': 'فوٹوگرافی',

@@ -394,23 +394,17 @@ export function Hero() {
 
       <div className="relative wrap py-5 xl:py-4">
         {/* ------------------------------------------------ heading + actions -- */}
-        {/* Capped width so the heading does not stretch into one very long line
-             now that the right-hand card column is gone — and the shop photo
-             stays visible beside the text instead of being covered by it. */}
-        <div className="flex max-w-3xl flex-col justify-center">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[0.82rem] font-semibold text-white ring-1 ring-white/15 backdrop-blur-sm">
-            <span className="text-brand-yellow">#</span>
-            {t(hero.badge)}
-          </span>
-
-          <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.1] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-[2rem] xl:text-[2.05rem]">
-            {hero.title1}
+        <div className="home-about-card flex max-w-3xl flex-col justify-center">
+          <h1 className="home-about-title">
+            SUSMA <strong>COMPUTER</strong>
             <br />
-            <span className="text-brand-yellow">{hero.title2}</span>
+            <span>&amp; Video Mixing Lab</span>
           </h1>
 
-          <p className="mt-2 max-w-lg text-[0.92rem] leading-relaxed text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)] sm:text-[1rem]">
-            {t(hero.subtitleHindi)}
+          <h2 className="home-about-tagline">Your Trusted Partner for Digital Solutions</h2>
+
+          <p className="home-about-copy">
+            SUSMA COMPUTER &amp; Video Mixing Lab, Kadrabad, Bachhwara, Begusarai में हम Computer, Online Services, Digital Marketing, Photography, Videography और अन्य डिजिटल सेवाएँ प्रदान करते हैं। हमारा लक्ष्य है हर ग्राहक को तेज़, भरोसेमंद और किफायती डिजिटल समाधान देना।
           </p>
 
           <ul className="mt-3 flex flex-wrap gap-x-7 gap-y-2">

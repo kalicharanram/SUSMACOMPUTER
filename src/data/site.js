@@ -248,6 +248,7 @@ export const nav = [
   },
   { label: 'Gallery', href: '#/gallery' },
   { label: 'Price List', href: '#/price-list' },
+  { label: 'Sarkari Job Updates', href: '#/sarkari-jobs' },
   { label: 'Blog', href: '#reviews' },
   { label: 'Contact', href: '#/contact' },
 ];

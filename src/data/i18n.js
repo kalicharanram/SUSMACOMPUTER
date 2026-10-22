@@ -106,6 +106,23 @@ export const translations = {
     Blog: 'ब्लॉग',
     Contact: 'संपर्क',
 
+    // ---- sarkari job updates
+    'Sarkari Job Updates': 'सरकारी जॉब अपडेट',
+    'Latest government job forms, results, admit cards & answer keys':
+      'सरकारी नौकरी के फॉर्म, रिजल्ट, एडमिट कार्ड और आंसर की',
+    'Online form bharne, document banane ya print ke liye humein call karein.':
+      'ऑनलाइन फॉर्म भरने, डॉक्यूमेंट बनाने या प्रिंट के लिए हमें कॉल करें।',
+    'Back to Home': 'होम पर वापस',
+    Results: 'रिजल्ट',
+    'Admit Cards': 'एडमिट कार्ड',
+    'Latest Jobs': 'नई नौकरियाँ',
+    'Answer Key': 'आंसर की',
+    Documents: 'डॉक्यूमेंट्स',
+    Admission: 'प्रवेश',
+    '10th/ITI Jobs': '10वीं/ITI नौकरियाँ',
+    'Outsourcing Jobs': 'आउटसोर्सिंग नौकरियाँ',
+    Syllabus: 'सिलेबस',
+
     // ---- gallery photo captions
     'DATA ENTRY': 'डेटा एंट्री',
     'JOB WORK': 'जॉब वर्क',
@@ -218,6 +235,23 @@ export const translations = {
     'Price List': 'قیمت فہرست',
     Blog: 'بلاگ',
     Contact: 'رابطہ',
+
+    // ---- sarkari job updates
+    'Sarkari Job Updates': 'سرکاری جاب اپڈیٹ',
+    'Latest government job forms, results, admit cards & answer keys':
+      'سرکاری نوکری کے فارم، نتائج، اڈمٹ کارڈ اور آنسر کی',
+    'Online form bharne, document banane ya print ke liye humein call karein.':
+      'آن لائن فارم بھرنے، دستاویز بنانے یا پرنٹ کے لیے ہمیں کال کریں۔',
+    'Back to Home': 'ہوم پر واپس',
+    Results: 'نتائج',
+    'Admit Cards': 'ادمٹ کارڈ',
+    'Latest Jobs': 'نئی نوکریاں',
+    'Answer Key': 'آنسر کی',
+    Documents: 'دستاویزات',
+    Admission: 'داخلہ',
+    '10th/ITI Jobs': '10वीں/ITI नोकरیاں',
+    'Outsourcing Jobs': 'آؤٹ سورسنگ نوکریاں',
+    Syllabus: 'نصاب',
 
     // ---- gallery photo captions
     'DATA ENTRY': 'ڈیٹا انٹری',

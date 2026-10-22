@@ -14,16 +14,18 @@
  * ============================================================================
  */
 
-/** Top coloured buttons — 8 sabse important live forms. */
+/** Top coloured buttons — 8 sabse important live forms.
+ *  Ranges site ke homepage palette se hain (navy / brand-blue + orange-red-green
+ *  accents), taaki yeh board alag na lage — pehle yahan laal/maroon/pink the. */
 export const sarkariTop = [
-  { text: 'BPSC School Teacher Form (33,320 Posts)', url: '#', tone: '#dc2626' },
-  { text: 'Daily 5 Minutes Meditation & Crack Exams', url: '#', tone: '#ea580c' },
-  { text: 'RRB NTPC Graduate Level Form (3548 Posts)', url: '#', tone: '#d81b60' },
-  { text: 'Rajasthan Safai Karmchari (24,752 Posts)', url: '#', tone: '#1565c0' },
-  { text: 'UPESSC Assistant Teacher Form (12405 Posts)', url: '#', tone: '#8a8a00' },
-  { text: 'UPSSC Inter Level Form (1784 Posts)', url: '#', tone: '#16327a' },
-  { text: 'RRB NTPC UG Level Form (1688 Posts)', url: '#', tone: '#a01818' },
-  { text: 'UP Anganwadi Bharti Online Form', url: '#', tone: '#2e7d32' },
+  { text: 'BPSC School Teacher Form (33,320 Posts)', url: '#', tone: '#1b6dd6' },
+  { text: 'Daily 5 Minutes Meditation & Crack Exams', url: '#', tone: '#ff790d' },
+  { text: 'RRB NTPC Graduate Level Form (3548 Posts)', url: '#', tone: '#0a1b4e' },
+  { text: 'Rajasthan Safai Karmchari (24,752 Posts)', url: '#', tone: '#1558ae' },
+  { text: 'UPESSC Assistant Teacher Form (12405 Posts)', url: '#', tone: '#1a3480' },
+  { text: 'UPSSC Inter Level Form (1784 Posts)', url: '#', tone: '#12265e' },
+  { text: 'RRB NTPC UG Level Form (1688 Posts)', url: '#', tone: '#e01f26' },
+  { text: 'UP Anganwadi Bharti Online Form', url: '#', tone: '#22c55e' },
 ];
 
 /**

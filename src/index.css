@@ -654,7 +654,7 @@
    SARKARI JOB UPDATES — link-board page
    =========================================================================== */
 .sarkari-page { background: #f2f2f2; padding-bottom: 2rem; }
-.sarkari-head { text-align: center; padding: 1.3rem 1rem; background: var(--color-brand-red); color: #fff; }
+.sarkari-head { text-align: center; padding: 1.3rem 1rem; background: var(--color-navy); color: #fff; }
 .sarkari-head h1 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.4rem); margin: .3rem 0; }
 .sarkari-head p { font-size: .9rem; opacity: .95; }
 .sarkari-crumb { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; font-size: .8rem; color: #fff; }
@@ -669,28 +669,28 @@
 
 /* Category boxes — 3 columns */
 .sarkari-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; margin-bottom: 1rem; }
-.sarkari-box { background: #fff; border: 2px solid var(--color-brand-red); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
-.sarkari-box h2 { background: var(--color-brand-red); color: #fff; text-align: center; font-size: 1rem; padding: .45rem .4rem; margin: 0; letter-spacing: .2px; }
+.sarkari-box { background: #fff; border: 2px solid var(--color-brand-blue); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+.sarkari-box h2 { background: var(--color-navy); color: #fff; text-align: center; font-size: 1rem; padding: .45rem .4rem; margin: 0; letter-spacing: .2px; }
 .sarkari-box ul { list-style: none; margin: 0; padding: .7rem .8rem .8rem 1.4rem; }
 .sarkari-box li { position: relative; margin: 0 0 .55rem; font-size: .84rem; line-height: 1.35; }
 .sarkari-box li:last-child { margin-bottom: 0; }
 .sarkari-box li::before { content: "\2022"; position: absolute; left: -1rem; color: #555; }
 .sarkari-box li a { color: #0a3d91; text-decoration: underline; }
-.sarkari-box li a:hover { color: var(--color-brand-red); }
+.sarkari-box li a:hover { color: var(--color-brand-blue); }
 
 /* Help strip */
-.sarkari-help { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; background: #fff; border: 2px solid var(--color-brand-red); border-radius: 4px; padding: .9rem 1rem; }
+.sarkari-help { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; background: #fff; border: 2px solid var(--color-brand-blue); border-radius: 4px; padding: .9rem 1rem; }
 .sarkari-help p { flex: 1; min-width: 220px; font-size: .88rem; margin: 0; }
-.sarkari-call { display: inline-flex; align-items: center; gap: .4rem; background: var(--color-brand-red); color: #fff; font-weight: 700; font-size: .88rem; padding: .6rem 1rem; border-radius: 8px; text-decoration: none; }
-.sarkari-call:hover { background: var(--color-brand-red-dark); color: #fff; }
+.sarkari-call { display: inline-flex; align-items: center; gap: .4rem; background: var(--color-navy); color: #fff; font-weight: 700; font-size: .88rem; padding: .6rem 1rem; border-radius: 8px; text-decoration: none; }
+.sarkari-call:hover { background: var(--color-navy-2); color: #fff; }
 .sarkari-back { display: inline-flex; align-items: center; gap: .4rem; color: var(--color-brand-blue); font-weight: 600; font-size: .85rem; text-decoration: none; }
 
 /* Dark mode */
 .dark .sarkari-page { background: #020617; color: #e2e8f0; }
 .dark .sarkari-box { background: #0f172a; }
-.dark .sarkari-box h2 { background: var(--color-brand-red-dark); }
+.dark .sarkari-box h2 { background: var(--color-navy-3); }
 .dark .sarkari-box li a { color: #93c5fd; }
-.dark .sarkari-box li a:hover { color: #f87171; }
+.dark .sarkari-box li a:hover { color: #60a5fa; }
 .dark .sarkari-box li::before { color: #94a3b8; }
 .dark .sarkari-help { background: #0f172a; }
 .dark .sarkari-crumb a { color: #fff; }

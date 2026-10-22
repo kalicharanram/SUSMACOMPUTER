@@ -238,13 +238,7 @@ export const nav = [
   { label: 'About Us', href: '#/about-us' },
   {
     label: 'Services',
-    href: '#services',
-    /* Built from the `services` list rather than written out by hand.
-       A second hand-kept copy of these names is exactly how a menu ends up
-       showing "Computer Assemble" twice while the strip shows it once, so the
-       menu is derived instead. `new Set` also collapses any repeat, making a
-       duplicate entry impossible even if the services list grows one. */
-    children: [...new Set(['Computer & Online Services', ...services.map((s) => s.label)])],
+    href: '#/services',
   },
   { label: 'Gallery', href: '#/gallery' },
   { label: 'Price List', href: '#/price-list' },

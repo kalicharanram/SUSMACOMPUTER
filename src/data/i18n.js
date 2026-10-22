@@ -113,6 +113,12 @@ export const translations = {
     'Online form bharne, document banane ya print ke liye humein call karein.':
       'ऑनलाइन फॉर्म भरने, डॉक्यूमेंट बनाने या प्रिंट के लिए हमें कॉल करें।',
     'Back to Home': 'होम पर वापस',
+
+    // ---- services page
+    'All digital solutions under one roof — choose a service to see details and prices':
+      'एक ही छत के नीचे सभी डिजिटल समाधान — विवरण और मूल्य देखने के लिए कोई सेवा चुनें',
+    'View Details': 'विवरण देखें',
+
     Results: 'रिजल्ट',
     'Admit Cards': 'एडमिट कार्ड',
     'Latest Jobs': 'नई नौकरियाँ',
@@ -243,6 +249,12 @@ export const translations = {
     'Online form bharne, document banane ya print ke liye humein call karein.':
       'آن لائن فارم بھرنے، دستاویز بنانے یا پرنٹ کے لیے ہمیں کال کریں۔',
     'Back to Home': 'ہوم پر واپس',
+
+    // ---- services page
+    'All digital solutions under one roof — choose a service to see details and prices':
+      'ایک ہی چھت کے نیچے تمام ڈیجیٹل حل — تفصیل اور قیمت دیکھنے کے لیے کوئی خدمت منتخب کریں',
+    'View Details': 'تفصیلات دیکھیں',
+
     Results: 'نتائج',
     'Admit Cards': 'ادمٹ کارڈ',
     'Latest Jobs': 'نئی نوکریاں',

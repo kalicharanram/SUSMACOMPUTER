@@ -8,7 +8,7 @@ export function VideographyServices() {
     <div className="job-heading">
       <nav aria-label="Breadcrumb" className="job-breadcrumb">
         <a href="#home">{t('Home')}</a><span>/</span>
-        <a href="#services">{t('Services')}</a><span>/</span>
+        <a href="#/services">{t('Services')}</a><span>/</span>
         <span>{t('Videography Services')}</span>
       </nav>
       <h1>{t('Videography Services')}</h1>

@@ -8,7 +8,7 @@ export function DigitalMarketingServices() {
     <div className="job-heading">
       <nav aria-label="Breadcrumb" className="job-breadcrumb">
         <a href="#home">{t('Home')}</a><span>/</span>
-        <a href="#services">{t('Services')}</a><span>/</span>
+        <a href="#/services">{t('Services')}</a><span>/</span>
         <span>{t('Digital Marketing & Social Media')}</span>
       </nav>
       <h1>{t('Digital Marketing & Social Media')}</h1>

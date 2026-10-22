@@ -8,7 +8,7 @@ export function StampServices() {
     <div className="job-heading">
       <nav aria-label="Breadcrumb" className="job-breadcrumb">
         <a href="#home">{t('Home')}</a><span>/</span>
-        <a href="#services">{t('Services')}</a><span>/</span>
+        <a href="#/services">{t('Services')}</a><span>/</span>
         <span>{t('Stamp Making')}</span>
       </nav>
       <h1>{t('Stamp Making')}</h1>

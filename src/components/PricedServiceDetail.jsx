@@ -12,7 +12,7 @@ export function PricedServiceDetail({ categoryIndex, category, service }) {
     <div className="job-heading">
       <nav aria-label="Breadcrumb" className="job-breadcrumb">
         <a href="#home">{t('Home')}</a><span>/</span>
-        <a href="#services">{t('Services')}</a><span>/</span>
+        <a href="#/services">{t('Services')}</a><span>/</span>
         <a href="#/price-list">{t('Price List')}</a><span>/</span>
         <span>{service.name}</span>
       </nav>
